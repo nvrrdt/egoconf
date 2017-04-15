@@ -1,0 +1,2 @@
+   // Controls if a window should restore to full screen mode if it was exited in full screen mode.
+   "window.restoreFullscreen": true,
