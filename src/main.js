@@ -7,6 +7,15 @@ import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
 
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon.vue'
+Vue.component('icon', Icon)
+
 Vue.config.productionTip = false
 
 Vue.use(VueFire)
@@ -16,5 +25,8 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })
+

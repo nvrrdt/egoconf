@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BaseHome from '@/components/base/Home'
+import EgoHome from '@/components/EgoHome'
 import BaseMessages from '@/components/base/Messages'
 import BaseProfile from '@/components/base/Profile'
 import BaseExplore from '@/components/base/Explore'
@@ -15,12 +15,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/base'
+      name: 'EgoHome',
+      component: EgoHome
     },
     {
       path: '/base',
-      name: 'BaseHome',
-      component: BaseHome
+      redirect: '/'
     },
     {
       path: '/base/messages',
