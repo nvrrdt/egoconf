@@ -1,6 +1,7 @@
 <template>
   <div class="base">
     <a class="text-capitalize" v-on:click="toSignup" role="button" href>signup</a>
+    <a class="text-capitalize" v-on:click="toLogin" role="button" href>login</a>
     <h2>{{ msg }}</h2>
     <p>test</p>
   </div>
@@ -19,6 +20,9 @@ export default {
   methods: {
     toSignup: function () {
       router.push({ name: 'AccountSignup' })
+    },
+    toLogin: function () {
+      router.push({ name: 'AccountLogin' })
     }
   }
 }
@@ -40,20 +44,4 @@ li {
   margin: 0 10px;
 }
 
-/* unvisited link grey */
-#base a:link {
-	color: #777;
-}
-/* visited link grey */
-#base a:visited {
-	color: #777;
-}
-/* mouse over link blue */
-#base a:hover {
-	color: #0CF;
-}
-/* selected link blue */
-#base a:active {
-	color: #0CF;
-}
 </style>
