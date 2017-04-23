@@ -44,6 +44,7 @@
 <script>
 import * as firebase from 'firebase'
 import {db} from '@/firebase'
+import router from '@/router'
 
 export default {
   name: 'base',
@@ -212,6 +213,8 @@ export default {
         lastname: this.lastname,
         handle: this.handle
       })
+
+      router.push({ name: 'BaseMessages' })
     }
 
   },
