@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import {db} from '../../firebase'
+import {db} from '@/firebase'
 
 export default {
   data: () => ({
