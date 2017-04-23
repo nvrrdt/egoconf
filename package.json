@@ -17,6 +17,7 @@
     "bootstrap-vue": "^0.12.4",
     "firebase": "^3.7.6",
     "vue": "^2.2.6",
+    "vue-awesome": "^2.2.8",
     "vue-router": "^2.3.0",
     "vuefire": "^1.4.2"
   },
