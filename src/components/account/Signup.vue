@@ -216,7 +216,6 @@ export default {
 
       router.push({ name: 'BaseMessages' })
     }
-
   },
   computed: {
     /**
