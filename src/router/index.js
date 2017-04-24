@@ -19,10 +19,6 @@ export default new Router({
       component: EgoHome
     },
     {
-      path: '/base',
-      redirect: '/'
-    },
-    {
       path: '/base/messages',
       name: 'BaseMessages',
       component: BaseMessages
@@ -51,6 +47,10 @@ export default new Router({
       path: '/account/signup',
       name: 'AccountSignup',
       component: AccountSignup
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
