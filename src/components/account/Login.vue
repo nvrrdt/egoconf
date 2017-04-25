@@ -4,28 +4,25 @@
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-6">
+          <div class="container">
+            <form>
+              <div class="form-group">
+                <input v-model:email="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email adress" autofocus></input>
+              </div>
+              <div class="form-group">
+                <input v-model:password="auth.password" v-on:keyup.enter="login" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+              </div>
 
-          <h3 style="text-align: center;">Login using firebase + Vue</h3>
+              <div v-if="auth.message !== ''" class="alert" role="alert"
+                :class="{'alert-danger': auth.hasErrors, 'alert-success': !auth.hasErrors}">
+                <button @click="dismissAlert" type="button" class="close"><span aria-hidden="true">×</span></button>
+                <p><strong>{{auth.message}}</strong></p>
+              </div>
 
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input v-model:email="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input v-model:password="auth.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
+              <button type="button" @click="login" class="btn btn-primary float-left">Login</button>
 
-            <div v-if="auth.message !== ''" class="alert" role="alert"
-              :class="{'alert-danger': auth.hasErrors, 'alert-success': !auth.hasErrors}">
-              <button @click="dismissAlert" type="button" class="close"><span aria-hidden="true">×</span></button>
-              <p><strong>{{auth.message}}</strong></p>
-            </div>
-
-            <button type="button" @click="login" class="btn btn-primary">Login</button>
-
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -199,5 +196,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.container {
+  padding-top: 25px;
 }
 </style>
