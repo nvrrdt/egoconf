@@ -16,9 +16,12 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 Vue.component('icon', Icon)
 
+import AuthPlugin from '@/auth'
+
 Vue.config.productionTip = false
 
 Vue.use(VueFire)
+Vue.use(AuthPlugin)
 
 /* eslint-disable no-new */
 new Vue({
