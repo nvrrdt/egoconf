@@ -31,6 +31,7 @@
 
 <script>
 import * as firebase from 'firebase'
+import router from '@/router'
 
 export default {
   name: 'base',
@@ -70,6 +71,7 @@ export default {
           vm.auth.message = error.message
           vm.auth.hasErrors = true
         })
+      router.push({ name: 'BaseMessages' })
     },
 
     /**
