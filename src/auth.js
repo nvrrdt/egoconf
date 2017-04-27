@@ -2,7 +2,7 @@ import * as firebase from 'firebase'
 import {db} from '@/firebase'
 import router from '@/router'
 
-const MyPlugin = {
+const AuthPlugin = {
   install (Vue, options) {
     Vue.mixin({
       data: function () {
@@ -113,6 +113,7 @@ const MyPlugin = {
          * Signout the currently logged-in user
          */
         signOut: function () {
+          console.log('signout auth')
           // Signout the user using firebase
           firebase.auth().signOut()
             .then(function (error) {
@@ -123,6 +124,7 @@ const MyPlugin = {
               alert('Failed to signout user, try again later')
               console.log(error)
             })
+          router.push({ name: 'AccountLogin' })
         },
 
         /**
@@ -188,16 +190,22 @@ const MyPlugin = {
           firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
               this.auth.user = user
+              router.push({ name: 'BaseMessages' })
             } else {
               this.auth.user = null
+              router.push({ name: 'AccountLogin' })
             }
           }.bind(this))
 
           return (this.auth.user !== null)
         }
+        /**
+         *
+         *
+         */
       }
     })
   }
 }
 
-export default MyPlugin
+export default AuthPlugin
