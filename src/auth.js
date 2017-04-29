@@ -49,13 +49,12 @@ const AuthPlugin = {
           // Sign-in the user with the email and password
           firebase.auth().signInWithEmailAndPassword(vm.auth.email, vm.auth.password)
             .then(function (data) {
+              router.push({ name: 'BaseMessages' })
               vm.auth.user = firebase.auth().currentUser
             }).catch(function (error) {
               vm.auth.message = error.message
               vm.auth.hasErrors = true
             })
-
-          router.push({ name: 'BaseMessages' })
         },
 
         /**
@@ -190,10 +189,8 @@ const AuthPlugin = {
           firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
               this.auth.user = user
-              router.push({ name: 'BaseMessages' })
             } else {
               this.auth.user = null
-              router.push({ name: 'AccountLogin' })
             }
           }.bind(this))
 
