@@ -6,8 +6,7 @@
       <a class="btn btn-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
       <a class="btn btn-secondary text-capitalize active" href="/base/history" role="button">History</a>
     </div>
-    <div v-if="!isAuthenticated">Not logged in</div>
-    <div v-if="isAuthenticated">Logged in</div>
+
   </div>
 </template>
 <script>

@@ -24,25 +24,25 @@ const router = new Router({
       path: '/base/messages',
       name: 'BaseMessages',
       component: BaseMessages,
-      beforeEnter: loginRequired
+      beforeEnter: requireAuth
     },
     {
       path: '/base/profile',
       name: 'BaseProfile',
       component: BaseProfile,
-      beforeEnter: loginRequired
+      beforeEnter: requireAuth
     },
     {
       path: '/base/explore',
       name: 'BaseExplore',
       component: BaseExplore,
-      beforeEnter: loginRequired
+      beforeEnter: requireAuth
     },
     {
       path: '/base/history',
       name: 'BaseHistory',
       component: BaseHistory,
-      beforeEnter: loginRequired
+      beforeEnter: requireAuth
     },
     {
       path: '/account/login',
@@ -63,12 +63,17 @@ const router = new Router({
 
 export default router
 
-function loginRequired (to, from, next) {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      next()
-    } else {
-      next({ path: '/account/login' })
-    }
-  })
+function requireAuth (to, from, next) {
+  var user = firebase.auth().currentUser
+
+  if (!user) {
+    console.log('User is not logged in')
+    next({
+      path: '/account/login',
+      query: { redirect: to.fullPath }
+    })
+  } else {
+    console.log('User is logged in:', user.uid)
+    next()
+  }
 }

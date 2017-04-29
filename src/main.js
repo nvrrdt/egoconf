@@ -17,19 +17,24 @@ import Icon from 'vue-awesome/components/Icon.vue'
 Vue.component('icon', Icon)
 
 import AuthPlugin from '@/auth'
+import * as firebase from 'firebase'
 
 Vue.config.productionTip = false
 
 Vue.use(VueFire)
 Vue.use(AuthPlugin)
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: {
-    App
-  }
-})
+const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: {
+      App
+    }
+  })
 
+  // stop listening
+  unsubscribe()
+})
