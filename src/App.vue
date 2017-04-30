@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="container">
-      <link rel="stylesheet" type="text/css" href="/static/vue-instant.css">
       <div>
         <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +10,7 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline my-2 my-lg-0 mr-auto">
-              <vue-instant v-if="isAuthenticated" :suggestion-attribute="suggestionAttribute" v-model="value" :disabled="false"  @input="changed" @click-input="clickInput" @click-button="clickButton" @selected="selected"  @enter="enter" @key-up="keyUp" @key-down="keyDown" @key-right="keyRight" @clear="clear"  @escape="escape" :show-autocomplete="true" :autofocus="false" :suggestions="suggestions" name="customName" placeholder="Search for relatives" type="custom"></vue-instant>
+              <vue-instant v-if="isAuthenticated" :suggestion-attribute="suggestionAttribute" v-model="value" :disabled="false"  @input="changed" @click-input="clickInput" @click-button="clickButton" @selected="selected"  @enter="enter" @key-up="keyUp" @key-down="keyDown" @key-right="keyRight" @clear="clear"  @escape="escape" :show-autocomplete="true" :autofocus="false" :suggestions="suggestions" name="customName" placeholder="Search for relatives" type="facebook"></vue-instant>
             </form>
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
@@ -46,12 +45,6 @@ export default {
       suggestionAttribute: 'original_title',
       suggestions: [],
       selectedEvent: ''
-    }
-  },
-  props: {
-    'type': {
-      type: String,
-      default: 'custom'
     }
   },
   methods: {
