@@ -10,15 +10,15 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline my-2 my-lg-0 mr-auto">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search for relatives">
+              <input v-if="isAuthenticated" class="form-control mr-sm-2" type="text" placeholder="Search for relatives">
             </form>
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link active" href>{{ getFirstName() }}'s settings</a>
+                <a v-if="isAuthenticated" class="nav-link active" href>{{ firstname }}'s settings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href @click="signOut">Logout</a>
+                <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="http://github.com/nvrrdt/ego" target="_blank"><icon name="github" scale="2"></icon></a>
@@ -39,18 +39,25 @@ export default {
   name: 'app',
   data () {
     return {
+      firstname: this.getFirstName()
     }
   },
   methods: {
     getFirstName: function () {
-      var userId = firebase.auth().currentUser.uid
-      var vm = this
+      var user = firebase.auth().currentUser
 
-      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-        vm.firstname = snapshot.val().firstname
-      })
+      if (user) {
+        var userId = user.uid
+        var vm = this
 
-      return vm.firstname
+        firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+          vm.firstname = snapshot.val().firstname
+        })
+
+        return vm.firstname
+      } else {
+        return 'hemel'
+      }
     }
   }
 }
