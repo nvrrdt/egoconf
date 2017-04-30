@@ -167,8 +167,7 @@ const AuthPlugin = {
         addUser: function () {
           var user = firebase.auth().currentUser
 
-          this.$firebaseRefs.users.push({
-            userid: user.uid,
+          firebase.database().ref('users/' + user.uid).set({
             firstname: this.firstname,
             lastname: this.lastname,
             handle: this.handle

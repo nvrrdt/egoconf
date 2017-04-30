@@ -15,7 +15,7 @@
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="#">Nico's settings</a>
+                <a class="nav-link active" href>{{ getFirstName() }}'s settings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href @click="signOut">Logout</a>
@@ -33,10 +33,24 @@
 </template>
 
 <script>
+import * as firebase from 'firebase'
+
 export default {
   name: 'app',
   data () {
     return {
+    }
+  },
+  methods: {
+    getFirstName: function () {
+      var userId = firebase.auth().currentUser.uid
+      var vm = this
+
+      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+        vm.firstname = snapshot.val().firstname
+      })
+
+      return vm.firstname
     }
   }
 }
