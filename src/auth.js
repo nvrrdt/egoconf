@@ -185,7 +185,6 @@ const AuthPlugin = {
         isAuthenticated: function () {
           // This function changes the auth.user state when
           // the auth status of user changes.
-          /*
           firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
               this.auth.user = user
@@ -193,15 +192,6 @@ const AuthPlugin = {
               this.auth.user = null
             }
           }.bind(this))
-          */
-
-          var user = firebase.auth().currentUser
-
-          if (user) {
-            this.auth.user = user
-          } else {
-            this.auth.user = null
-          }
 
           return (this.auth.user !== null)
         }
