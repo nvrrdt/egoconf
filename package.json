@@ -14,11 +14,13 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "bootstrap-vue": "^0.12.4",
     "firebase": "^3.7.6",
     "vue": "^2.2.6",
     "vue-awesome": "^2.2.8",
     "vue-router": "^2.3.0",
+    "vue-typeahead": "^2.3.1",
     "vuefire": "^1.4.2"
   },
   "devDependencies": {

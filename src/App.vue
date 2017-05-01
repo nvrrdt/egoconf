@@ -10,7 +10,32 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline my-2 my-lg-0 mr-auto">
-              <vue-instant v-if="isAuthenticated" :suggestion-attribute="suggestionAttribute" v-model="value" :disabled="false"  @input="changed" @click-input="clickInput" @click-button="clickButton" @selected="selected"  @enter="enter" @key-up="keyUp" @key-down="keyDown" @key-right="keyRight" @clear="clear"  @escape="escape" :show-autocomplete="true" :autofocus="false" :suggestions="suggestions" name="customName" placeholder="Search for relatives" type="facebook"></vue-instant>
+              <div class="Typeahead">
+                <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+                <template v-else>
+                  <i class="fa fa-search" v-show="isEmpty"></i>
+                  <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
+                </template>
+
+                <input type="text"
+                      class="Typeahead__input form-control mr-sm-2"
+                      placeholder="Search for relatives"
+                      autocomplete="off"
+                      v-model="query"
+                      @keydown.down="down"
+                      @keydown.up="up"
+                      @keydown.enter="hit"
+                      @keydown.esc="reset"
+                      @blur="reset"
+                      @input="update"/>
+
+                <ul v-show="hasItems" class="list-group" style="position: absolute; z-index: 999;">
+                  <li v-for="(item, $item) in items" :class="activeClass($item)" class="list-group-item" @mousedown="hit" @mousemove="setActive($item)">
+                    <span class="name" v-text="item.name"></span>
+                    <span class="screen-name" v-text="item.screen_name"></span>
+                  </li>
+                </ul>
+              </div>
             </form>
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
@@ -34,17 +59,22 @@
 
 <script>
 import * as firebase from 'firebase'
-import axios from 'axios'
+// import { db } from '@/firebase'
+import VueTypeahead from 'vue-typeahead'
+import Axios from 'axios'
+import Vue from 'vue'
+
+Vue.prototype.$http = Axios
 
 export default {
   name: 'app',
+  extends: VueTypeahead,
   data () {
     return {
       firstname: this.getFirstName(),
-      value: '',
-      suggestionAttribute: 'original_title',
-      suggestions: [],
-      selectedEvent: ''
+      src: 'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search',
+      limit: 10,
+      minChars: 3
     }
   },
   methods: {
@@ -65,42 +95,8 @@ export default {
         }
       })
     },
-    clickInput: function () {
-      this.selectedEvent = 'click input'
-    },
-    clickButton: function () {
-      this.selectedEvent = 'click button'
-    },
-    selected: function () {
-      this.selectedEvent = 'selection changed'
-    },
-    enter: function () {
-      this.selectedEvent = 'enter'
-    },
-    keyUp: function () {
-      this.selectedEvent = 'keyup pressed'
-    },
-    keyDown: function () {
-      this.selectedEvent = 'keyDown pressed'
-    },
-    keyRight: function () {
-      this.selectedEvent = 'keyRight pressed'
-    },
-    clear: function () {
-      this.selectedEvent = 'clear input'
-    },
-    escape: function () {
-      this.selectedEvent = 'escape'
-    },
-    changed: function () {
-      var that = this
-      this.suggestions = []
-      axios.get('https://api.themoviedb.org/3/search/movie?api_key=342d3061b70d2747a1e159ae9a7e9a36&query=' + this.value)
-        .then(function (response) {
-          response.data.results.forEach(function (a) {
-            that.suggestions.push(a)
-          })
-        })
+    onHit (item) {
+      window.location.href = 'http://twitter.com/' + item.screen_name
     }
   }
 }
@@ -114,4 +110,6 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
+
+
 </style>

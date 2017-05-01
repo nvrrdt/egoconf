@@ -19,10 +19,6 @@ Vue.component('icon', Icon)
 import AuthPlugin from '@/auth'
 import * as firebase from 'firebase'
 
-import 'vue-instant/dist/vue-instant.css'
-import VueInstant from 'vue-instant/dist/vue-instant.common'
-Vue.use(VueInstant)
-
 Vue.config.productionTip = false
 
 Vue.use(VueFire)
@@ -35,8 +31,7 @@ const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
     router,
     template: '<App/>',
     components: {
-      App,
-      'vue-instant': VueInstant.VueInstant
+      App
     }
   })
 
