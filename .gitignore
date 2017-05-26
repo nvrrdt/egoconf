@@ -8,3 +8,4 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 egorest-5ccb0-firebase-adminsdk-jslcj-92f36caa7e.json
+FB_TOKEN=AIzaSyBDn9XnBSG27gxOXFH2Av9dJLcB4qrbBJM
