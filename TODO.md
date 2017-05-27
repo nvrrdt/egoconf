@@ -12,3 +12,5 @@ stories: {
     admin
 }
 ```
+
+BONSAI_URL https://banyan-1134254.us-east-1.bonsaisearch.net/firebase
