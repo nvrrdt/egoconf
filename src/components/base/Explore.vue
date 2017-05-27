@@ -56,4 +56,7 @@ export default {
     margin-bottom:10px;
     margin-left:10px;
   }
+  #wrapper {
+    margin-top: 60px;
+  }
 </style>
