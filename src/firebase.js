@@ -12,3 +12,13 @@ const firebaseApp = firebase.initializeApp({
 // Export the database for components to use.
 // If you want to get fancy, use mixins or provide / inject to avoid redundant imports.
 export const db = firebaseApp.database()
+
+// Add firebase admin
+// import * as admin from "firebase-admin"
+
+// import * as serviceAccount from '@/../service-account.json'
+
+// admin.initializeApp({
+//  credential: admin.credential.cert(serviceAccount),
+//  databaseURL: "https://egorest-5ccb0.firebaseio.com"
+// })
