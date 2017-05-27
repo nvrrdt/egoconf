@@ -5,42 +5,46 @@
       <a class="btn btn-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
       <a class="btn btn-secondary text-capitalize active" href="/base/explore" role="button">Explore</a>
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
-    </div>
-    <div>
-        <div>
-            <input v-model="user" placeholder="Add a user"/>
-            <button @click="addItem">Add item</button>
+    </div>     
+    <div id="wrapper" class="container"> 
+      <modal v-if="showModal"> 
+        <h3 slot="header" class="modal-title">
+          Modal title
+        </h3>
+        
+        <div slot="body">
+          test3
         </div>
-        <div>
-            <ul>
-                <li v-for="user of users">{{user.name}}</li>
-            </ul>
+
+        <div slot="footer">
+          <button type="button" class="btn btn-outline-info" @click="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submitAndClose()">Submit</button>
         </div>
+      </modal>
+      <button type="button" class="btn btn-primary" @click="openModal()">Open Modal</button>
     </div>
   </div>
 </template>
 <script>
-import {db} from '@/firebase'
+import Modal from '@/components/base/ExploreModal'
 
 export default {
-  data: () => ({
-    users: {}
-  }),
-
-  firebase: {
-    users: {
-      source: db.ref('users'),
-      // Optional, allows you to handle any errors.
-      cancelCallback (err) {
-        console.error(err)
-      }
+  components: {
+    Modal
+  },
+  data () {
+    return {
+      showModal: false
     }
   },
   methods: {
-    addItem () {
-      this.$firebaseRefs.users.push({
-        name: this.user
-      })
+    openModal () {
+      this.showModal = true
+    },
+    closeModal () {
+      this.showModal = false
+    },
+    submitAndClose () {
     }
   }
 }
