@@ -2335,8 +2335,7 @@
     "extend": {
       "version": "3.0.1",
       "from": "extend@>=3.0.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/extend/-/extend-3.0.1.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/extend/-/extend-3.0.1.tgz"
     },
     "extglob": {
       "version": "0.3.2",
@@ -6139,6 +6138,11 @@
       "version": "2.3.1",
       "from": "vue-awesome@>=2.2.8 <3.0.0",
       "resolved": "https://registry.npmjs.org/vue-awesome/-/vue-awesome-2.3.1.tgz"
+    },
+    "vue-form": {
+      "version": "4.1.0",
+      "from": "vue-form@latest",
+      "resolved": "https://registry.npmjs.org/vue-form/-/vue-form-4.1.0.tgz"
     },
     "vue-hot-reload-api": {
       "version": "2.1.0",
