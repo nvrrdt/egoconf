@@ -21,6 +21,7 @@
     "firebase": "*",
     "vue": "^2.2.6",
     "vue-awesome": "^2.2.8",
+    "vue-form": "^4.1.0",
     "vue-router": "^2.3.0",
     "vue-typeahead": "^2.3.1",
     "vuefire": "^1.4.2"
