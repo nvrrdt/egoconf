@@ -11,28 +11,49 @@
         <!-- <p>Name: {{ view.first_name }} {{ view.last_name }}</p>
         <p>Handle: {{ view.handle }}</p> -->
     </div> 
-    <div id="wrapper" class="container" v-on:keyup.esc="closeModal"> 
+    <div id="wrapper" v-on:keyup.esc="closeModal"> 
       <modal v-if="showModal"> 
-        <h3 slot="header" class="modal-title pull-right">
-          <button type="button" class="close pull-right" data-dismiss="modal" @click="closeModal()">&times;</button>
+        <h3 slot="header" class="modal-title">
+          <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
           <h4>Grade a quality</h4>
         </h3>
         
-        <div slot="body">
-          test3
-          <!-- help_texts = {
-            'quality': ('Insert a the quality you like to grade'),
-            'project': ('Insert the project where you got to know this person\'s quality'),
-            'grade': ('Give a number between 6 and 10 on a scale to 10'),
-          }
-          if data < 6:
-            raise ValidationError("Value must be greater than or equal to 6")
-          elif data > 10:
-            raise ValidationError("Value must be lessser than or equal to 10") -->
+        <div slot="body" class="modal-body container">
+          <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate">
+
+            <validate auto-label class="form-group required-field" :class="">
+              <label>Quality</label>
+              <input type="text" name="quality" class="form-control" required v-model.lazy="model.quality" placeholder="Type in a quality you like to grade">
+
+              <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
+                <div slot="required" style="color: red">Quality is a required field</div>
+              </field-messages>
+            </validate>
+
+            <validate auto-label class="form-group" :class="">
+              <label>Project</label>
+              <input type="text" name="project" class="form-control" v-model.lazy="model.project"  placeholder="Name the corresponding project">
+
+              <field-messages auto-label name="project" show="$touched || $submitted" class="form-control-feedback">
+              </field-messages>
+            </validate>
+
+            <validate auto-label class="form-group required-field" :class="">
+              <label>Grade</label>
+              <input type="number" name="grade" class="form-control" required v-model.lazy="model.grade" placeholder="Grade between 6 and 10" min="6" max="10">
+
+              <field-messages auto-label name="grade" show="$touched || $submitted" class="form-control-feedback">
+                <div slot="required" style="color: red">Grade is a required field</div>
+                <div slot="min" style="color: red">Value must be greater or equal to 6</div>
+                <div slot="max" style="color: red">Value must be less than or equal to 10</div>
+              </field-messages>
+            </validate>
+
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+          </vue-form>
         </div>
 
         <div slot="footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submitAndClose()">Submit</button>
         </div>
       </modal>
       <button type="button" class="btn btn-primary" @click="openModal()">Grade a quality</button>
@@ -40,16 +61,23 @@
   </div>
 </template>
 <script>
-// taken from JuneRockwell/BootstrapVueModal
-import Modal from '@/components/Modal'
+import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
+import VueForm from 'vue-form'
 
 export default {
+  mixins: [VueForm],
   components: {
     Modal
   },
   data () {
     return {
-      showModal: false
+      showModal: false,
+      formstate: {},
+      model: {
+        quality: '',
+        project: '',
+        grade: ''
+      }
     }
   },
   methods: {
@@ -59,7 +87,12 @@ export default {
     closeModal () {
       this.showModal = false
     },
-    submitAndClose () {
+    onSubmit: function () {
+      if (this.formstate.$invalid) {
+        // alert user and exit early
+        // return
+      }
+      // otherwise submit form
     }
   }
 }
@@ -76,5 +109,13 @@ export default {
   }
   .modal-title {
     width: 100%;
+  }
+  .modal-body {
+    text-align: left;
+  }
+  .required-field > label::after {
+    content: '*';
+    color: red;
+    margin-left: 0.25rem;
   }
 </style>
