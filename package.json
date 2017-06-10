@@ -14,7 +14,6 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "axios": "^0.16.1",
     "bootstrap-vue": "^0.16.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-node": "^4.2.2",
@@ -22,8 +21,10 @@
     "vue": "^2.2.6",
     "vue-awesome": "^2.2.8",
     "vue-form": "^4.1.0",
+    "vue-multiselect": "^2.0.0-beta.15",
     "vue-router": "^2.3.0",
-    "vue-typeahead": "^2.3.1",
+    "vue-select": "github:sagalbot/vue-select",
+    "vue-strap": "github:wffranco/vue-strap",
     "vuefire": "^1.4.2"
   },
   "devDependencies": {

@@ -9,34 +9,28 @@
           <a class="navbar-brand" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0 mr-auto">
-              <div class="Typeahead">
-                <i class="fa fa-spinner fa-spin" v-if="loading"></i>
-                <template v-else>
-                  <i class="fa fa-search" v-show="isEmpty"></i>
-                  <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
-                </template>
-
-                <input type="text"
-                      class="Typeahead__input form-control mr-sm-2"
-                      placeholder="Search for relatives"
-                      autocomplete="off"
-                      v-model="query"
-                      @keydown.down="down"
-                      @keydown.up="up"
-                      @keydown.enter="hit"
-                      @keydown.esc="reset"
-                      @blur="reset"
-                      @input="update"/>
-
-                <ul v-show="hasItems" class="list-group" style="position: absolute; z-index: 999;">
-                  <li v-for="(item, $item) in items" :class="activeClass($item)" class="list-group-item" @mousedown="hit" @mousemove="setActive($item)">
-                    <span class="name" v-text="item.name"></span>
-                    <span class="screen-name" v-text="item.screen_name"></span>
-                  </li>
-                </ul>
-              </div>
-            </form>
+            <div class="my-2 my-lg-0 mr-auto">
+                <multiselect 
+                  v-model="selectedCountries" 
+                  id="ajax" 
+                  label="name" 
+                  track-by="code" 
+                  placeholder="Type to search" 
+                  :options="countries" 
+                  :multiple="false" 
+                  :searchable="true" 
+                  :loading="isLoading" 
+                  :internal-search="false" 
+                  :clear-on-select="true" 
+                  :close-on-select="true" 
+                  :options-limit="300" 
+                  :limit="3" 
+                  :limit-text="limitText" 
+                  @search-change="asyncFind">
+                  <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                </multiselect>
+                <pre class="language-json"><code>{{ selectedCountries  }}</code></pre>
+            </div>
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
@@ -60,21 +54,19 @@
 <script>
 import * as firebase from 'firebase'
 // import { db } from '@/firebase'
-import VueTypeahead from 'vue-typeahead'
-import Axios from 'axios'
-import Vue from 'vue'
-
-Vue.prototype.$http = Axios
+// import * as env from '@/../.env.js'
+import Multiselect from 'vue-multiselect'
+import { ajaxFindCountry } from './countriesApi'
 
 export default {
   name: 'app',
-  extends: VueTypeahead,
+  components: { Multiselect },
   data () {
     return {
       firstname: this.getFirstName(),
-      src: 'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search',
-      limit: 10,
-      minChars: 3
+      selectedCountries: [],
+      countries: [],
+      isLoading: false
     }
   },
   methods: {
@@ -95,13 +87,21 @@ export default {
         }
       })
     },
-    onHit (item) {
-      window.location.href = 'http://twitter.com/' + item.screen_name
+    limitText (count) {
+      return `and ${count} other countries`
+    },
+    asyncFind (query) {
+      this.isLoading = true
+      ajaxFindCountry(query).then(response => {
+        this.countries = response
+        this.isLoading = false
+      })
     }
   }
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
