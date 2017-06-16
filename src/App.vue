@@ -13,9 +13,9 @@
                 <multiselect 
                   v-model="selectedCountries" 
                   id="ajax" 
-                  label="name" 
+                  label="firstname" 
                   track-by="code" 
-                  placeholder="Type to search" 
+                  placeholder="Search for relatives" 
                   :options="countries" 
                   :multiple="false" 
                   :searchable="true" 
@@ -24,7 +24,7 @@
                   :clear-on-select="true" 
                   :close-on-select="true" 
                   :options-limit="300" 
-                  :limit="3" 
+                  :limit="2" 
                   :limit-text="limitText" 
                   @search-change="asyncFind">
                   <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
@@ -56,7 +56,7 @@ import * as firebase from 'firebase'
 // import { db } from '@/firebase'
 // import * as env from '@/../.env.js'
 import Multiselect from 'vue-multiselect'
-import { ajaxFindCountry } from './countriesApi'
+// import { ajaxFindCountry } from './countriesApi'
 
 export default {
   name: 'app',
@@ -66,7 +66,8 @@ export default {
       firstname: this.getFirstName(),
       selectedCountries: [],
       countries: [],
-      isLoading: false
+      isLoading: false,
+      term: ''
     }
   },
   methods: {
@@ -90,11 +91,107 @@ export default {
     limitText (count) {
       return `and ${count} other countries`
     },
-    asyncFind (query) {
+/*    asyncFind (query) {
       this.isLoading = true
       ajaxFindCountry(query).then(response => {
+        console.log(response)
         this.countries = response
         this.isLoading = false
+      })
+    }, */
+    buildQueryBody: function (query, term, matchWholePhrase) {
+      if (matchWholePhrase) {
+        var body = query.body = {}
+        body.query = {
+          // match_phrase matches the phrase exactly instead of breaking it
+          // into individual words
+          'match_phrase': {
+            // this is the field name, _all is a meta indicating any field
+            '_all': term
+          }
+        }
+      } else {
+        query.q = term
+      }
+    },
+
+    buildQuery: function (searchTerm) {
+      // this just gets data out of the form
+      var index = 'firebase'
+      var type = 'user'
+      var term = searchTerm
+      var matchWholePhrase = true
+
+      // skeleton of the JSON object we will write to DB
+      var query = {
+        index: index,
+        type: type
+      }
+
+      this.buildQueryBody(query, term, matchWholePhrase)
+
+      return query
+    },
+
+    // conduct a search by writing it to the search/request path
+    doSearch: function (query) {
+      var ref = firebase.database().ref('search')
+      var key = ref.child('request').push(query).key
+
+      ref.child('response/' + key).on('value', this.showResults)
+    },
+
+    // when results are written to the database, read them and display
+    showResults: function (snap) {
+      if (!snap.exists()) { return } // wait until we get data
+      var results = snap.val().hits.hits
+
+      var list = []
+
+      for (var res in results) {
+        list.push({
+          firstname: results[res]._source.firstname,
+          lastname: results[res]._source.lastname,
+          handle: results[res]._source.handle
+        })
+      }
+
+      // when a value arrives from the database, stop listening
+      // and remove the temporary data from the database
+      snap.ref.off('value', this.showResults)
+      snap.ref.remove()
+
+      this.countries = list
+    },
+
+    /* handleChange: function(event) {
+      this.setState({term: event.target.value})
+    },
+
+    handleSubmit: function(event) {
+      event.preventDefault()
+      this.doSearch(this.buildQuery(this.state.term))
+    }, */
+
+    asyncFind (query) {
+      this.isLoading = true
+      this.ajaxFindCountry(query).then(response => {
+        this.countries = response
+        this.isLoading = false
+      })
+    },
+
+    ajaxFindCountry: function (query) {
+      this.doSearch(this.buildQuery(query))
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const results = this.countries.filter((element, index, array) => {
+            console.log(element.handle)
+            return element.firstname.toLowerCase().includes(query.toLowerCase()) || element.lastname.toLowerCase().includes(query.toLowerCase()) || element.handle.toLowerCase().includes(query.toLowerCase())
+          })
+          resolve(results)
+        }, 1000)
       })
     }
   }
@@ -110,6 +207,4 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
-
-
 </style>
