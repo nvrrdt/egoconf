@@ -1,3 +1,4 @@
+### Macro guidelines
 ```
 stories: {
     search field with autocomplete,
@@ -13,4 +14,10 @@ stories: {
 }
 ```
 
-BONSAI_URL https://banyan-1134254.us-east-1.bonsaisearch.net/firebase
+### Micro adaptations
+```
+- put autocomplete in a component, create own version of vue-multiselect
+- constraints of the forms must be copied to firebase database itself, as a redundancy
+- try without page refreshes when switching between tabs like messages and explore
+- are the firebase database rules ok?
+```
