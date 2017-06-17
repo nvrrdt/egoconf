@@ -24,7 +24,7 @@
                   :clear-on-select="true" 
                   :close-on-select="true" 
                   :options-limit="300" 
-                  :limit="2" 
+                  :limit="10" 
                   :limit-text="limitText" 
                   @search-change="asyncFind">
                   <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
@@ -142,6 +142,7 @@ export default {
 
       for (var res in results) {
         list.push({
+          userid: results[res]._id,
           firstname: results[res]._source.firstname,
           lastname: results[res]._source.lastname,
           handle: results[res]._source.handle
@@ -170,7 +171,7 @@ export default {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           const results = this.countries.filter((element, index, array) => {
-            console.log(element.handle)
+            console.log('change here something for the improved autocomplete/suggest')
             return element.firstname.toLowerCase().includes(query.toLowerCase()) || element.lastname.toLowerCase().includes(query.toLowerCase()) || element.handle.toLowerCase().includes(query.toLowerCase())
           })
           resolve(results)
