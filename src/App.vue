@@ -56,7 +56,6 @@ import * as firebase from 'firebase'
 // import { db } from '@/firebase'
 // import * as env from '@/../.env.js'
 import Multiselect from 'vue-multiselect'
-// import { ajaxFindCountry } from './countriesApi'
 
 export default {
   name: 'app',
@@ -91,14 +90,7 @@ export default {
     limitText (count) {
       return `and ${count} other countries`
     },
-/*    asyncFind (query) {
-      this.isLoading = true
-      ajaxFindCountry(query).then(response => {
-        console.log(response)
-        this.countries = response
-        this.isLoading = false
-      })
-    }, */
+
     buildQueryBody: function (query, term, matchWholePhrase) {
       if (matchWholePhrase) {
         var body = query.body = {}
@@ -163,15 +155,6 @@ export default {
 
       this.countries = list
     },
-
-    /* handleChange: function(event) {
-      this.setState({term: event.target.value})
-    },
-
-    handleSubmit: function(event) {
-      event.preventDefault()
-      this.doSearch(this.buildQuery(this.state.term))
-    }, */
 
     asyncFind (query) {
       this.isLoading = true
