@@ -11,25 +11,28 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="my-2 my-lg-0 mr-auto">
                 <multiselect 
-                  v-model="selectedCountries" 
+                  v-model="selectedUsers" 
                   id="ajax" 
                   label="firstname" 
                   track-by="code" 
                   placeholder="Search for relatives" 
-                  :options="countries" 
+                  :options="suggest_users" 
                   :multiple="false" 
                   :searchable="true" 
                   :loading="isLoading" 
                   :internal-search="false" 
-                  :clear-on-select="true" 
-                  :close-on-select="true" 
+                  :clear-on-select="true"
+                  :hideSelected="true"
+                  :resetAfter="true"
+                  :close-on-select="true"
+                  :allowEmpty="false"
+                  deselectLabel=""
                   :options-limit="300" 
                   :limit="10" 
                   :limit-text="limitText" 
                   @search-change="asyncFind">
                   <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                 </multiselect>
-                <pre class="language-json"><code>{{ selectedCountries  }}</code></pre>
             </div>
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
@@ -56,6 +59,7 @@ import * as firebase from 'firebase'
 // import { db } from '@/firebase'
 // import * as env from '@/../.env.js'
 import Multiselect from 'vue-multiselect'
+import router from '@/router'
 
 export default {
   name: 'app',
@@ -63,10 +67,25 @@ export default {
   data () {
     return {
       firstname: this.getFirstName(),
-      selectedCountries: [],
-      countries: [],
+      selectedUsers: [],
+      suggest_users: [],
       isLoading: false,
       term: ''
+    }
+  },
+  watch: {
+    selectedUsers: function () {
+      var vm = this
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user && user.uid === vm.selectedUsers.userid) {
+          console.log('beestig, ga naar profile')
+          router.push({ name: 'BaseProfile' })
+        } else {
+          console.log('ga naar explore')
+          router.push({ name: 'BaseExplore' })
+        }
+      })
     }
   },
   methods: {
@@ -88,7 +107,7 @@ export default {
       })
     },
     limitText (count) {
-      return `and ${count} other countries`
+      return `and ${count} other users`
     },
 
     buildQueryBody: function (query, term, matchWholePhrase) {
@@ -154,13 +173,13 @@ export default {
       snap.ref.off('value', this.showResults)
       snap.ref.remove()
 
-      this.countries = list
+      this.suggest_users = list
     },
 
     asyncFind (query) {
       this.isLoading = true
       this.ajaxFindCountry(query).then(response => {
-        this.countries = response
+        this.suggest_users = response
         this.isLoading = false
       })
     },
@@ -170,7 +189,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          const results = this.countries.filter((element, index, array) => {
+          const results = this.suggest_users.filter((element, index, array) => {
             console.log('change here something for the improved autocomplete/suggest')
             return element.firstname.toLowerCase().includes(query.toLowerCase()) || element.lastname.toLowerCase().includes(query.toLowerCase()) || element.handle.toLowerCase().includes(query.toLowerCase())
           })
