@@ -73,7 +73,7 @@ function requireAuth (to, from, next) {
       query: { redirect: to.fullPath }
     })
   } else {
-    console.log('User is logged in:', user.uid)
+    console.log('User is logged in:' /*, user.uid */)
     next()
   }
 }
