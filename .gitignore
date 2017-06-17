@@ -10,3 +10,4 @@ selenium-debug.log
 service-account.json
 npm-shrinkwrap.json
 .env.js
+src/firebase.js
