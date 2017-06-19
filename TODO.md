@@ -21,4 +21,5 @@ stories: {
 - try without page refreshes when switching between tabs like messages and explore
 - are the firebase database rules ok?
 - maybe a log to follow up changing actions when accepting/rejecting messages
+- !!! why not ask a relative to grade my quality? !!!
 ```
