@@ -7,15 +7,6 @@
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div>
-      <div>
-          <input v-model="user" placeholder="Add a user"/>
-          <button @click="addItem">Add item</button>
-      </div>
-      <div>
-          <ul>
-              <li v-for="user of users">{{user.name}}</li>
-          </ul>
-      </div>
       <div id="wrapper" v-on:keyup.esc="closeModal"> 
         <modal v-if="showModal"> 
           <h3 slot="header" class="modal-title">
@@ -67,7 +58,7 @@
   </div>
 </template>
 <script>
-import {db} from '@/firebase'
+// import {db} from '@/firebase'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
 
@@ -77,7 +68,6 @@ export default {
     Modal
   },
   data: () => ({
-    users: {},
     showModal: false,
     formstate: {},
     model: {
@@ -86,21 +76,7 @@ export default {
       grade: ''
     }
   }),
-  firebase: {
-    users: {
-      source: db.ref('users'),
-      // Optional, allows you to handle any errors.
-      cancelCallback (err) {
-        console.error(err)
-      }
-    }
-  },
   methods: {
-    addItem () {
-      this.$firebaseRefs.users.push({
-        name: this.user
-      })
-    },
     openModal () {
       this.showModal = true
     },
@@ -125,7 +101,7 @@ export default {
     margin-left:10px;
   }
   #wrapper {
-    margin-top: 60px;
+    margin-top: 10px;
   }
   .modal-title {
     width: 100%;
