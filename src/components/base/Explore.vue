@@ -8,8 +8,8 @@
     </div>
     <div>
         <h3>Userprofile from:</h3>
-        <!-- <p>Name: {{ view.first_name }} {{ view.last_name }}</p>
-        <p>Handle: {{ view.handle }}</p> -->
+        <p>Name: {{ searchedFirstname }} {{ searchedLastname }}</p>
+        <p>Handle: {{ searchedHandle }}</p>
     </div> 
     <div id="wrapper" v-on:keyup.esc="closeModal"> 
       <modal v-if="showModal"> 
@@ -63,6 +63,7 @@
 <script>
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
+import store from '@/store'
 
 export default {
   mixins: [VueForm],
@@ -77,10 +78,27 @@ export default {
         quality: '',
         project: '',
         grade: ''
-      }
+      },
+      searchedFirstname: '',
+      searchedLastname: '',
+      searchedHandle: ''
     }
   },
+  created () {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
   methods: {
+    fetchData () {
+      this.searchedFirstname = store.getSearchedFirstname()
+      this.searchedLastname = store.getSearchedLastname()
+      this.searchedHandle = store.getSearchedHandle()
+    },
     openModal () {
       this.showModal = true
     },

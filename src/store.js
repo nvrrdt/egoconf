@@ -1,14 +1,49 @@
 var store = {
-  debug: true,
+  // debug: true,
   state: {
-    message: 'Hello!'
+    searchedPerson: {
+      userid: '',
+      firstname: '',
+      lastname: '',
+      handle: ''
+    }
   },
-  setMessageAction (newValue) {
-    if (this.debug) console.log('setMessageAction triggered with', newValue)
-    this.state.message = newValue
+  getSearchedUserid () {
+    return this.state.searchedPerson.userid
   },
-  clearMessageAction () {
-    if (this.debug) console.log('clearMessageAction triggered')
-    this.state.message = ''
+  setSearchedUserid (newValue) {
+    this.state.searchedPerson.userid = newValue
+  },
+  clearSearchedUserid () {
+    this.state.searchedPerson.userid = ''
+  },
+  getSearchedFirstname () {
+    return this.state.searchedPerson.firstname
+  },
+  setSearchedFirstname (newValue) {
+    this.state.searchedPerson.firstname = newValue
+  },
+  clearSearchedFirstname () {
+    this.state.searchedPerson.firstname = ''
+  },
+  getSearchedLastname () {
+    return this.state.searchedPerson.lastname
+  },
+  setSearchedLastname (newValue) {
+    this.state.searchedPerson.lastname = newValue
+  },
+  clearSearchedLastname () {
+    this.state.searchedPerson.lastname = ''
+  },
+  getSearchedHandle () {
+    return this.state.searchedPerson.handle
+  },
+  setSearchedHandle (newValue) {
+    this.state.searchedPerson.handle = newValue
+  },
+  clearSearchedHandle () {
+    this.state.searchedPerson.handle = ''
   }
 }
+
+export default store

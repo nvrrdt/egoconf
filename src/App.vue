@@ -11,7 +11,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="my-2 my-lg-0 mr-auto">
                 <multiselect 
-                  v-model="selectedUsers" 
+                  v-model="selectedUser" 
                   id="ajax" 
                   label="firstname" 
                   track-by="code" 
@@ -60,6 +60,7 @@ import * as firebase from 'firebase'
 // import * as env from '@/../.env.js'
 import Multiselect from 'vue-multiselect'
 import router from '@/router'
+import store from '@/store'
 
 export default {
   name: 'app',
@@ -67,22 +68,25 @@ export default {
   data () {
     return {
       firstname: this.getFirstName(),
-      selectedUsers: [],
+      selectedUser: [],
       suggest_users: [],
       isLoading: false,
       term: ''
     }
   },
   watch: {
-    selectedUsers: function () {
+    selectedUser: function () {
       var vm = this
 
       firebase.auth().onAuthStateChanged(function (user) {
-        if (user && user.uid === vm.selectedUsers.userid) {
-          console.log('beestig, ga naar profile')
+        if (user && user.uid === vm.selectedUser.userid) {
           router.push({ name: 'BaseProfile' })
         } else {
-          console.log('ga naar explore')
+          store.setSearchedUserid(vm.selectedUser.userid)
+          store.setSearchedFirstname(vm.selectedUser.firstname)
+          store.setSearchedLastname(vm.selectedUser.lastname)
+          store.setSearchedHandle(vm.selectedUser.handle)
+          router.push({ name: 'BaseProfile' }) // this line is needed to insert data in BaseExplore when there' no data, it's a dirty hack
           router.push({ name: 'BaseExplore' })
         }
       })
