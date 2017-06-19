@@ -18,7 +18,8 @@ const router = new Router({
     {
       path: '/',
       name: 'EgoHome',
-      component: EgoHome
+      component: EgoHome,
+      beforeEnter: ifAuth
     },
     {
       path: '/base/messages',
@@ -56,7 +57,8 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/'
+      redirect: '/',
+      beforeEnter: ifAuth
     }
   ]
 })
@@ -74,6 +76,20 @@ function requireAuth (to, from, next) {
     })
   } else {
     console.log('User is logged in:' /*, user.uid */)
+    next()
+  }
+}
+
+function ifAuth (to, from, next) {
+  var user = firebase.auth().currentUser
+
+  if (user) {
+    console.log('test')
+    next({
+      path: '/base/messages',
+      query: { redirect: to.fullPath }
+    })
+  } else {
     next()
   }
 }
