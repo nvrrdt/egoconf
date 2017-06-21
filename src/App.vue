@@ -11,6 +11,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="my-2 my-lg-0 mr-auto">
                 <multiselect 
+                  v-if="isAuthenticated"
                   v-model="selectedUser" 
                   id="ajax" 
                   label="firstname" 
