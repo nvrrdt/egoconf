@@ -19,7 +19,11 @@ const AuthPlugin = {
           user: null,
           firstname: '',
           lastname: '',
-          handle: ''
+          handle: '',
+          ban_count: '',
+          inappropriate_count: '',
+          ban_ends_at: '',
+          timestamp: ''
         }
       },
       firebase: {
@@ -170,7 +174,12 @@ const AuthPlugin = {
           firebase.database().ref('users/' + user.uid).set({
             firstname: this.firstname,
             lastname: this.lastname,
-            handle: this.handle
+            handle: this.handle,
+            ban_count: 0,
+            inappropriate_count: 0,
+            ban_ends_at: '',
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+
           })
 
           router.push({ name: 'BaseMessages' })
