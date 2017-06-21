@@ -23,7 +23,7 @@
 
             <validate auto-label class="form-group required-field" :class="">
               <label>Quality</label>
-              <input type="text" name="quality" class="form-control" required v-model.lazy="model.quality" placeholder="Type in a quality you like to grade">
+              <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade">
 
               <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
                 <div slot="required" style="color: red">Quality is a required field</div>
@@ -32,7 +32,7 @@
 
             <validate auto-label class="form-group" :class="">
               <label>Project</label>
-              <input type="text" name="project" class="form-control" v-model.lazy="model.project"  placeholder="Name the corresponding project">
+              <input type="text" name="project" class="form-control" v-model.lazy="message.project"  placeholder="Name the corresponding project">
 
               <field-messages auto-label name="project" show="$touched || $submitted" class="form-control-feedback">
               </field-messages>
@@ -40,7 +40,7 @@
 
             <validate auto-label class="form-group required-field" :class="">
               <label>Grade</label>
-              <input type="number" name="grade" class="form-control" required v-model.lazy="model.grade" placeholder="Grade between 6 and 10" min="6" max="10">
+              <input type="number" name="grade" class="form-control" required v-model.lazy="message.grade" placeholder="Grade between 6 and 10" min="6" max="10">
 
               <field-messages auto-label name="grade" show="$touched || $submitted" class="form-control-feedback">
                 <div slot="required" style="color: red">Grade is a required field</div>
@@ -61,9 +61,12 @@
   </div>
 </template>
 <script>
+import * as firebase from 'firebase'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
 import store from '@/store'
+
+var messagesRef = firebase.database().ref('messages')
 
 export default {
   mixins: [VueForm],
@@ -74,15 +77,28 @@ export default {
     return {
       showModal: false,
       formstate: {},
-      model: {
+      message: {
+        from_userid: '',
+        to_userid: '',
+        init_userid: '',
         quality: '',
         project: '',
-        grade: ''
+        grade: '',
+        timestamp_created: '',
+        timestamp_reaction: '',
+        is_ask: null,
+        is_unknown_sender: null,
+        is_inappropriate_quality: null,
+        is_inappropriate_project: null,
+        is_inappropriate_grade: null
       },
       searchedFirstname: '',
       searchedLastname: '',
       searchedHandle: ''
     }
+  },
+  firebase: {
+    messages: messagesRef
   },
   created () {
     // fetch the data when the view is created and the data is
@@ -109,8 +125,35 @@ export default {
       if (this.formstate.$invalid) {
         // alert user and exit early
         // return
+      } else {
+        // otherwise submit form
+        var user = firebase.auth().currentUser
+
+        this.message.from_userid = user.uid
+        this.message.to_userid = store.getSearchedUserid()
+        this.message.init_userid = this.message.from_userid
+        this.message.timestamp_created = firebase.database.ServerValue.TIMESTAMP
+
+        if (this.message.from_userid !== '') {
+          messagesRef.push(this.message)
+
+          this.message.from_userid = ''
+          this.message.to_userid = ''
+          this.message.init_userid = ''
+          this.message.quality = ''
+          this.message.project = ''
+          this.message.grade = ''
+          this.message.timestamp_created = ''
+          this.message.timestamp_reaction = ''
+          this.message.is_ask = null
+          this.message.is_unknown_sender = null
+          this.message.is_inappropriate_quality = null
+          this.message.is_inappropriate_project = null
+          this.message.is_inappropriate_grade = null
+
+          this.closeModal()
+        }
       }
-      // otherwise submit form
     }
   }
 }
@@ -123,7 +166,7 @@ export default {
     margin-left:10px;
   }
   #wrapper {
-    margin-top: 60px;
+    margin-top: 10px;
   }
   .modal-title {
     width: 100%;
