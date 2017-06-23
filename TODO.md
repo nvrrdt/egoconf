@@ -10,7 +10,8 @@ stories: {
     history,
     constraints,
     settings,
-    admin
+    admin,
+    ads
 }
 ```
 
@@ -25,4 +26,6 @@ stories: {
 - send a verification email when signing up
 - create a loop or listener or so, to check for new messages
 - a clause in the license that states that websites that use egoconf, must be available for the general global public
+- an autocomplete on the qualities and it's adjectives
+- pagination on messages and history
 ```
