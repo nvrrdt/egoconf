@@ -7,21 +7,11 @@
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div>
-      <ul>
+      <ul class="list-unstyled">
         <li v-for="message in messages">
-          <p>From {{ message.from_userid }} involving quality {{ message.quality }} during {{ message.project }} project with grade {{ message.grade }} </p>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <div id="wrapper" v-on:keyup.esc="closeModal"> 
-        <modal v-if="showModal"> 
-          <h3 slot="header" class="modal-title">
-            <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
-            <h4>Grade a quality</h4>
-          </h3>
-          <div slot="body" class="modal-body container">
-            <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate">
+          <div class="d-flex flex-column message">
+            <p class="p-2 text-left">{{ message.messagekey }} From {{ message.messagevalue.from_userid }} involving quality {{ message.messagevalue.quality }} during {{ message.messagevalue.project }} project with grade {{ message.messagevalue.grade }} </p>
+            <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate" class="p-2">
 
               <validate auto-label class="form-group required-field" :class="">
                 <label>Quality</label>
@@ -51,31 +41,22 @@
                 </field-messages>
               </validate>
 
-              <button type="submit" class="btn btn-primary float-right">Submit</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </vue-form>
           </div>
-
-          <div slot="footer">
-          </div>
-        </modal>
-        <button type="button" class="btn btn-primary" @click="openModal()">Grade a quality</button>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
 import * as firebase from 'firebase'
 // import {db} from '@/firebase'
-import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
 
 export default {
   mixins: [VueForm],
-  components: {
-    Modal
-  },
   data: () => ({
-    showModal: false,
     formstate: {},
     messages: []
   }),
@@ -89,15 +70,9 @@ export default {
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid).limitToLast(25)
       myMessagesRef.on('child_added', function (snapshot) {
         vm.messages.reverse()
-        vm.messages.push(snapshot.val())
+        vm.messages.push({ messagekey: snapshot.key, messagevalue: snapshot.val() }) // TODO: comment this line and try to refactor the unwanted infinite loop
         vm.messages.reverse()
       })
-    },
-    openModal () {
-      this.showModal = true
-    },
-    closeModal () {
-      this.showModal = false
     },
     onSubmit: function () {
       if (this.formstate.$invalid) {
@@ -116,18 +91,16 @@ export default {
     margin-bottom:10px;
     margin-left:10px;
   }
-  #wrapper {
-    margin-top: 10px;
-  }
-  .modal-title {
-    width: 100%;
-  }
-  .modal-body {
-    text-align: left;
-  }
   .required-field > label::after {
     content: '*';
     color: red;
     margin-left: 0.25rem;
+  }
+  .message {
+    margin-top:5px;
+    margin-right:5px;
+    margin-bottom:5px;
+    margin-left:5px;
+    border:1px solid lightgrey;
   }
 </style>
