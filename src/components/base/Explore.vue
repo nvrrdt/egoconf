@@ -84,8 +84,8 @@ export default {
         quality: '',
         project: '',
         grade: '',
-        timestamp_created: '',
-        timestamp_reaction: '',
+        timestamp_created: null,
+        timestamp_reaction: null,
         is_ask: null,
         is_unknown_sender: null,
         is_inappropriate_quality: null,
@@ -143,8 +143,8 @@ export default {
           this.message.quality = ''
           this.message.project = ''
           this.message.grade = ''
-          this.message.timestamp_created = ''
-          this.message.timestamp_reaction = ''
+          this.message.timestamp_created = null
+          this.message.timestamp_reaction = null
           this.message.is_ask = null
           this.message.is_unknown_sender = null
           this.message.is_inappropriate_quality = null
