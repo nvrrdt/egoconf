@@ -84,13 +84,14 @@ export default {
         quality: '',
         project: '',
         grade: '',
-        timestamp_created: null,
-        timestamp_reaction: null,
-        is_ask: null,
-        is_unknown_sender: null,
-        is_inappropriate_quality: null,
-        is_inappropriate_project: null,
-        is_inappropriate_grade: null
+        timestamp_created: '',
+        timestamp_reaction: '',
+        is_ask: '',
+        is_accepted: '',
+        is_unknown_sender: '',
+        is_inappropriate_quality: '',
+        is_inappropriate_project: '',
+        is_inappropriate_grade: ''
       },
       searchedFirstname: '',
       searchedLastname: '',
@@ -143,13 +144,14 @@ export default {
           this.message.quality = ''
           this.message.project = ''
           this.message.grade = ''
-          this.message.timestamp_created = null
-          this.message.timestamp_reaction = null
-          this.message.is_ask = null
-          this.message.is_unknown_sender = null
-          this.message.is_inappropriate_quality = null
-          this.message.is_inappropriate_project = null
-          this.message.is_inappropriate_grade = null
+          this.message.timestamp_created = ''
+          this.message.timestamp_reaction = ''
+          this.message.is_ask = ''
+          this.message.is_accepted = ''
+          this.message.is_unknown_sender = ''
+          this.message.is_inappropriate_quality = ''
+          this.message.is_inappropriate_project = ''
+          this.message.is_inappropriate_grade = ''
 
           this.closeModal()
         }
