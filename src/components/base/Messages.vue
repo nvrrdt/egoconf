@@ -8,10 +8,56 @@
     </div>
     <div>
       <ul class="list-unstyled">
-        <li v-for="message in messages">
+        <li v-for="message in messages" :key="message.messagekey">
           <div class="d-flex flex-column message">
             <p class="p-2 text-left">{{ message.messagekey }} From {{ message.messagevalue.from_userid }} involving quality {{ message.messagevalue.quality }} during {{ message.messagevalue.project }} project with grade {{ message.messagevalue.grade }} </p>
+            
             <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate" class="p-2">
+
+              <validate auto-label class="form-group required-field text-left" :class="">
+                <div class="form-check choices">
+                  <label class="form-check-label" @click="message.messagevalue.is_accepted = true">
+                    <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="true">
+                    Message accepted!
+                  </label>
+                </div>
+                <div class="form-check choices">
+                  <label class="form-check-label" @click="message.messagevalue.is_accepted = false">
+                    <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="false">
+                    No thanks, I hereby reject this message for following reason(s):
+                  </label>
+                  <div v-if="message.messagevalue.is_accepted === false" class="choices">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        It's an unknown sender
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        It's an inappropriate quality
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        It's an inappropriate project
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        It's an inappropriate grade
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
+                  <div slot="required" style="color: red">Quality is a required field</div>
+                </field-messages>
+              </validate>
 
               <validate auto-label class="form-group required-field" :class="">
                 <label>Quality</label>
@@ -102,5 +148,8 @@ export default {
     margin-bottom:5px;
     margin-left:5px;
     border:1px solid lightgrey;
+  }
+  .choices {
+    margin-left:18px;
   }
 </style>
