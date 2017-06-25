@@ -10,84 +10,60 @@
       <ul class="list-unstyled">
         <li v-for="message in messages" :key="message.messagekey">
           <div class="d-flex flex-column message">
-            <p class="p-2 text-left">{{ message.messagekey }} From {{ message.messagevalue.from_userid }} involving quality {{ message.messagevalue.quality }} during {{ message.messagevalue.project }} project with grade {{ message.messagevalue.grade }} </p>
-            
-            <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate" class="p-2">
-
-              <validate auto-label class="form-group required-field text-left" :class="">
-                <div class="form-check choices">
+            <p class="p-2 text-left">Message from {{ message.messagevalue.from_userid }} who gives {{ message.messagevalue.grade }} points for the '{{ message.messagevalue.quality }}' quality during the '{{ message.messagevalue.project }}' project</p>
+            <vue-form :state="formstate" @submit.prevent="onSubmit(message)" v-model="formstate" class="p-2">
+              <div class="form-check choices">
+                <validate auto-label class="form-group text-left" :class="">
                   <label class="form-check-label" @click="message.messagevalue.is_accepted = true">
-                    <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="true">
+                    <input class="form-check-input" type="radio" name="accept" v-model.lazy="message.messagevalue.is_accepted" value="true">
                     Message accepted!
                   </label>
-                </div>
-                <div class="form-check choices">
+                </validate>
+              </div>
+              <div class="form-check choices">
+                <validate auto-label class="form-group text-left" :class="">
                   <label class="form-check-label" @click="message.messagevalue.is_accepted = false">
-                    <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="false">
-                    No thanks, I hereby reject this message for following reason(s):
+                    <input class="form-check-input" type="radio" name="reject" v-model.lazy="message.messagevalue.is_accepted" value="false">
+                    No thanks, message rejected for following reason(s):
                   </label>
-                  <div v-if="message.messagevalue.is_accepted === false" class="choices">
-                    <div class="form-check">
+                </validate>
+                <div v-if="message.messagevalue.is_accepted === false" class="choices">
+                  <div class="form-check">
+                    <validate auto-label class="form-group text-left" :class="">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_unknown_sender" value="">
                         It's an unknown sender
                       </label>
-                    </div>
-                    <div class="form-check">
+                    </validate>
+                  </div>
+                  <div class="form-check">
+                    <validate auto-label class="form-group text-left" :class="">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_quality" value="">
                         It's an inappropriate quality
                       </label>
-                    </div>
-                    <div class="form-check">
+                    </validate>
+                  </div>
+                  <div class="form-check">
+                    <validate auto-label class="form-group text-left" :class="">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_project" value="">
                         It's an inappropriate project
                       </label>
-                    </div>
-                    <div class="form-check">
+                    </validate>
+                  </div>
+                  <div class="form-check">
+                    <validate auto-label class="form-group text-left" :class="">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_grade" value="">
                         It's an inappropriate grade
                       </label>
-                    </div>
+                    </validate>
                   </div>
+                  <div v-if="showError(message)" style="color: red" class="text-left">Choose at least one of the underlying fields</div>
                 </div>
-
-                <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
-                  <div slot="required" style="color: red">Quality is a required field</div>
-                </field-messages>
-              </validate>
-
-              <validate auto-label class="form-group required-field" :class="">
-                <label>Quality</label>
-                <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade">
-
-                <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
-                  <div slot="required" style="color: red">Quality is a required field</div>
-                </field-messages>
-              </validate>
-
-              <validate auto-label class="form-group" :class="">
-                <label>Project</label>
-                <input type="text" name="project" class="form-control" v-model.lazy="message.project"  placeholder="Name the corresponding project">
-
-                <field-messages auto-label name="project" show="$touched || $submitted" class="form-control-feedback">
-                </field-messages>
-              </validate>
-
-              <validate auto-label class="form-group required-field" :class="">
-                <label>Grade</label>
-                <input type="number" name="grade" class="form-control" required v-model.lazy="message.grade" placeholder="Grade between 6 and 10" min="6" max="10">
-
-                <field-messages auto-label name="grade" show="$touched || $submitted" class="form-control-feedback">
-                  <div slot="required" style="color: red">Grade is a required field</div>
-                  <div slot="min" style="color: red">Value must be greater or equal to 6</div>
-                  <div slot="max" style="color: red">Value must be less than or equal to 10</div>
-                </field-messages>
-              </validate>
-
-              <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+              <button v-if="hideSubmit(message)" type="submit" class="btn btn-primary">Submit</button>
             </vue-form>
           </div>
         </li>
@@ -110,22 +86,72 @@ export default {
     this.getMessages()
   },
   methods: {
+    showError (message) {
+      if (message.messagevalue.is_accepted === '') {
+        return false
+      } else if (message.messagevalue.is_accepted === false) {
+        if (message.messagevalue.is_unknown_sender === true || message.messagevalue.is_inappropriate_quality === true || message.messagevalue.is_inappropriate_project === true || message.messagevalue.is_inappropriate_grade === true) {
+          return false
+        }
+        return true
+      } else {
+        return false
+      }
+    },
+    hideSubmit (message) {
+      if (message.messagevalue.is_accepted === true) {
+        return true
+      } else if (message.messagevalue.is_accepted === false) {
+        if (message.messagevalue.is_unknown_sender === true || message.messagevalue.is_inappropriate_quality === true || message.messagevalue.is_inappropriate_project === true || message.messagevalue.is_inappropriate_grade === true) {
+          return true
+        }
+        return false
+      } else {
+        return false
+      }
+    },
     getMessages () {
       var vm = this
       var userid = firebase.auth().currentUser.uid
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid).limitToLast(25)
       myMessagesRef.on('child_added', function (snapshot) {
         vm.messages.reverse()
-        vm.messages.push({ messagekey: snapshot.key, messagevalue: snapshot.val() }) // TODO: comment this line and try to refactor the unwanted infinite loop
+        vm.messages.push({ messagekey: snapshot.key, messagevalue: snapshot.val() }) // TODO: comment this line and try to refactor the unwanted infinite loop; TODO: create an object and forget messagekey and messagevalue
         vm.messages.reverse()
       })
     },
-    onSubmit: function () {
+    onSubmit: function (message) {
       if (this.formstate.$invalid) {
         // alert user and exit early
         // return
+      } else {
+        // otherwise submit form
+        var user = firebase.auth().currentUser
+
+        this.message.from_userid = user.uid
+        // this.message.to_userid = store.getSearchedUserid()
+        this.message.init_userid = this.message.from_userid
+        this.message.timestamp_created = firebase.database.ServerValue.TIMESTAMP
+
+        if (this.message.from_userid !== '') {
+          // messagesRef.push(this.message)
+
+          this.message.from_userid = ''
+          this.message.to_userid = ''
+          this.message.init_userid = ''
+          this.message.quality = ''
+          this.message.project = ''
+          this.message.grade = ''
+          this.message.timestamp_created = ''
+          this.message.timestamp_reaction = ''
+          this.message.is_ask = ''
+          this.message.is_accepted = ''
+          this.message.is_unknown_sender = ''
+          this.message.is_inappropriate_quality = ''
+          this.message.is_inappropriate_project = ''
+          this.message.is_inappropriate_grade = ''
+        }
       }
-      // otherwise submit form
     }
   }
 }
@@ -150,6 +176,6 @@ export default {
     border:1px solid lightgrey;
   }
   .choices {
-    margin-left:18px;
+    margin-left:25px;
   }
 </style>
