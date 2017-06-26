@@ -136,7 +136,7 @@ export default {
     getMessages () {
       var vm = this
       var userid = firebase.auth().currentUser.uid
-      var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid).limitToLast(25)
+      var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid)
       myMessagesRef.on('child_added', function (snapshot) {
         vm.messages.reverse()
         vm.messages.push({ messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }) // TODO: comment this line and try to refactor the unwanted infinite loop; TODO: create an object and forget messagekey and messagevalue
