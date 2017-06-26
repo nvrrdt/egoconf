@@ -5477,6 +5477,11 @@
       "resolved": "https://registry.npmjs.org/simple-is/-/simple-is-0.2.0.tgz",
       "dev": true
     },
+    "simple-statistics": {
+      "version": "4.1.0",
+      "from": "simple-statistics@latest",
+      "resolved": "https://registry.npmjs.org/simple-statistics/-/simple-statistics-4.1.0.tgz"
+    },
     "sinon": {
       "version": "2.3.2",
       "from": "sinon@>=2.1.0 <3.0.0",
