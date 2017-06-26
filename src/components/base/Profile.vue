@@ -6,9 +6,9 @@
       <a class="btn btn-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
-    <div>
+    <div class="presentation">
       <h3>My profile:</h3>
-      <h5>{{ coordinates.firstname }} {{ coordinates.lastname }}: {{ coordinates.handle }}</h5>
+      <h5>{{ coordinates.firstname }} {{ coordinates.lastname }}, {{ coordinates.handle }}</h5>
     </div>
     <div>
       <stats></stats>
@@ -58,5 +58,9 @@ export default {
     margin-right:10px;
     margin-bottom:10px;
     margin-left:10px;
+  }
+  .presentation {
+    margin-top: 20px;
+    margin-bottom: 45px;
   }
 </style>

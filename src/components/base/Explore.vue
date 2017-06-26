@@ -6,7 +6,7 @@
       <a class="btn btn-secondary text-capitalize active" href="/base/explore" role="button">Explore</a>
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
-    <div>
+    <div class="presentation">
         <h3>Userprofile from:</h3>
         <p>Name: {{ searchedFirstname }} {{ searchedLastname }}</p>
         <p>Handle: {{ searchedHandle }}</p>
@@ -181,5 +181,9 @@ export default {
     content: '*';
     color: red;
     margin-left: 0.25rem;
+  }
+  .presentation {
+    margin-top: 20px;
+    margin-bottom: 45px;
   }
 </style>
