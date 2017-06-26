@@ -1,17 +1,22 @@
 ### Macro guidelines
 ```
 stories: {
-    search field with autocomplete,
-    explore met modal,
-    messages met graded qualities lists,
+    search field with autocomplete,         DONE
+    explore met modal,                      DONE
+    messages met graded qualities lists,    DONE
     statistics,
     explore statistics,
     profile statistics,
+    ask in explore and messages
     history,
     constraints,
     settings,
     admin,
-    ads
+    ads,
+    mail if comment,
+    confirmation mail,
+    rules,
+    positives
 }
 ```
 
