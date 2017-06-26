@@ -154,6 +154,7 @@ export default {
           this.message.is_inappropriate_grade = ''
 
           this.closeModal()
+          this.formstate._reset()
         }
       }
     }
