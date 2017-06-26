@@ -7,20 +7,26 @@
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div>
-      <p>{{ coordinates['firstname'] }}</p>
-      <p>{{ coordinates.lastname }}</p>
-      <p>{{ coordinates.handle }}</p>
+      <h3>My profile:</h3>
+      <h5>{{ coordinates.firstname }} {{ coordinates.lastname }}: {{ coordinates.handle }}</h5>
+    </div>
+    <div>
+      <stats></stats>
     </div>
   </div>
 </template>
 <script>
 import * as firebase from 'firebase'
+import Stats from '@/components/Statistics'
 
 export default {
   data () {
     return {
       coordinates: {}
     }
+  },
+  components: {
+    Stats
   },
   created () {
     this.getCoordinates()
