@@ -1,5 +1,5 @@
-<template> 
-<transition name="stats">
+<template>
+<div>
   <div class="stats-table container-fluid">
     <table class="table table-bordered">
       <thead>
@@ -26,9 +26,9 @@
     </table>
   </div>
   <div class="stats-chart">
-    <chart></chart>
+    <!-- <chart></chart> -->
   </div>
-</transition> 
+</div>
 </template>
 
 <script>
