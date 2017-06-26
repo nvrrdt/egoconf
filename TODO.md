@@ -16,7 +16,8 @@ stories: {
     mail if comment,
     confirmation mail,
     rules,
-    positives
+    positives,
+    a few bots
 }
 ```
 
