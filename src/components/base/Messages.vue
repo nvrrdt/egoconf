@@ -83,12 +83,13 @@
 import * as firebase from 'firebase'
 // import {db} from '@/firebase'
 import VueForm from 'vue-form'
+import store from '@/store'
 
 export default {
   mixins: [VueForm],
   data: () => ({
     formstate: {},
-    messages: [],
+    messages: store.getMessages(),
     message: {}
   }),
   created: function () {
@@ -134,13 +135,11 @@ export default {
       }
     },
     getMessages () {
-      var vm = this
       var userid = firebase.auth().currentUser.uid
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid)
       myMessagesRef.on('child_added', function (snapshot) {
-        vm.messages.reverse()
-        vm.messages.push({ messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }) // TODO: comment this line and try to refactor the unwanted infinite loop; TODO: create an object and forget messagekey and messagevalue
-        vm.messages.reverse()
+        var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
+        store.setMessages(dict)
       })
     },
     onSubmit: function (message) {

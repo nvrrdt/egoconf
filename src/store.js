@@ -6,7 +6,16 @@ var store = {
       firstname: '',
       lastname: '',
       handle: ''
-    }
+    },
+    messages: []
+  },
+  getMessages () {
+    return this.state.messages
+  },
+  setMessages (dict) {
+    this.state.messages.reverse()
+    this.state.messages.push(dict)
+    this.state.messages.reverse()
   },
   getSearchedUserid () {
     return this.state.searchedPerson.userid
