@@ -17,7 +17,7 @@
 </template>
 <script>
 import * as firebase from 'firebase'
-import Stats from '@/components/Statistics'
+import Stats from '@/components/base/ProfileStatistics'
 
 export default {
   data () {

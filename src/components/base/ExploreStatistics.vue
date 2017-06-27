@@ -33,14 +33,18 @@
 
 <script>
 import { mean, standardDeviation } from 'simple-statistics'
+import store from '@/store'
 
 export default {
   data () {
     return {
       mean: (Math.round(mean([1, 5, -10, 98, 32, 100, 2]) * 100) / 100).toFixed(2),
       std: (Math.round(standardDeviation([1, 5, -10, 98, 32, 100, 2]) * 100) / 100).toFixed(2),
-      columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart']
+      columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart'],
+      messages: store.getMessages()
     }
+  },
+  methods: {
   }
 }
 </script>
