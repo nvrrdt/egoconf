@@ -15,10 +15,25 @@
           <td>{{ q.quality }}</td>
           <td>{{ getMean(q.grades) }}</td>
           <td>{{ getStddev(q.grades) }}</td>
-          <td>Show chart</td>
+          <td><a class="" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">Show chart</a></td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div id="wrapper"> 
+    <modal v-if="showModal"> 
+      <h3 slot="header" class="modal-title">
+        <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
+        <h4>Chart</h4>
+      </h3>
+      
+      <div slot="body" class="modal-body container">
+        
+      </div>
+
+      <div slot="footer">
+      </div>
+    </modal>
   </div>
 </div>
 </template>
@@ -27,9 +42,14 @@
 import * as firebase from 'firebase'
 import { mean, standardDeviation } from 'simple-statistics'
 import store from '@/store'
+import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 
 export default {
+  components: {
+    Modal
+  },
   data: () => ({
+    showModal: false,
     columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart'],
     messages: [],
     gradesPerQuality: [],
@@ -88,6 +108,20 @@ export default {
         var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
         vm.messages.push(dict)
       })
+    },
+    openModal () {
+      this.showModal = true
+    },
+    closeModal () {
+      this.showModal = false
+    },
+    onSubmit: function () {
+      if (this.formstate.$invalid) {
+        // alert user and exit early
+        // return
+      } else {
+        // otherwise submit form
+      }
     }
   }
 }
