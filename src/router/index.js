@@ -84,7 +84,6 @@ function ifAuth (to, from, next) {
   var user = firebase.auth().currentUser
 
   if (user) {
-    console.log('test')
     next({
       path: '/base/messages',
       query: { redirect: to.fullPath }
