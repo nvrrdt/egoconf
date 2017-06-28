@@ -34,14 +34,14 @@
 <script>
 import * as firebase from 'firebase'
 import { mean, standardDeviation } from 'simple-statistics'
-import store from '@/store'
+// import store from '@/store'
 
 export default {
   data: () => ({
     mean: (Math.round(mean([1, 5, -10, 98, 32, 100, 2]) * 100) / 100).toFixed(2),
     std: (Math.round(standardDeviation([1, 5, -10, 98, 32, 100, 2]) * 100) / 100).toFixed(2),
     columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart'],
-    messages: store.getMessages(),
+    messages: [],
     gradesPerQuality: []
   }),
   created () {
@@ -49,11 +49,31 @@ export default {
   },
   methods: {
     getMessages () {
+      var vm = this
       var userid = firebase.auth().currentUser.uid
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid)
       myMessagesRef.on('child_added', function (snapshot) {
+        // Make list of grades per quality
+        if (typeof vm.gradesPerQuality !== 'undefined' && vm.gradesPerQuality.length > 0) {
+          var result = vm.gradesPerQuality.find(function (obj) {
+            if (obj.quality === snapshot.val().quality) {
+              obj.grade.push(snapshot.val().grade)
+              return true
+            } else {
+              return false
+            }
+          })
+
+          if (!result) {
+            vm.gradesPerQuality.push({quality: snapshot.val().quality, project: snapshot.val().project, grade: [snapshot.val().grade]})
+          }
+        } else {
+          vm.gradesPerQuality.push({quality: snapshot.val().quality, project: snapshot.val().project, grade: [snapshot.val().grade]})
+        }
+
+        // Adding to the messages list: val() is the message object
         var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
-        store.setMessages(dict)
+        vm.messages.push(dict)
       })
     }
   }
