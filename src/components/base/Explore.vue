@@ -58,6 +58,9 @@
       </modal>
       <button type="button" class="btn btn-primary" @click="openModal()">Grade a quality</button>
     </div>
+    <div>
+      <stats></stats>
+    </div>
   </div>
 </template>
 <script>
@@ -65,13 +68,15 @@ import * as firebase from 'firebase'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
 import store from '@/store'
+import Stats from '@/components/base/ProfileStatistics'
 
 var messagesRef = firebase.database().ref('messages')
 
 export default {
   mixins: [VueForm],
   components: {
-    Modal
+    Modal,
+    Stats
   },
   data () {
     return {
