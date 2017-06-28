@@ -42,4 +42,5 @@ stories: {
 - // a 'thank you' with comment in the messages if accepted // dunno what to do
 - in explore modal it must be 'Project or reference'
 - definitely implement vuex, getmessages and it's store in profile doesn't work, state isn't persistent when changing from messages to profile
+- sort mean in statistics
 ```
