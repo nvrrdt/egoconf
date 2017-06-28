@@ -56,7 +56,7 @@
         <div slot="footer">
         </div>
       </modal>
-      <button type="button" class="btn btn-primary" @click="openModal()">Grade a quality</button>
+      <button type="button" class="btn btn-primary btnspacing" @click="openModal()">Grade a quality</button>
     </div>
     <div>
       <stats></stats>
@@ -189,6 +189,9 @@ export default {
   }
   .presentation {
     margin-top: 20px;
-    margin-bottom: 45px;
+    margin-bottom: 15px;
+  }
+  .btnspacing {
+    margin-bottom: 40px;
   }
 </style>
