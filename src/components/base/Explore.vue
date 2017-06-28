@@ -6,60 +6,65 @@
       <a class="btn btn-secondary text-capitalize active" href="/base/explore" role="button">Explore</a>
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
-    <div class="presentation">
-        <h3>Userprofile from:</h3>
-        <p>Name: {{ searchedFirstname }} {{ searchedLastname }}</p>
-        <p>Handle: {{ searchedHandle }}</p>
-    </div> 
-    <div id="wrapper" v-on:keyup.esc="closeModal"> 
-      <modal v-if="showModal"> 
-        <h3 slot="header" class="modal-title">
-          <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
-          <h4>Grade a quality</h4>
-        </h3>
-        
-        <div slot="body" class="modal-body container">
-          <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate">
-
-            <validate auto-label class="form-group required-field" :class="">
-              <label>Quality</label>
-              <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade">
-
-              <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
-                <div slot="required" style="color: red">Quality is a required field</div>
-              </field-messages>
-            </validate>
-
-            <validate auto-label class="form-group" :class="">
-              <label>Project</label>
-              <input type="text" name="project" class="form-control" v-model.lazy="message.project"  placeholder="Name the corresponding project">
-
-              <field-messages auto-label name="project" show="$touched || $submitted" class="form-control-feedback">
-              </field-messages>
-            </validate>
-
-            <validate auto-label class="form-group required-field" :class="">
-              <label>Grade</label>
-              <input type="number" name="grade" class="form-control" required v-model.lazy="message.grade" placeholder="Grade between 6 and 10" min="6" max="10">
-
-              <field-messages auto-label name="grade" show="$touched || $submitted" class="form-control-feedback">
-                <div slot="required" style="color: red">Grade is a required field</div>
-                <div slot="min" style="color: red">Value must be greater or equal to 6</div>
-                <div slot="max" style="color: red">Value must be less than or equal to 10</div>
-              </field-messages>
-            </validate>
-
-            <button type="submit" class="btn btn-primary float-right">Submit</button>
-          </vue-form>
-        </div>
-
-        <div slot="footer">
-        </div>
-      </modal>
-      <button type="button" class="btn btn-primary btnspacing" @click="openModal()">Grade a quality</button>
+    <div v-if="!searchedFirstname">
+      <h3 class="noSearch">Search for a relative to view that person's statistics</h3>
     </div>
-    <div>
-      <stats></stats>
+    <div v-else>
+      <div class="presentation">
+          <h3>Userprofile from:</h3>
+          <p>Name: {{ searchedFirstname }} {{ searchedLastname }}</p>
+          <p>Handle: {{ searchedHandle }}</p>
+      </div> 
+      <div id="wrapper" v-on:keyup.esc="closeModal"> 
+        <modal v-if="showModal"> 
+          <h3 slot="header" class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
+            <h4>Grade a quality</h4>
+          </h3>
+          
+          <div slot="body" class="modal-body container">
+            <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate">
+
+              <validate auto-label class="form-group required-field" :class="">
+                <label>Quality</label>
+                <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade">
+
+                <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
+                  <div slot="required" style="color: red">Quality is a required field</div>
+                </field-messages>
+              </validate>
+
+              <validate auto-label class="form-group" :class="">
+                <label>Project</label>
+                <input type="text" name="project" class="form-control" v-model.lazy="message.project"  placeholder="Name the corresponding project">
+
+                <field-messages auto-label name="project" show="$touched || $submitted" class="form-control-feedback">
+                </field-messages>
+              </validate>
+
+              <validate auto-label class="form-group required-field" :class="">
+                <label>Grade</label>
+                <input type="number" name="grade" class="form-control" required v-model.lazy="message.grade" placeholder="Grade between 6 and 10" min="6" max="10">
+
+                <field-messages auto-label name="grade" show="$touched || $submitted" class="form-control-feedback">
+                  <div slot="required" style="color: red">Grade is a required field</div>
+                  <div slot="min" style="color: red">Value must be greater or equal to 6</div>
+                  <div slot="max" style="color: red">Value must be less than or equal to 10</div>
+                </field-messages>
+              </validate>
+
+              <button type="submit" class="btn btn-primary float-right">Submit</button>
+            </vue-form>
+          </div>
+
+          <div slot="footer">
+          </div>
+        </modal>
+        <button type="button" class="btn btn-primary btnspacing" @click="openModal()">Grade a quality</button>
+      </div>
+      <div>
+        <stats></stats>
+      </div>
     </div>
   </div>
 </template>
@@ -193,5 +198,8 @@ export default {
   }
   .btnspacing {
     margin-bottom: 40px;
+  }
+  .noSearch {
+    margin-top: 60px;
   }
 </style>
