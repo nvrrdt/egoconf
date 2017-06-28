@@ -68,7 +68,7 @@ import * as firebase from 'firebase'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
 import store from '@/store'
-import Stats from '@/components/base/ProfileStatistics'
+import Stats from '@/components/base/ExploreStatistics'
 
 var messagesRef = firebase.database().ref('messages')
 

@@ -26,17 +26,28 @@
 <script>
 import * as firebase from 'firebase'
 import { mean, standardDeviation } from 'simple-statistics'
+import store from '@/store'
 
 export default {
   data: () => ({
     columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart'],
     messages: [],
-    gradesPerQuality: []
+    gradesPerQuality: [],
+    searchedUserid: '',
+    searchedFirstname: ''
   }),
   created () {
+    this.fetchData()
     this.getMessages()
   },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
   methods: {
+    fetchData () {
+      this.searchedUserid = store.getSearchedUserid()
+    },
     getMean (list) {
       var lst = []
       list.forEach(function (element) {
@@ -53,8 +64,7 @@ export default {
     },
     getMessages () {
       var vm = this
-      var userid = firebase.auth().currentUser.uid
-      var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid)
+      var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(this.searchedUserid)
       myMessagesRef.on('child_added', function (snapshot) {
         // Make list of grades per quality
         if (typeof vm.gradesPerQuality !== 'undefined' && vm.gradesPerQuality.length > 0) {
