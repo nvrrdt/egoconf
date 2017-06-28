@@ -7,7 +7,7 @@
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div v-if="!searchedFirstname">
-      <h3 class="noSearch">Search for a relative to view that person's statistics</h3>
+      <h3 class="noSearch">Search for a relative to explore that person's profile</h3>
     </div>
     <div v-else>
       <div class="presentation">
