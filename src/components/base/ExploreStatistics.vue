@@ -13,8 +13,9 @@
         <tr v-for="(q, index) in gradesPerQuality" :key="q.quality">
           <th scope="row">{{ index+1 }}</th>
           <td>{{ q.quality }}</td>
-          <td>{{ getMean(q.grades) }}</td>
-          <td>{{ getStddev(q.grades) }}</td>
+          <td>{{ q.gradesWTime.length }}</td>
+          <td>{{ getMean(q.gradesWTime) }}</td>
+          <td>{{ getStddev(q.gradesWTime) }}</td>
           <td><a class="" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">Show chart</a></td>
         </tr>
       </tbody>
@@ -50,7 +51,7 @@ export default {
   },
   data: () => ({
     showModal: false,
-    columns: ['#', 'Quality', 'Mean', 'Std dev', 'Chart'],
+    columns: ['#', 'Quality', '#grades', 'Mean', 'Std dev', 'Chart'],
     messages: [],
     gradesPerQuality: [],
     searchedUserid: '',
@@ -71,14 +72,14 @@ export default {
     getMean (list) {
       var lst = []
       list.forEach(function (element) {
-        lst.push(parseInt(element))
+        lst.push(parseInt(element.grade))
       }, this)
       return (Math.round(mean(lst) * 100) / 100).toFixed(2)
     },
     getStddev (list) {
       var lst = []
       list.forEach(function (element) {
-        lst.push(parseInt(element))
+        lst.push(parseInt(element.grade))
       }, this)
       return (Math.round(standardDeviation(lst) * 100) / 100).toFixed(2)
     },
@@ -90,18 +91,18 @@ export default {
         if (typeof vm.gradesPerQuality !== 'undefined' && vm.gradesPerQuality.length > 0) {
           var result = vm.gradesPerQuality.find(function (obj) {
             if (obj.quality === snapshot.val().quality) {
-              obj.grades.push(snapshot.val().grade)
+              obj.gradesWTime.push({grade: snapshot.val().grade, time: snapshot.val().timestamp_created})
               return true
             } else {
               return false
             }
           })
 
-          if (!result) {
-            vm.gradesPerQuality.push({quality: snapshot.val().quality, grades: [snapshot.val().grade]})
+          if (!result && snapshot.val().is_accepted) {
+            vm.gradesPerQuality.push({quality: snapshot.val().quality, gradesWTime: [{grade: snapshot.val().grade, time: snapshot.val().timestamp_created}]})
           }
-        } else {
-          vm.gradesPerQuality.push({quality: snapshot.val().quality, grades: [snapshot.val().grade]})
+        } else if (snapshot.val().is_accepted) {
+          vm.gradesPerQuality.push({quality: snapshot.val().quality, gradesWTime: [{grade: snapshot.val().grade, time: snapshot.val().timestamp_created}]})
         }
 
         // Adding to the messages list: val() is the message object
@@ -133,5 +134,14 @@ export default {
   }
   .table th {
     text-align: center;
+  }
+  #wrapper {
+    margin-top: 10px;
+  }
+  .modal-title {
+    width: 100%;
+  }
+  .modal-body {
+    text-align: left;
   }
 </style>
