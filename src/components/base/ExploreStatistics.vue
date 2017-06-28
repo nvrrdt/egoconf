@@ -16,7 +16,7 @@
           <td>{{ q.gradesWTime.length }}</td>
           <td>{{ getMean(q.gradesWTime) }}</td>
           <td>{{ getStddev(q.gradesWTime) }}</td>
-          <td><a class="" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">Show chart</a></td>
+          <td><a class="" href="#" role="button" @click="openModal(q.quality,q.gradesWTime)" v-on:keyup.esc="closeModal">Show chart</a></td>
         </tr>
       </tbody>
     </table>
@@ -29,7 +29,7 @@
       </h3>
       
       <div slot="body" class="modal-body container">
-        
+        <vue-chart type="line" :data="chartData"></vue-chart>
       </div>
 
       <div slot="footer">
@@ -44,10 +44,12 @@ import * as firebase from 'firebase'
 import { mean, standardDeviation } from 'simple-statistics'
 import store from '@/store'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
+import VueChart from 'vue-chart-js'
 
 export default {
   components: {
-    Modal
+    Modal,
+    VueChart
   },
   data: () => ({
     showModal: false,
@@ -55,7 +57,11 @@ export default {
     messages: [],
     gradesPerQuality: [],
     searchedUserid: '',
-    searchedFirstname: ''
+    searchedFirstname: '',
+    chartData: {
+      labels: [],
+      datasets: []
+    }
   }),
   created () {
     this.fetchData()
@@ -110,7 +116,17 @@ export default {
         vm.messages.push(dict)
       })
     },
-    openModal () {
+    openModal (quality, gradesWTime) {
+      this.chartData.labels = []
+      this.chartData.datasets = []
+
+      var glst = []
+      gradesWTime.forEach(function (element) {
+        this.chartData.labels.push(element.time)
+        glst.push(element.grade)
+      }, this)
+      this.chartData.datasets.push({label: quality, data: glst})
+
       this.showModal = true
     },
     closeModal () {

@@ -43,4 +43,5 @@ stories: {
 - in explore modal it must be 'Project or reference'
 - definitely implement vuex, getmessages and it's store in profile doesn't work, state isn't persistent when changing from messages to profile
 - sort mean in statistics
+- make date from hash in chart and change colors in chart
 ```
