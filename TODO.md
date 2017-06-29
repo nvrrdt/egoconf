@@ -4,11 +4,11 @@ stories: {
     search field with autocomplete,         DONE
     explore met modal,                      DONE
     messages met graded qualities lists,    DONE
-    statistics,
-    explore statistics,
-    profile statistics,
+    statistics,                             DONE
+    explore statistics,                     DONE
+    profile statistics,                     DONE
     ask in explore and messages
-    history,
+    history,                                DONE
     constraints,
     settings,
     admin,
