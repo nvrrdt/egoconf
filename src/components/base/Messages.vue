@@ -15,7 +15,7 @@
               <icon v-else name="plus-square-o" scale="1"></icon>&nbsp;&nbsp;
               <icon v-if="message.messagevalue.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
               <icon v-else name="envelope-o" scale="1"></icon>
-               Message from {{ message.messagevalue.from_userid }} who gives {{ message.messagevalue.grade }} points for the '{{ message.messagevalue.quality }}' quality during the '{{ message.messagevalue.project }}' project
+               Message from {{ getFullname(message.messagevalue.from_userid) }} who gives {{ message.messagevalue.grade }} points for the '{{ message.messagevalue.quality }}' quality during the '{{ message.messagevalue.project }}' project
             </a>
             <div v-if="message.isCollapsed || !message.messagevalue.timestamp_reaction">
               <vue-form :state="formstate" @submit.prevent="onSubmit(message)" v-model="formstate" class="p-2">
@@ -90,12 +90,25 @@ export default {
   data: () => ({
     formstate: {},
     messages: store.getMessages(),
-    message: {}
+    message: {},
+    firstname: '',
+    lastname: ''
   }),
   created: function () {
     this.getMessages()
   },
   methods: {
+    // display fullname instead of userid
+    getFullname (userId) {
+      var vm = this
+
+      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+        vm.firstname = snapshot.val().firstname
+        vm.lastname = snapshot.val().lastname
+      })
+
+      return this.firstname + ' ' + this.lastname
+    },
     toggleCollapse (message) {
       if (message.isCollapsed) {
         message.isCollapsed = false
@@ -140,6 +153,7 @@ export default {
       myMessagesRef.on('child_added', function (snapshot) {
         var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
         store.setMessages(dict)
+        console.log(store.getMessages())
       })
     },
     onSubmit: function (message) {
