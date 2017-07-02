@@ -2,7 +2,7 @@
   <div class="base">
     <a class="text-capitalize" v-on:click="toSignup" role="button" href>signup</a>
     <a class="text-capitalize" v-on:click="toLogin" role="button" href>login</a>
-    <h3>tl;dr: Grading people's qualities, that's what this is all about.</h3>
+    <h3>tl;dr: Grading people's qualities, that's what this is all about. And as a by-product it is also a solution for yeah</h3>
     <h4>And keep it positive, make a map of different people who have an almost equally developed quality or a an almost equally developed envelope of qualities</h4>
     <h2>{{ msg }}</h2>
     <p>test</p>
