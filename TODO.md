@@ -17,7 +17,9 @@ stories: {
     confirmation mail,
     rules,
     positive qualities/adjectives and projects/references in autocomplete,
-    a few bots
+    a few bots,
+    prohibit message bombs (constraint),
+    handshake
 }
 ```
 
@@ -44,4 +46,8 @@ stories: {
 - definitely implement vuex, getmessages and it's store in profile doesn't work, state isn't persistent when changing from messages to profile
 - sort mean in statistics
 - make date from hash in chart and change colors in chart
+- don't grade the same quality twice in the same week
+- don't show autocomplete results after x searches
+- Total msgs, answered, accepted, ask, bid, per quality, per project, ... try to improve statistics
+- personal tags for messages, to group messages and show them publicly
 ```
