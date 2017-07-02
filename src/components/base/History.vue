@@ -36,7 +36,7 @@ export default {
       var myMessagesRef = firebase.database().ref('messages').orderByChild('from_userid').equalTo(userid)
       myMessagesRef.on('child_added', function (snapshot) {
         var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
-        store.setMessages(dict)
+        store.setMessages(dict) // maybe not necessary
       })
     }
   }
