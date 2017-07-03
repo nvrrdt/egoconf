@@ -8,37 +8,37 @@
     </div>
     <div>
       <ul class="list-unstyled">
-        <li v-for="message in messages" :key="message.messagekey">
+        <li v-for="msg in messages" :key="msg.key">
           <div class="d-flex flex-column message">
-            <a class="p-2 text-left"  @click="toggleCollapse(message)" href="#">
-              <icon v-if="message.isCollapsed || !message.messagevalue.timestamp_reaction" name="minus-square-o" scale="1"></icon>
+            <a class="p-2 text-left"  @click="toggleCollapse(msg)" href="#">
+              <icon v-if="msg.isCollapsed|| !msg.value.timestamp_reaction" name="minus-square-o" scale="1"></icon>
               <icon v-else name="plus-square-o" scale="1"></icon>&nbsp;&nbsp;
-              <icon v-if="message.messagevalue.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
+              <icon v-if="msg.value.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
               <icon v-else name="envelope-o" scale="1"></icon>
-               Message from {{ getFullname(message.messagevalue.from_userid) }} who gives {{ message.messagevalue.grade }} points for the '{{ message.messagevalue.quality }}' quality during the '{{ message.messagevalue.project }}' project
+               Message from {{ getFullname(msg.value.from_userid) }} who gives {{ msg.value.grade }} points for the '{{ msg.value.quality }}' quality during the '{{ msg.value.project }}' project
             </a>
-            <div v-if="message.isCollapsed || !message.messagevalue.timestamp_reaction">
-              <vue-form :state="formstate" @submit.prevent="onSubmit(message)" v-model="formstate" class="p-2">
+            <div v-if="setCollapse(msg)">
+              <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key)" v-model="formstate" class="p-2">
                 <div class="form-check choices">
                   <validate auto-label class="form-group text-left" :class="">
-                    <label class="form-check-label" @click="acceptIsTrue(message)">
-                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="true">
+                    <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
+                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" value="true">
                       Message accepted!
                     </label>
                   </validate>
                 </div>
                 <div class="form-check choices">
                   <validate auto-label class="form-group text-left" :class="">
-                    <label class="form-check-label" @click="message.messagevalue.is_accepted = false">
-                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="message.messagevalue.is_accepted" value="false">
+                    <label class="form-check-label" @click="msg.value.is_accepted = false">
+                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" value="false">
                       No thanks, message rejected for following reason(s):
                     </label>
                   </validate>
-                  <div v-if="message.messagevalue.is_accepted === false" class="choices">
+                  <div v-if="msg.value.is_accepted === false" class="choices">
                     <div class="form-check">
                       <validate auto-label class="form-group text-left" :class="">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_unknown_sender" value="">
+                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_unknown_sender" value="">
                           It's an unknown sender
                         </label>
                       </validate>
@@ -46,7 +46,7 @@
                     <div class="form-check">
                       <validate auto-label class="form-group text-left" :class="">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_quality" value="">
+                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_quality" value="">
                           It's an inappropriate quality
                         </label>
                       </validate>
@@ -54,7 +54,7 @@
                     <div class="form-check">
                       <validate auto-label class="form-group text-left" :class="">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_project" value="">
+                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_project" value="">
                           It's an inappropriate project
                         </label>
                       </validate>
@@ -62,15 +62,15 @@
                     <div class="form-check">
                       <validate auto-label class="form-group text-left" :class="">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="message.messagevalue.is_inappropriate_grade" value="">
+                          <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_grade" value="">
                           It's an inappropriate grade
                         </label>
                       </validate>
                     </div>
-                    <div v-if="showError(message)" style="color: red" class="text-left">Choose at least one of the underlying fields</div>
+                    <div v-if="showError(msg.value)" style="color: red" class="text-left">Choose at least one of the underlying fields</div>
                   </div>
                 </div>
-                <button v-if="hideSubmit(message)" type="submit" class="btn btn-primary">Submit</button>
+                <button v-if="hideSubmit(msg.value)" type="submit" class="btn btn-primary">Submit</button>
               </vue-form>
             </div>
           </div>
@@ -83,51 +83,66 @@
 import * as firebase from 'firebase'
 // import {db} from '@/firebase'
 import VueForm from 'vue-form'
-import store from '@/store'
+// import store from '@/store'
 
 export default {
   mixins: [VueForm],
   data: () => ({
     formstate: {},
-    messages: store.getMessages(),
-    message: {},
-    firstname: '',
-    lastname: ''
+    messages: [],
+    fullnames: []
   }),
   created: function () {
     this.getMessages()
   },
   methods: {
-    // display fullname instead of userid
-    getFullname (userId) {
-      var vm = this
-
-      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-        vm.firstname = snapshot.val().firstname
-        vm.lastname = snapshot.val().lastname
-      })
-
-      return this.firstname + ' ' + this.lastname
-    },
-    toggleCollapse (message) {
-      if (message.isCollapsed) {
-        message.isCollapsed = false
+    setCollapse (msg) {
+      if (msg.value.timestamp_reaction === '') {
+        return true
       } else {
-        message.isCollapsed = true
+        if (msg.isCollapsed === true) {
+          return true
+        } else {
+          return false
+        }
       }
     },
-    acceptIsTrue (message) {
-      message.messagevalue.is_accepted = true
-      message.messagevalue.is_unknown_sender = false
-      message.messagevalue.is_inappropriate_quality = false
-      message.messagevalue.is_inappropriate_project = false
-      message.messagevalue.is_inappropriate_grade = false
+    toggleCollapse (msg) {
+      if (msg.isCollapsed) {
+        msg.isCollapsed = false
+      } else {
+        msg.isCollapsed = true
+      }
     },
-    showError (message) {
-      if (message.messagevalue.is_accepted === '') {
+    // make list of fullnames
+    setFullnames (messages) {
+      for (var msg in messages) {
+        var vm = this
+        firebase.database().ref('/users/' + messages[msg].value.from_userid).once('value').then(function (snapshot) {
+          vm.fullnames.push({key: snapshot.key, value: snapshot.val().firstname + ' ' + snapshot.val().lastname})
+        })
+      }
+    },
+    // display fullname instead of userid
+    getFullname (userId) {
+      for (var fname in this.fullnames) {
+        if (this.fullnames[fname].key === userId) {
+          return this.fullnames[fname].value
+        }
+      }
+    },
+    acceptIsTrue (value, key) {
+      value.is_accepted = true
+      value.is_unknown_sender = false
+      value.is_inappropriate_quality = false
+      value.is_inappropriate_project = false
+      value.is_inappropriate_grade = false
+    },
+    showError (value) {
+      if (value.is_accepted === '') {
         return false
-      } else if (message.messagevalue.is_accepted === false) {
-        if (message.messagevalue.is_unknown_sender === true || message.messagevalue.is_inappropriate_quality === true || message.messagevalue.is_inappropriate_project === true || message.messagevalue.is_inappropriate_grade === true) {
+      } else if (value.is_accepted === false) {
+        if (value.is_unknown_sender === true || value.is_inappropriate_quality === true || value.is_inappropriate_project === true || value.is_inappropriate_grade === true) {
           return false
         }
         return true
@@ -135,11 +150,11 @@ export default {
         return false
       }
     },
-    hideSubmit (message) {
-      if (message.messagevalue.is_accepted === true) {
+    hideSubmit (value) {
+      if (value.is_accepted === true) {
         return true
-      } else if (message.messagevalue.is_accepted === false) {
-        if (message.messagevalue.is_unknown_sender === true || message.messagevalue.is_inappropriate_quality === true || message.messagevalue.is_inappropriate_project === true || message.messagevalue.is_inappropriate_grade === true) {
+      } else if (value.is_accepted === false) {
+        if (value.is_unknown_sender === true || value.is_inappropriate_quality === true || value.is_inappropriate_project === true || value.is_inappropriate_grade === true) {
           return true
         }
         return false
@@ -148,46 +163,39 @@ export default {
       }
     },
     getMessages () {
+      var vm = this
       var userid = firebase.auth().currentUser.uid
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userid)
-      myMessagesRef.on('child_added', function (snapshot) {
-        var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
-        store.setMessages(dict)
-        console.log(store.getMessages())
+      myMessagesRef.once('value', function (snapshot) {
+        for (var i in snapshot.val()) {
+          if (vm.messages === '') {
+            vm.messages.push({key: i, value: snapshot.val()[i], isCollapsed: false})
+          } else {
+            vm.messages.reverse()
+            vm.messages.push({key: i, value: snapshot.val()[i], isCollapsed: false})
+            vm.messages.reverse()
+          }
+        }
+
+        vm.setFullnames(vm.messages)
       })
     },
-    onSubmit: function (message) {
+    onSubmit: function (value, key) {
       if (this.formstate.$invalid) {
         // alert user and exit early
         // return
       } else {
-        this.message.timestamp_reaction = firebase.database.ServerValue.TIMESTAMP
-        this.message.is_accepted = message.messagevalue.is_accepted
-        this.message.is_unknown_sender = message.messagevalue.is_unknown_sender
-        this.message.is_inappropriate_quality = message.messagevalue.is_inappropriate_project
-        this.message.is_inappropriate_project = message.messagevalue.is_inappropriate_quality
-        this.message.is_inappropriate_grade = message.messagevalue.is_inappropriate_grade
+        value.timestamp_reaction = firebase.database.ServerValue.TIMESTAMP
 
-        var msgRef = firebase.database().ref('messages/' + message.messagekey)
+        // this.message.is_accepted = message.messagevalue.is_accepted
+        // this.message.is_unknown_sender = message.messagevalue.is_unknown_sender
+        // this.message.is_inappropriate_quality = message.messagevalue.is_inappropriate_project
+        // this.message.is_inappropriate_project = message.messagevalue.is_inappropriate_quality
+        // this.message.is_inappropriate_grade = message.messagevalue.is_inappropriate_grade */
 
-        msgRef.update(this.message)
+        var msgRef = firebase.database().ref('messages/' + key)
 
-        // hide the submitted panel, don't know if toggle works though
-        if (message.messagevalue.timestamp_reaction === '') {
-          message.messagevalue.timestamp_reaction = true
-          console.log('no toggle')
-        } else {
-          this.toggleCollapse(message)
-          console.log('toggle')
-        }
-
-        // TODO: maybe below lines are not necessary
-        this.message.timestamp_reaction = ''
-        this.message.is_accepted = ''
-        this.message.is_unknown_sender = ''
-        this.message.is_inappropriate_quality = ''
-        this.message.is_inappropriate_project = ''
-        this.message.is_inappropriate_grade = ''
+        msgRef.update(value)
       }
     }
   }
