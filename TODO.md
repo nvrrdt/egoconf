@@ -50,4 +50,8 @@ stories: {
 - don't show autocomplete results after x searches
 - Total msgs, answered, accepted, ask, bid, per quality, per project, ... try to improve statistics
 - personal tags for messages, to group messages and show them publicly
+- in firefox you have to double click the radio in messages form, solution is to do 'input and label'-combination differently with a for
 ```
+
+help:
+sudo fuser -k 8080/tcp
