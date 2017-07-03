@@ -22,7 +22,7 @@
                 <div class="form-check choices">
                   <validate auto-label class="form-group text-left" :class="">
                     <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
-                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" value="true">
+                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="setCollapse(msg)">
                       Message accepted!
                     </label>
                   </validate>
@@ -30,7 +30,7 @@
                 <div class="form-check choices">
                   <validate auto-label class="form-group text-left" :class="">
                     <label class="form-check-label" @click="msg.value.is_accepted = false">
-                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" value="false">
+                      <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="!setCollapse(msg)">
                       No thanks, message rejected for following reason(s):
                     </label>
                   </validate>
