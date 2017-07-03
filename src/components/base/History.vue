@@ -10,7 +10,7 @@
       <ul style="margin-top: 35px;">
         <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
           <div class="text-left message">
-            <p>{{ getFullname(message.value.from_userid) }} accepted your message, where you give {{ message.value.grade }} points for the '{{ message.value.quality }}' quality during the '{{ message.value.project }}' project</p>
+            <p>{{ getFullname(message.value.to_userid) }} accepted your message, where you give {{ message.value.grade }} points for the '{{ message.value.quality }}' quality during the '{{ message.value.project }}' project</p>
           </div>  
         </li>
       </ul>
@@ -41,7 +41,7 @@ export default {
     setFullnames (messages) {
       for (var msg in messages) {
         var vm = this
-        firebase.database().ref('/users/' + messages[msg].value.from_userid).once('value').then(function (snapshot) {
+        firebase.database().ref('/users/' + messages[msg].value.to_userid).once('value').then(function (snapshot) {
           vm.fullnames.push({key: snapshot.key, value: snapshot.val().firstname + ' ' + snapshot.val().lastname})
         })
       }
