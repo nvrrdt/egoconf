@@ -94,7 +94,7 @@ export default {
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(this.searchedUserid)
       myMessagesRef.on('child_added', function (snapshot) {
         // Make list of grades per quality
-        if (typeof vm.gradesPerQuality !== 'undefined' && vm.gradesPerQuality.length > 0) {
+        if (typeof vm.gradesPerQuality !== 'undefined' && vm.gradesPerQuality.length > 0 && snapshot.val().timestamp_reaction && snapshot.val().is_accepted) {
           var result = vm.gradesPerQuality.find(function (obj) {
             if (obj.quality === snapshot.val().quality) {
               obj.gradesWTime.push({grade: snapshot.val().grade, time: snapshot.val().timestamp_created})
@@ -122,7 +122,12 @@ export default {
 
       var glst = []
       gradesWTime.forEach(function (element) {
-        this.chartData.labels.push(element.time)
+        // from number to string
+        var timestamp = element.time
+        var myDate = new Date(timestamp)
+
+        // push time and grade
+        this.chartData.labels.push(myDate.getHours() + ':' + myDate.getMinutes() + ' ' + myDate.getDay() + '/' + myDate.getMonth() + '/' + myDate.getFullYear())
         glst.push(element.grade)
       }, this)
       this.chartData.datasets.push({label: quality, data: glst})
