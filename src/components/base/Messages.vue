@@ -187,12 +187,6 @@ export default {
       } else {
         value.timestamp_reaction = firebase.database.ServerValue.TIMESTAMP
 
-        // this.message.is_accepted = message.messagevalue.is_accepted
-        // this.message.is_unknown_sender = message.messagevalue.is_unknown_sender
-        // this.message.is_inappropriate_quality = message.messagevalue.is_inappropriate_project
-        // this.message.is_inappropriate_project = message.messagevalue.is_inappropriate_quality
-        // this.message.is_inappropriate_grade = message.messagevalue.is_inappropriate_grade */
-
         var msgRef = firebase.database().ref('messages/' + key)
 
         msgRef.update(value)
