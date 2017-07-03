@@ -8,9 +8,9 @@
     </div>
     <div>
       <ul style="margin-top: 35px;">
-        <li v-for="message in messages" :key="message.messagekey" v-if="message.messagevalue.is_accepted">
+        <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
           <div class="text-left message">
-            <p>{{ message.messagevalue.from_userid }} accepted your message, where you give {{ message.messagevalue.grade }} points for the '{{ message.messagevalue.quality }}' quality during the '{{ message.messagevalue.project }}' project</p>
+            <p>{{ getFullname(message.value.from_userid) }} accepted your message, where you give {{ message.value.grade }} points for the '{{ message.value.quality }}' quality during the '{{ message.value.project }}' project</p>
           </div>  
         </li>
       </ul>
@@ -20,23 +20,48 @@
 <script>
 import * as firebase from 'firebase'
 // import {db} from '@/firebase'
-import store from '@/store'
 
 export default {
   data: () => ({
-    messages: store.getMessages(),
-    message: {}
+    messages: [],
+    fullnames: []
   }),
   created: function () {
     this.getMessages()
   },
   methods: {
+    getFullname (userId) {
+      for (var fname in this.fullnames) {
+        if (this.fullnames[fname].key === userId) {
+          return this.fullnames[fname].value
+        }
+      }
+    },
+    // make list of fullnames
+    setFullnames (messages) {
+      for (var msg in messages) {
+        var vm = this
+        firebase.database().ref('/users/' + messages[msg].value.from_userid).once('value').then(function (snapshot) {
+          vm.fullnames.push({key: snapshot.key, value: snapshot.val().firstname + ' ' + snapshot.val().lastname})
+        })
+      }
+    },
     getMessages () {
+      var vm = this
       var userid = firebase.auth().currentUser.uid
       var myMessagesRef = firebase.database().ref('messages').orderByChild('from_userid').equalTo(userid)
-      myMessagesRef.on('child_added', function (snapshot) {
-        var dict = { messagekey: snapshot.key, messagevalue: snapshot.val(), isCollapsed: false }
-        store.setMessages(dict) // maybe not necessary
+      myMessagesRef.once('value', function (snapshot) {
+        for (var i in snapshot.val()) {
+          if (vm.messages === '') {
+            vm.messages.push({key: i, value: snapshot.val()[i], isCollapsed: false})
+          } else {
+            vm.messages.reverse()
+            vm.messages.push({key: i, value: snapshot.val()[i], isCollapsed: false})
+            vm.messages.reverse()
+          }
+        }
+
+        vm.setFullnames(vm.messages)
       })
     }
   }
