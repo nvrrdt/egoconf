@@ -7,7 +7,13 @@
       <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div v-if="!searchedFirstname">
-      <h3 class="noSearch">Search for a relative to explore that person's profile</h3>
+      <h3 class="fewLines">Search for a relative to explore that person's profile</h3>
+    </div>
+    <div v-else-if="isBlocked">
+      <div class="fewLines">
+        <h3>Unfortunately you are blocked by this user</h3>
+        <h5>The block will be abolished till {{ endBlockAt }}</h5>
+      </div>
     </div>
     <div v-else>
       <div class="presentation">
@@ -105,7 +111,10 @@ export default {
       },
       searchedFirstname: '',
       searchedLastname: '',
-      searchedHandle: ''
+      searchedHandle: '',
+      searchedUserid: '',
+      isBlocked: false,
+      endBlockAt: ''
     }
   },
   firebase: {
@@ -115,16 +124,72 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData()
+    this.setBlocked()
+  },
+  updated () {
+    this.setBlocked()
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    '$route': ['fetchData', 'setBlocked']
   },
   methods: {
+    // TODO: put constraints in constraints.js, that's more clean
+    // TODO: please refactor this function
+    setBlocked () {
+      var vm = this
+      var count = 0
+      var lastBlockDate = 0
+
+      if (this.searchedUserid) {
+        var myMsgsRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(this.searchedUserid)
+        myMsgsRef.once('value', function (snapshot) {
+          if (snapshot.val()) {
+            for (var i in snapshot.val()) {
+              var val = snapshot.val()[i]
+
+              if (val.is_unknown_sender || val.is_inappropriate_quality || val.is_inappropriate_project || val.is_inappropriate_grade) {
+                count++
+                if (val.timestamp_reaction > lastBlockDate) {
+                  lastBlockDate = val.timestamp_reaction
+                }
+              }
+            }
+          }
+
+          var now = new Date()
+
+          lastBlockDate = new Date(lastBlockDate)
+          var dueDate = new Date(lastBlockDate.setTime(lastBlockDate.getTime() + 14 * 86400000)) // 14 days later
+
+          var dd = dueDate.getDate()
+          var mm = dueDate.getMonth() + 1 // January is 0!
+          var yyyy = dueDate.getFullYear()
+
+          if (dd < 10) {
+            dd = '0' + dd
+          }
+
+          if (mm < 10) {
+            mm = '0' + mm
+          }
+
+          var dueString = dd + '/' + mm + '/' + yyyy
+
+          if (count > 3 && now < dueDate) {
+            vm.isBlocked = true
+            vm.endBlockAt = dueString
+          }
+        })
+      }
+    },
+
+    // get data from store
     fetchData () {
       this.searchedFirstname = store.getSearchedFirstname()
       this.searchedLastname = store.getSearchedLastname()
       this.searchedHandle = store.getSearchedHandle()
+      this.searchedUserid = store.getSearchedUserid()
     },
     openModal () {
       this.showModal = true
@@ -199,7 +264,7 @@ export default {
   .btnspacing {
     margin-bottom: 40px;
   }
-  .noSearch {
+  .fewLines {
     margin-top: 60px;
   }
 </style>
