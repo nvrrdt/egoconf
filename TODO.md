@@ -13,13 +13,14 @@ stories: {
     settings,
     admin,
     ads,
+    payments,
     mail if comment,
     confirmation mail,
     rules,
     positive qualities/adjectives and projects/references in autocomplete,
     a few bots,
-    prohibit message bombs (constraint),
-    handshake
+    handshake,
+    texts
 }
 ```
 
@@ -59,7 +60,7 @@ sudo fuser -k 8080/tcp
 ```
 Constraints:
 
- * is_unknown || is_inappropriate = max 3 per user per last month === blocked for 1 week
+ * is_unknown || is_inappropriate = max 3 per user per last month === blocked for 1 week                        DONE
  * 3 users where blocked === banned for 1) 1 week 2) 2 weeks 3) 1 month 4) 3 months 5) 6 months in last month
  * >= 20 messages for more users per 15 minutes === bomb => block messages until over
  * max 1 unique quality being graded in 6 days to one to_user === pauze
