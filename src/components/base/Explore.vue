@@ -148,10 +148,13 @@ export default {
             for (var i in snapshot.val()) {
               var val = snapshot.val()[i]
 
-              if (val.is_unknown_sender || val.is_inappropriate_quality || val.is_inappropriate_project || val.is_inappropriate_grade) {
+              var lastMonthDate = new Date()
+              lastMonthDate = new Date(lastMonthDate.setTime(lastMonthDate.getTime() - 28 * 86400000)) // 28 days earlier
+              // count must go up only in last month and when a message is rejected
+              if ((val.is_unknown_sender || val.is_inappropriate_quality || val.is_inappropriate_project || val.is_inappropriate_grade) && val.timestamp_reaction > lastMonthDate.getTime()) {
                 count++
                 if (val.timestamp_reaction > lastBlockDate) {
-                  lastBlockDate = val.timestamp_reaction
+                  lastBlockDate = val.timestamp_reaction // last reaction must be remembered
                 }
               }
             }
