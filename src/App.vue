@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <div class="container">
-      <div>
+      <div v-if="isBanned">
+        <h3 class="fewLines">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
+      </div>
+      <div v-else>
         <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -72,7 +75,9 @@ export default {
       selectedUser: [],
       suggest_users: [],
       isLoading: false,
-      term: ''
+      term: '',
+      isBanned: false,
+      banEndsAt: ''
     }
   },
   watch: {
@@ -93,7 +98,32 @@ export default {
       })
     }
   },
+  created: function () {
+    this.setBanned()
+  },
   methods: {
+    // isBanned is untested!!!
+    setBanned () {
+      var banCount = -1
+      var vm = this
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          var userId = user.uid
+
+          firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+            banCount = snapshot.val().ban_count
+            if (snapshot.val().ban_ends_at) {
+              vm.banEndsAt = snapshot.val().ban_ends_at
+            }
+          })
+
+          if (banCount > 0) {
+            this.isBanned = true
+          }
+        }
+      })
+    },
     getFirstName: function () {
       var vm = this
 
@@ -214,5 +244,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+  }
+  .fewLines {
+    margin-top: 60px;
   }
 </style>
