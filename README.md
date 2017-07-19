@@ -1,4 +1,4 @@
-# ego
+# egoconf
 
 > A social profiling project
 
