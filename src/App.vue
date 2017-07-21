@@ -41,19 +41,55 @@
             <h2>This is a demo!</h2>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a v-if="isAuthenticated" class="nav-link active" href>{{ firstname }}'s settings</a>
+                <a v-if="isAuthenticated" class="nav-link active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
               </li>
               <li class="nav-item">
                 <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="http://github.com/nvrrdt/ego" target="_blank"><icon name="github" scale="2"></icon></a>
+                <a class="nav-link active" href="http://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
               </li>
             </ul>
           </div>
         </nav>
       </div>
       <router-view></router-view>
+      <div id="wrapper" v-on:keyup.esc="closeModal"> 
+        <modal v-if="showModal"> 
+          <h3 slot="header" class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
+            <h4>Settings</h4>
+          </h3>
+          
+          <div slot="body" class="modal-body container">
+            <p>Change handle:
+              <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
+                <div class="form-inline">
+                  <div class="form-check">
+                    <validate auto-label class="form-group text-left" :class="">
+                      <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
+                    </validate>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </vue-form>
+            </p>
+            <!-- TODO <p>Change password
+            <vue-form :state="formstate" @submit.prevent="changePassword()" v-model="formstate" class="p-2">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </vue-form>
+            </p> -->
+            <p class="form-inline">Delete account:
+              <vue-form :state="formstate_delete_account" @submit.prevent="deleteAccount()" v-model="formstate_delete_account" class="p-2">
+                <button type="submit" class="btn btn-danger">DEL</button>
+              </vue-form>
+            </p>
+          </div>
+
+          <div slot="footer">
+          </div>
+        </modal>
+      </div>
     </div>
   </div>
 </template>
@@ -65,19 +101,29 @@ import * as firebase from 'firebase'
 import Multiselect from 'vue-multiselect'
 import router from '@/router'
 import store from '@/store'
+import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
+import VueForm from 'vue-form'
 
 export default {
   name: 'app',
-  components: { Multiselect },
+  mixins: [VueForm],
+  components: {
+    Multiselect,
+    Modal
+  },
   data () {
     return {
+      formstate_handle: {},
+      formstate_delete_account: {},
+      showModal: false,
       firstname: this.getFirstName(),
       selectedUser: [],
       suggest_users: [],
       isLoading: false,
       term: '',
       isBanned: false,
-      banEndsAt: ''
+      banEndsAt: '',
+      handle: this.getHandle()
     }
   },
   watch: {
@@ -102,7 +148,75 @@ export default {
     this.setBanned()
   },
   methods: {
-    // isBanned is untested!!!
+    // Settings
+    // TODO: put settings in Settings.vue
+    deleteAccount: function () {
+      var vm = this
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          var userId = user.uid
+
+          var myMsgsToRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(userId)
+          myMsgsToRef.once('value', function (snapshot) {
+            snapshot.ref.remove()
+          })
+
+          var myMsgsFromRef = firebase.database().ref('messages').orderByChild('from_userid').equalTo(userId)
+          myMsgsFromRef.once('value', function (snapshot) {
+            snapshot.ref.remove()
+          })
+
+          var myUserRef = firebase.database().ref('/users/' + userId)
+          myUserRef.once('value', function (snapshot) {
+            snapshot.ref.remove()
+          })
+
+          firebase.auth().currentUser.delete()
+        } else {
+          vm.closeModal()
+          router.push({ name: 'EgoHome' })
+        }
+      })
+    },
+    // Settings
+    getHandle: function () {
+      var vm = this
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          var userId = user.uid
+
+          firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+            vm.handle = snapshot.val().handle
+          })
+
+          return vm.handle
+        } else {
+          return 'hemel1'
+        }
+      })
+    },
+    // Settings
+    setHandle: function () {
+      var vm = this
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          var userId = user.uid
+          var userRef = firebase.database().ref('users/' + userId)
+
+          userRef.update({handle: vm.handle})
+        }
+      })
+    },
+    openModal () {
+      this.showModal = true
+    },
+    closeModal () {
+      this.showModal = false
+    },
+    // TODO: isBanned is untested!!!
     setBanned () {
       var banCount = -1
       var vm = this
@@ -124,6 +238,7 @@ export default {
         }
       })
     },
+    // Settings
     getFirstName: function () {
       var vm = this
 
@@ -141,10 +256,11 @@ export default {
         }
       })
     },
+    // Autosuggest
     limitText (count) {
       return `and ${count} other users`
     },
-
+    // Autosuggest
     buildQueryBody: function (query, term, matchWholePhrase) {
       if (matchWholePhrase) {
         var body = query.body = {}
@@ -160,7 +276,7 @@ export default {
         query.q = term
       }
     },
-
+    // Autosuggest
     buildQuery: function (searchTerm) {
       // this just gets data out of the form
       var index = 'firebase'
@@ -178,7 +294,7 @@ export default {
 
       return query
     },
-
+    // Autosuggest
     // conduct a search by writing it to the search/request path
     doSearch: function (query) {
       var ref = firebase.database().ref('search')
@@ -186,7 +302,7 @@ export default {
 
       ref.child('response/' + key).on('value', this.showResults)
     },
-
+    // Autosuggest
     // when results are written to the database, read them and display
     showResults: function (snap) {
       if (!snap.exists()) { return } // wait until we get data
@@ -210,7 +326,7 @@ export default {
 
       this.suggest_users = list
     },
-
+    // Autosuggest
     asyncFind (query) {
       this.isLoading = true
       this.ajaxFindCountry(query).then(response => {
@@ -218,7 +334,7 @@ export default {
         this.isLoading = false
       })
     },
-
+    // Autosuggest
     ajaxFindCountry: function (query) {
       this.doSearch(this.buildQuery(query))
 
@@ -247,5 +363,14 @@ export default {
   }
   .fewLines {
     margin-top: 60px;
+  }
+  #wrapper {
+    margin-top: 10px;
+  }
+  .modal-title {
+    width: 100%;
+  }
+  .modal-body {
+    text-align: left;
   }
 </style>
