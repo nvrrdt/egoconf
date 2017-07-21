@@ -33,7 +33,13 @@
 
               <validate auto-label class="form-group required-field" :class="">
                 <label>Quality</label>
-                <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade">
+                <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade" list="qualities_list">
+                <datalist id="qualities_list">
+                  <div v-for="p in pos" :key="p">
+                    <option :value="p"></option>
+                  </div>
+                </datalist>
+                <!-- <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade"> -->
 
                 <field-messages name="quality" show="$touched || $submitted" class="form-control-feedback">
                   <div slot="required" style="color: red">Quality is a required field</div>
@@ -80,6 +86,7 @@ import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueMo
 import VueForm from 'vue-form'
 import store from '@/store'
 import Stats from '@/components/base/ExploreStatistics'
+import { adjectives } from '@/adjectives.json'
 
 var messagesRef = firebase.database().ref('messages')
 
@@ -114,7 +121,8 @@ export default {
       searchedHandle: '',
       searchedUserid: '',
       isBlocked: false,
-      endBlockAt: ''
+      endBlockAt: '',
+      pos: adjectives.positives
     }
   },
   firebase: {
