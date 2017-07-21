@@ -265,11 +265,9 @@ export default {
       if (matchWholePhrase) {
         var body = query.body = {}
         body.query = {
-          // match_phrase matches the phrase exactly instead of breaking it
-          // into individual words
-          'match_phrase': {
-            // this is the field name, _all is a meta indicating any field
-            '_all': term
+          // Classic Search-Box Style Full-Text Query
+          'query_string': {
+            'query': term + '*'
           }
         }
       } else {
