@@ -10,9 +10,9 @@
       <ul style="margin-top: 35px;">
         <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
           <div class="text-left message">
-            <p>{{ getFullname(message.value.to_userid) }} accepted your message, where you give {{ message.value.grade }} points for the '{{ message.value.quality }}' quality during the '{{ message.value.project }}' project</p>
+            <p><strong>{{ getFullname(message.value.to_userid) }}</strong> accepted your message, you were given <strong>{{ message.value.grade }}/10</strong> for the <strong>'{{ message.value.quality }}'</strong> quality during the <strong>'{{ message.value.project }}'</strong> project</p>
           </div>  
-        </li>
+        </li></strong>
       </ul>
     </div>
   </div>
