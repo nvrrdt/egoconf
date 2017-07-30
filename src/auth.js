@@ -20,6 +20,7 @@ const AuthPlugin = {
           firstname: '',
           lastname: '',
           handle: '',
+          suggest: [],
           no_reaction_yet_count: '',
           ban_count: '',
           inappropriate_count: '',
@@ -172,10 +173,20 @@ const AuthPlugin = {
         addUser: function () {
           var user = firebase.auth().currentUser
 
+          this.suggest.push(this.firstname)
+          this.suggest.push(this.lastname)
+          var handleSplit = this.handle.split(' ')
+          handleSplit.forEach(function (element) {
+            this.suggest.push(element)
+          }, this)
+
+          console.log(this.suggest)
+
           firebase.database().ref('users/' + user.uid).set({
             firstname: this.firstname,
             lastname: this.lastname,
             handle: this.handle,
+            suggest: this.suggest,
             no_reaction_yet_count: 0,
             ban_count: 0,
             inappropriate_count: 0,

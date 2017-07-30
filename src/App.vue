@@ -266,10 +266,21 @@ export default {
         var body = query.body = {}
         body.query = {
           // Classic Search-Box Style Full-Text Query
+          // TODO: for now it works, but see completion suggester below
           'query_string': {
             'query': term + '*'
           }
         }
+        // Completion suggester
+        /*  'suggest': {
+            'user-suggest': {
+              'prefix': term,
+              'completion': {
+                'field': 'suggest'
+              }
+            }
+          }
+        } */
       } else {
         query.q = term
       }
