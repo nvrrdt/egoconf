@@ -47,7 +47,7 @@
                 <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="http://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
+                <a class="nav-link active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
               </li>
             </ul>
           </div>
