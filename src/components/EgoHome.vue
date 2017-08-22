@@ -50,6 +50,9 @@
         </p>
       </div>
     </div>
+    <div class="card-footer text-muted">
+      &copy; 2017 egoconf
+    </div>
   </div>
 </template>
 
