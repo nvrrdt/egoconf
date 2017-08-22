@@ -44,6 +44,10 @@
           <a href>funding me</a> 
           to allow fulltime development and perhaps an expansion of manpower.
         </p>
+        <p class="card-text text-left">
+          DISCLAIMER: egoconf, as is, is a demo, a proof-of-concept, and could only experimentally be used, 
+          which means that the gathered data will likely be deleted as needed.
+        </p>
       </div>
     </div>
   </div>
