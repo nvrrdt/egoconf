@@ -40,7 +40,7 @@
           without the need to become a specialist in interviewing techniques when applying for a job.
         </p>
         <p class="card-text text-left">
-          If you like the egoconf solution and if you are curious for future developments: consider 
+          If you like the egoconf solution and if you are curious for future developments: please consider 
           <a href>funding me</a> 
           to allow fulltime development and perhaps an expansion of manpower.
         </p>
