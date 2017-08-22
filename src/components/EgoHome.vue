@@ -37,7 +37,12 @@
           to the many recruiters who interviewed me. After brainstorming a while, 
           I was assured that my relatives might be better suited to help me counter this problem 
           and it also seemed that I could keep on specializing myself as wished, 
-          without the need to become a specialist in interview techniques when applying for a job.
+          without the need to become a specialist in interviewing techniques when applying for a job.
+        </p>
+        <p class="card-text text-left">
+          If you like the egoconf solution and if you are curious for future developments: consider 
+          <a href>funding me</a> 
+          to allow fulltime development and perhaps an expansion of manpower.
         </p>
       </div>
     </div>
