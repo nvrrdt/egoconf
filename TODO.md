@@ -54,6 +54,8 @@ stories: {
 - in firefox you have to double click the radio in messages form, solution is to do 'input and label'-combination differently with a for
 - when resubmitting a different answer for a message, hitting submit won't close the panel
 - implement change password in settings
+- implement a jobmarket (-place) where hourly/daily/monthly rates for a certain job could be proposed 
+  and rejected/accepted, based on market demands (ask/bid)
 ```
 
 ### help:
