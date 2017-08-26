@@ -41,8 +41,10 @@
         </p>
         <p class="card-text text-left">
           If you like the egoconf solution and if you are curious for future developments: please consider 
-          <a href>funding me</a> 
-          to allow fulltime development and perhaps an expansion of manpower.
+          donating to allow fulltime development and perhaps an expansion of manpower.
+          <div>
+            <p>Donate bitcoin: <a href="bitcoin:17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn" target="_blank">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+          </div>
         </p>
         <p class="card-text text-left">
           DISCLAIMER: egoconf, as is, is a demo (or a proof-of-concept or a prototype) and could only experimentally be used, 
