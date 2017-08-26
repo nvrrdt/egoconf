@@ -28,7 +28,7 @@
         </p>
         <p class="card-text text-left">
           The common goal of egoconf is to be able to choose more precise the person with the right weighted qualities for a certain job/project 
-          whenever suited and to follow people's qualitative evolution/direction. 
+          whenever suited, to follow people's qualitative evolution/direction and enable self-promotion. 
           The market is always right and in a world where people need to compete more and more with robots, 
           it's of utmost importance to keep as many humans as possible ahead of this (serious) game
         </p>
