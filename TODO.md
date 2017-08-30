@@ -56,6 +56,7 @@ stories: {
 - implement change password in settings
 - implement a jobmarket (-place) where hourly/daily/monthly rates for a certain job could be proposed 
   and rejected/accepted, based on market demands (ask/bid)
+- implement a ethereum smart contract for every grade being added, blockchain is there to make people accountable
 ```
 
 ### help:
