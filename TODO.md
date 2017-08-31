@@ -57,6 +57,7 @@ stories: {
 - implement a jobmarket (-place) where hourly/daily/monthly rates for a certain job could be proposed 
   and rejected/accepted, based on market demands (ask/bid)
 - implement a ethereum smart contract for every grade being added, blockchain is there to make people accountable
+- create a map to show unique and overlapping qualities in function of certain references/projects, and redundancy for the same
 ```
 
 ### help:
