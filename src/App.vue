@@ -1,94 +1,100 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div v-if="isBanned">
-        <h3 class="fewLines">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
-      </div>
-      <div v-else>
-        <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="my-2 my-lg-0 mr-auto">
-                <multiselect 
-                  v-if="isAuthenticated"
-                  v-model="selectedUser" 
-                  id="ajax" 
-                  label="firstname" 
-                  track-by="code" 
-                  placeholder="Search for relatives" 
-                  :options="suggest_users" 
-                  :multiple="false" 
-                  :searchable="true" 
-                  :loading="isLoading" 
-                  :internal-search="false" 
-                  :clear-on-select="true"
-                  :hideSelected="true"
-                  :resetAfter="true"
-                  :close-on-select="true"
-                  :allowEmpty="false"
-                  deselectLabel=""
-                  :options-limit="300" 
-                  :limit="10" 
-                  :limit-text="limitText" 
-                  @search-change="asyncFind">
-                  <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
-                </multiselect>
-            </div>
-            <h2>This is a demo!</h2>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a v-if="isAuthenticated" class="nav-link active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
-              </li>
-              <li class="nav-item">
-                <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
-              </li>
-            </ul>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col">
+          <div v-if="isBanned" class="row justify-content-center">
+            <h3 class="fewLines col-sm-12 col-md-10 col-lg-7 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
           </div>
-        </nav>
-      </div>
-      <router-view></router-view>
-      <div id="wrapper" v-on:keyup.esc="closeModal"> 
-        <modal v-if="showModal"> 
-          <h3 slot="header" class="modal-title">
-            <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
-            <h4>Settings</h4>
-          </h3>
-          
-          <div slot="body" class="modal-body container">
-            <p>Change handle:
-              <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
-                <div class="form-inline">
-                  <div class="form-check">
-                    <validate auto-label class="form-group text-left" :class="">
-                      <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
-                    </validate>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+          <div v-else>
+            <nav class="navbar navbar-toggleable-sm navbar-inverse bg-primary">
+              <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="my-2 my-lg-0 mr-auto">
+                    <multiselect 
+                      v-if="isAuthenticated"
+                      v-model="selectedUser" 
+                      id="ajax" 
+                      label="firstname" 
+                      track-by="code" 
+                      placeholder="Search for relatives" 
+                      :options="suggest_users" 
+                      :multiple="false" 
+                      :searchable="true" 
+                      :loading="isLoading" 
+                      :internal-search="false" 
+                      :clear-on-select="true"
+                      :hideSelected="true"
+                      :resetAfter="true"
+                      :close-on-select="true"
+                      :allowEmpty="false"
+                      deselectLabel=""
+                      :options-limit="300" 
+                      :limit="10" 
+                      :limit-text="limitText" 
+                      @search-change="asyncFind">
+                      <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                    </multiselect>
                 </div>
-              </vue-form>
-            </p>
-            <!-- TODO <p>Change password
-            <vue-form :state="formstate" @submit.prevent="changePassword()" v-model="formstate" class="p-2">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </vue-form>
-            </p> -->
-            <p class="form-inline">Delete account:
-              <vue-form :state="formstate_delete_account" @submit.prevent="deleteAccount()" v-model="formstate_delete_account" class="p-2">
-                <button type="submit" class="btn btn-danger">DEL</button>
-              </vue-form>
-            </p>
+                <h2>This is a demo!</h2>
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a v-if="isAuthenticated" class="nav-link active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
+                  </li>
+                  <li class="nav-item">
+                    <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
           </div>
+          <div class="row justify-content-center">
+            <router-view class="col-sm-12 col-md-10 col-lg-7 col-lg-5"></router-view>
+          </div>
+          <div id="wrapper" v-on:keyup.esc="closeModal"> 
+            <modal v-if="showModal"> 
+              <h3 slot="header" class="modal-title">
+                <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
+                <h4>Settings</h4>
+              </h3>
+              
+              <div slot="body" class="modal-body container">
+                <p>Change handle:
+                  <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
+                    <div class="form-inline">
+                      <div class="form-check">
+                        <validate auto-label class="form-group text-left" :class="">
+                          <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
+                        </validate>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </vue-form>
+                </p>
+                <!-- TODO <p>Change password
+                <vue-form :state="formstate" @submit.prevent="changePassword()" v-model="formstate" class="p-2">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </vue-form>
+                </p> -->
+                <p class="form-inline">Delete account:
+                  <vue-form :state="formstate_delete_account" @submit.prevent="deleteAccount()" v-model="formstate_delete_account" class="p-2">
+                    <button type="submit" class="btn btn-danger">DEL</button>
+                  </vue-form>
+                </p>
+              </div>
 
-          <div slot="footer">
+              <div slot="footer">
+              </div>
+            </modal>
           </div>
-        </modal>
+        </div>
       </div>
     </div>
   </div>
@@ -381,5 +387,8 @@ export default {
   }
   .modal-body {
     text-align: left;
+  }
+  #primary-nav {
+    background-color: skyblue;
   }
 </style>
