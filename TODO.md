@@ -9,18 +9,18 @@ stories: {
     profile statistics,                     DONE
     ask in explore and messages
     history,                                DONE
-    constraints,
-    settings,
+    constraints,                            DONE
+    settings,                               DONE
     admin,
     ads,
     payments,
     mail if comment,
     confirmation mail,
-    rules,
-    positive qualities/adjectives and projects/references in autocomplete,
+    rules,                                  PARTLY DONE
+    positive qualities/adjectives and projects/references in autocomplete,      DONE
     a few bots,
     handshake,
-    texts
+    texts                                   DONE
 }
 ```
 
@@ -39,7 +39,7 @@ stories: {
 - pagination on messages and history
 - lookup send-by-user in messages page instead of showing a hash
 - set maxlength of project in modal in explore page
-- // once de store:state.messages becomes very large, is this a problem?
+- // once the store:state.messages becomes very large, is this a problem?
 - 'a delete account' in settings
 - 'isAdmin: bool' and 'isSpace: bool' in users database
 - // a 'thank you' with comment in the messages if accepted // dunno what to do
