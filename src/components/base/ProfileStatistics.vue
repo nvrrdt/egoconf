@@ -1,6 +1,9 @@
 <template>
 <div>
-  <div class="stats-table container-fluid">
+  <div v-if="!gradesPerQuality.length">
+    <h3 class="fewLines">You haven't yet accepted messages/grades.</h3>
+  </div>
+  <div v-else class="stats-table container-fluid">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -154,5 +157,8 @@ export default {
   }
   .modal-body {
     text-align: left;
+  }
+  .fewLines {
+    margin-top: 60px;
   }
 </style>
