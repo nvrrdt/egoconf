@@ -391,4 +391,7 @@ export default {
   #primary-nav {
     background-color: skyblue;
   }
+  .container-fluid { 
+    padding: 0px;
+  }
 </style>
