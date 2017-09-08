@@ -8,8 +8,10 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src",
-    "test": "jest"
+    "jest": "jest",
+    "e2e": "node test/e2e/runner.js",
+    "test": "jest & npm run e2e",
+    "lint": "eslint --ext .js,.vue src test/e2e/specs test/jest"
   },
   "dependencies": {
     "bootstrap-vue": "^1.0.0-beta.7",
@@ -56,7 +58,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.0.1",
     "jest-vue-preprocessor": "^1.1.0",
-    "jsdom": "^11.2.0",
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.2.0",
@@ -72,7 +73,11 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "chromedriver": "^2.27.2",
+    "cross-spawn": "^5.0.1",
+    "nightwatch": "^0.9.12",
+    "selenium-server": "^3.0.1"
   },
   "engines": {
     "node": ">= 4.0.0",
@@ -98,6 +103,10 @@
     },
     "transformIgnorePatterns": [
       "/node_modules/(?!vue-awesome).+\\.js$"
+    ],
+    "testPathIgnorePatterns": [
+      "/test/e2e/",
+      "/node_modules/"
     ]
   }
 }

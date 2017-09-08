@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import main from '../src/main'
+import main from '../../src/main'
 
 describe('main.test.js', () => {
   let cmp, vm
