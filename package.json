@@ -10,7 +10,7 @@
     "build": "node build/build.js",
     "jest": "jest",
     "e2e": "node test/e2e/runner.js",
-    "test": "jest & npm run e2e",
+    "test": "npm run jest & npm run e2e",
     "lint": "eslint --ext .js,.vue src test/e2e/specs test/jest"
   },
   "dependencies": {
