@@ -68,9 +68,11 @@
           ".indexOn": "timestamp",
            "$recid": {
              // I can only read/write records assigned to me
-             ".read": "auth.uid === data.child('id').val()",
+             // ".read": "auth.uid === data.child('id').val()",
              // delete only
-             ".write": "auth.uid === data.child('id').val() && !newData.exists()"
+             // ".write": "auth.uid === data.child('id').val() && !newData.exists()"
+             ".read": "auth != null",
+      			 ".write": "auth != null"
            }
         }
      }
