@@ -100,7 +100,6 @@ export default {
   }),
   created: function () {
     this.getMessages()
-    console.log(this.messages)
   },
   methods: {
     // TODO: put constraints in constraints.js, that's more clean
