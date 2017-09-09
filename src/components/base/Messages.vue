@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <a class="btn btn-secondary text-capitalize active" href="/base/messages" role="button">Messages</a>
-      <a class="btn btn-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
-      <a class="btn btn-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
-      <a class="btn btn-secondary text-capitalize" href="/base/history" role="button">History</a>
+      <a class="btn btn-outline-secondary text-capitalize active" href="/base/messages" role="button">Messages</a>
+      <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
+      <a class="btn btn-outline-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
+      <a class="btn btn-outline-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div>
       <div v-if="!messages.length">
@@ -100,7 +100,6 @@ export default {
   }),
   created: function () {
     this.getMessages()
-    console.log(this.messages)
   },
   methods: {
     // TODO: put constraints in constraints.js, that's more clean
