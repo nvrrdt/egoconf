@@ -9,7 +9,7 @@
 {
   "rules": {
     "users": {
-      ".read": "auth != null",
+      ".read": "true", // TODO: users can be read by anyone, this should be avoided, certainly in EgoHome page when logged out!!! How?
       ".write": "auth != null"
     },
     "messages": {
