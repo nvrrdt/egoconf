@@ -4,7 +4,7 @@
       <div class="row justify-content-center">
         <div class="col">
           <div v-if="isBanned" class="row justify-content-center">
-            <h3 class="fewLines col-sm-12 col-md-10 col-lg-7 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
+            <h3 class="fewLines col-sm-12 col-md-12 col-lg-8 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
           </div>
           <div v-else>
             <nav class="navbar navbar-toggleable navbar-inverse bg-primary">
@@ -56,7 +56,7 @@
             </nav>
           </div>
           <div class="row justify-content-center">
-            <router-view class="col-sm-12 col-md-10 col-lg-7 col-lg-5"></router-view>
+            <router-view class="col-sm-12 col-md-12 col-lg-8 col-lg-5"></router-view>
           </div>
           <div id="wrapper" v-on:keyup.esc="closeModal"> 
             <modal v-if="showModal"> 
@@ -394,4 +394,57 @@ export default {
   .container-fluid { 
     padding: 0px;
   }
+
+/*  Extra small devices (portrait phones, less than 544px) No media query since this is the default in Bootstrap because it is "mobile first" */
+h1 {font-size:1.5rem;} /*1rem = 16px*/
+h2 {font-size:1.4rem;}
+h3 {font-size:1.3rem;}
+h4 {font-size:1.2rem;}
+h5 {font-size:1.1rem;}
+p {font-size:1.2rem;}
+a {font-size:1.2rem;}
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {  
+  h1 {font-size:2rem;} /*1rem = 16px*/
+  h2 {font-size:1.9rem;}
+  h3 {font-size:1.8rem;}
+  h4 {font-size:1.7rem;}
+  h5 {font-size:1.6rem;}
+  p {font-size:1.6rem;}
+  a {font-size:1.6rem;}
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+  h1 {font-size:2.5rem;} /*1rem = 16px*/
+  h2 {font-size:2.4rem;}
+  h3 {font-size:2.3rem;}
+  h4 {font-size:2.2rem;}
+  h5 {font-size:2.1rem;}
+  p {font-size:2rem;}
+  a {font-size:2rem;}
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  h1 {font-size:2.5rem;} /*1rem = 16px*/
+  h2 {font-size:2.3rem;}
+  h3 {font-size:2.1rem;}
+  h4 {font-size:1.9rem;}
+  h5 {font-size:1.7rem;}
+  p {font-size:1rem;}
+  a {font-size:1.4rem;}
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+  h1 {font-size:2.8rem;} /*1rem = 16px*/
+  h2 {font-size:2.4rem;}
+  h3 {font-size:2rem;}
+  h4 {font-size:1.8rem;}
+  h5 {font-size:1.4rem;}
+  p {font-size:1rem;}
+  a {font-size:1.4rem;}   
+}
 </style>
