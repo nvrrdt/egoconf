@@ -402,7 +402,7 @@ h3 {font-size:1.3rem;}
 h4 {font-size:1.2rem;}
 h5 {font-size:1.1rem;}
 p {font-size:1.2rem;}
-a {font-size:1.2rem;}
+a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all device, that or better should be implemented
 
 /* Small devices (landscape phones, 544px and up) */
 @media (min-width: 544px) {  
