@@ -12,21 +12,43 @@ For instance, recruiters are more precisely informed about someone's qualities, 
 
 ## Build Setup
 
+egoconf's backend is [firebase](https://firebase.google.com/) and the frontend is [vue](https://vuejs.org/)
+
+``` bash
+# clone the egoconf repository
+git clone https://github.com/egoconf/egoconf.git
+```
+Start a [firebase project](https://console.firebase.google.com/u/0/) and add your credentials to your cloned egoconf repository in the file [firebase.js](src/firebse.js). You find your credentials in firebase's common settings where you choose to add firebase to your web app.
+
 ``` bash
 # install dependencies
 npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
+```
+Verify that egoconf's landing page appears in the browser. Also verify the error messages by opening your browser's developer tools (ctrl+shift+i in chrome/chromium), but we'll handle these errors later on.
+``` bash
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
+-- or --
 npm run build --report
+```
+Deploy firebase as explained in [this guide](https://firebase.google.com/docs/hosting/deploying)
+
+egoconf also uses elasticsearch as a means to be able to search for someone. Follow the installation guide of [flashlight](https://github.com/firebase/flashlight) herefore. This might take some time to set up right!
+Add some users and verify that you are able to search for those users.
+
+The tests aren't yet implemented, nonetheless they are ready to become implemented.
+``` bash
+# run unit tests
+npm jest
+
+# run e2e tests
+npm e2e
 
 # run all tests
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+This build setup isn't quite finished, so if you encounter problems, please do let me know.
