@@ -18,7 +18,7 @@ egoconf's backend is [firebase](https://firebase.google.com/) and the frontend i
 # clone the egoconf repository
 git clone https://github.com/egoconf/egoconf.git
 ```
-Start a [firebase project](https://console.firebase.google.com/u/0/) and add your credentials to your cloned egoconf repository in the file [firebase.js](src/firebse.js). You find your credentials in firebase's common settings where you choose to add firebase to your web app.
+Start a [firebase project](https://console.firebase.google.com/u/0/) and add your credentials to your cloned egoconf repository in the file [firebase.js](src/firebase.js). You find your credentials in firebase's common settings where you choose to add firebase to your web app.
 
 ``` bash
 # install dependencies
