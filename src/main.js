@@ -23,7 +23,8 @@ Vue.use(VueFire)
 Vue.use(AuthPlugin)
 
 Vue.use(VueAnalytics, {
-  id: 'UA-108328645-1'
+  id: 'UA-108328645-1',
+  router
 })
 
 const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
