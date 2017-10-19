@@ -12,6 +12,7 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 import AuthPlugin from '@/auth'
 import * as firebase from 'firebase'
+import VueAnalytics from 'vue-analytics'
 
 Vue.component('icon', Icon)
 
@@ -20,6 +21,10 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueFire)
 Vue.use(AuthPlugin)
+
+Vue.use(VueAnalytics, {
+  id: 'UA-108328645-1'
+})
 
 const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
   /* eslint-disable no-new */
