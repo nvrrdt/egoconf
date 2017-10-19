@@ -7,17 +7,17 @@
             <h3 class="fewLines col-sm-12 col-md-12 col-lg-8 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
           </div>
           <div v-else>
-            <nav class="navbar navbar-toggleable navbar-inverse bg-primary">
+            <nav class="navbar navbar-expand-lg navbar-inverse bg-primary">
               <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <a class="navbar-brand" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
+              <a class="navbar-brand text-light" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
 
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="my-2 my-lg-0 mr-auto">
                     <multiselect 
                       v-if="isAuthenticated"
-                      v-model="selectedUser" 
+                      v-model="selectedUser"
                       id="ajax" 
                       label="firstname" 
                       track-by="code" 
@@ -43,13 +43,13 @@
                 <h2>This is a demo!</h2>
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a v-if="isAuthenticated" class="nav-link active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
+                    <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
                   </li>
                   <li class="nav-item">
-                    <a v-if="isAuthenticated" class="nav-link active" href @click="signOut">Logout</a>
+                    <a v-if="isAuthenticated" class="nav-link text-light active" href @click="signOut">Logout</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
+                    <a class="nav-link text-light active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
                   </li>
                 </ul>
               </div>
