@@ -107,7 +107,7 @@ li {
 }
 
 .fullpage {
-  height: 75vh;
+  height: 64vh;
 }
 
 .fullfullpage {
