@@ -58,6 +58,9 @@
           <div class="row justify-content-center">
             <router-view class="col-sm-12 col-md-12 col-lg-8 col-lg-5"></router-view>
           </div>
+          <div class="row justify-content-center footer text-muted">
+            &copy; 2017 egoconf
+          </div>
           <div id="wrapper" v-on:keyup.esc="closeModal"> 
             <modal v-if="showModal"> 
               <h3 slot="header" class="modal-title">
@@ -393,6 +396,11 @@ export default {
   }
   .container-fluid { 
     padding: 0px;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
   }
 
 /*  Extra small devices (portrait phones, less than 544px) No media query since this is the default in Bootstrap because it is "mobile first" */
