@@ -43,7 +43,7 @@
                 <h2>This is a demo!</h2>
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openModal()" v-on:keyup.esc="closeModal">{{ firstname }}'s settings</a>
+                    <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openSettingsModal()" v-on:keyup.esc="closeSettingsModal">{{ firstname }}'s settings</a>
                   </li>
                   <li class="nav-item">
                     <a v-if="isAuthenticated" class="nav-link text-light active" href @click="signOut">Logout</a>
@@ -59,12 +59,16 @@
             <router-view></router-view>
           </div>
           <div class="justify-content-center footer bg-primary">
-            <p class="text-light">&copy; 2017 egoconf</p>
+            <p class="text-light">
+              &copy; 2017 egoconf -
+              <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
+            </p>
           </div>
-          <div id="wrapper" v-on:keyup.esc="closeModal"> 
-            <modal v-if="showModal"> 
+          <!-- Settings modal -->
+          <div id="wrapper" v-on:keyup.esc="closeSettingsModal"> 
+            <modal v-if="showSettingsModal"> 
               <h3 slot="header" class="modal-title">
-                <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" @click="closeSettingsModal()">&times;</button>
                 <h4>Settings</h4>
               </h3>
               
@@ -91,6 +95,44 @@
                     <button type="submit" class="btn btn-danger">DEL</button>
                   </vue-form>
                 </p>
+              </div>
+
+              <div slot="footer">
+              </div>
+            </modal>
+          </div>
+          <!-- Contactform modal -->
+          <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
+            <modal v-if="showContactForm"> 
+              <h3 slot="header" class="modal-title">
+                <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
+                <h4>contact form</h4>
+              </h3>
+              
+              <div slot="body" class="modal-body container">
+                <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage" v-model="formstate_msg">
+
+                  <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
+                    <label>Email</label>
+                    <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
+
+                    <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
+                      <div slot="required" style="color: red">Email is a required field</div>
+                      <div slot="email" style="color: red">Email is not valid</div>
+                    </field-messages>
+                  </validate>
+
+                  <validate auto-label class="form-group required-field" :class="">
+                    <label>Message</label>
+                    <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
+
+                    <field-messages name="contact_msg" show="$touched || $submitted" class="form-control-feedback">
+                      <div slot="required" style="color: red">The message is required</div>
+                    </field-messages>
+                  </validate>
+
+                  <button type="submit" class="btn btn-primary float-right">Submit</button>
+                </vue-form>
               </div>
 
               <div slot="footer">
@@ -124,7 +166,9 @@ export default {
     return {
       formstate_handle: {},
       formstate_delete_account: {},
-      showModal: false,
+      formstate_msg: {},
+      showSettingsModal: false,
+      showContactForm: false,
       firstname: this.getFirstName(),
       selectedUser: [],
       suggest_users: [],
@@ -132,7 +176,9 @@ export default {
       term: '',
       isBanned: false,
       banEndsAt: '',
-      handle: this.getHandle()
+      handle: this.getHandle(),
+      contact_email: '',
+      contact_msg: ''
     }
   },
   watch: {
@@ -183,7 +229,7 @@ export default {
 
           firebase.auth().currentUser.delete()
         } else {
-          vm.closeModal()
+          vm.closeSettingsModal()
           router.push({ name: 'EgoHome' })
         }
       })
@@ -219,11 +265,25 @@ export default {
         }
       })
     },
-    openModal () {
-      this.showModal = true
+    // Settings
+    openSettingsModal () {
+      this.showSettingsModal = true
     },
-    closeModal () {
-      this.showModal = false
+    // Settings
+    closeSettingsModal () {
+      this.showSettingsModal = false
+    },
+    // Contact form
+    sendContactMessage: function () {
+      this.closeContactForm()
+    },
+    //
+    openContactForm () {
+      this.showContactForm = true
+    },
+    // Settings
+    closeContactForm () {
+      this.showContactForm = false
     },
     // TODO: isBanned is untested!!!
     setBanned () {
