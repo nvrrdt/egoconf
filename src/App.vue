@@ -58,8 +58,8 @@
           <div>
             <router-view></router-view>
           </div>
-          <div class="row justify-content-center footer text-muted">
-            &copy; 2017 egoconf
+          <div class="justify-content-center footer bg-primary">
+            <p class="text-light">&copy; 2017 egoconf</p>
           </div>
           <div id="wrapper" v-on:keyup.esc="closeModal"> 
             <modal v-if="showModal"> 
@@ -398,9 +398,11 @@ export default {
     padding: 0px;
   }
 
-  footer {
+  .footer {
     position: absolute;
     bottom: 0;
+    width: 100%;
+    padding-top: 15px;
   }
 
 /*  Extra small devices (portrait phones, less than 544px) No media query since this is the default in Bootstrap because it is "mobile first" */
@@ -408,7 +410,7 @@ h1 {font-size:1.5rem;} /*1rem = 16px*/
 h2 {font-size:1.4rem;}
 h3 {font-size:1.3rem;}
 h4 {font-size:1.2rem;}
-h5 {font-size:1.1rem;}
+h5 {font-size:1.2rem;}
 p {font-size:1.2rem;}
 a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all device, that or better should be implemented
 
