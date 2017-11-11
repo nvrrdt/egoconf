@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class="row align-items-center justify-content-center fullpage">
-    <div class="col col-sm-12 col-md-12 col-lg-9 col-lg-7 text-center">
+  <div class="row align-items-center justify-content-center fullpage1">
+    <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <h1>egoconf enables <b>social profiling</b></h1>
       <h5 class="mb-2 text-muted">
         - <a class="text-capitalize" v-on:click="toSignup" role="button" href>signup</a> - or - 
@@ -10,8 +10,11 @@
       <h5 class="paddingtop">Improve your knowledge about the strenghts and qualities of your acquaintances.</h5>
     </div>
   </div>
-  <div class="row align-items-center justify-content-center fullpage">
-    <div class="col col-sm-12 col-md-12 col-lg-9 col-lg-7 text-center">
+    <div>
+      <icon name="arrow-circle-down" scale="4"></icon>
+    </div>
+  <div class="row align-items-center justify-content-center fullpage2 lightyellow">
+    <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
         Social profiling is a method of assembling someone's profile as seen by that person's relatives and this in a socially acceptable setting. 
         More precise, egoconf realizes grading relatives'qualities as seen commonly or in a certain reference environment. 
@@ -24,8 +27,8 @@
       </p>
     </div>
   </div>
-  <div class="row align-items-center justify-content-center fullpage">
-    <div class="col col-sm-12 col-md-12 col-lg-9 col-lg-7 text-center">
+  <div class="row align-items-center justify-content-center fullpage2 lightgreen">
+    <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
         The long term goal of egoconf is to make a neural map of (a lot of) people's specialties, 
         ranked as graded qualities in a certain reference environment. This will provide statistical rankings determined in all kinds of ways, 
@@ -40,8 +43,8 @@
       </p>
     </div>
   </div>
-  <div class="row align-items-center justify-content-center fullpage">
-    <div class="col col-sm-12 col-md-12 col-lg-9 col-lg-7 text-center">
+  <div class="row align-items-center justify-content-center fullpage2 lightblue">
+    <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
         The problem I tried to solve when producing this app was my inability to explain my qualities precisely, and as wished, 
         to the many recruiters who interviewed me. After brainstorming a while, 
@@ -51,8 +54,8 @@
       </p>
     </div>
   </div>
-  <div class="row align-items-center justify-content-center fullfullpage">
-    <div class="col col-sm-12 col-md-12 col-lg-9 col-lg-7 text-center">
+  <div class="row align-items-center justify-content-center fullpage3 lightorange">
+    <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <h5 class="text-left">
         If you like the egoconf solution and if you are curious for future developments: please consider 
         donating to allow fulltime development and perhaps an expansion of manpower.
@@ -106,12 +109,32 @@ li {
   margin: 0 10px;
 }
 
-.fullpage {
-  height: 64vh;
+.fullpage1 {
+  height: 75vh;
 }
 
-.fullfullpage {
+.fullpage2 {
+  height: 75vh;
+}
+
+.fullpage3 {
   height: 100vh;
+}
+
+.lightyellow {
+  background-color: lightyellow;
+}
+
+.lightgreen {
+  background-color: lightgreen;
+}
+
+.lightblue {
+  background-color: lightblue;
+}
+
+.lightorange {
+  background-color: lightgrey;
 }
 
 .paddingtop {

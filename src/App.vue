@@ -55,8 +55,8 @@
               </div>
             </nav>
           </div>
-          <div class="row justify-content-center">
-            <router-view class="col-sm-12 col-md-12 col-lg-8 col-lg-5"></router-view>
+          <div>
+            <router-view></router-view>
           </div>
           <div class="row justify-content-center footer text-muted">
             &copy; 2017 egoconf
