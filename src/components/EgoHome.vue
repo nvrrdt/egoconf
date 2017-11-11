@@ -134,7 +134,7 @@ li {
 }
 
 .lightorange {
-  background-color: lightgrey;
+  background-color: #fcd8b3;
 }
 
 .paddingtop {
