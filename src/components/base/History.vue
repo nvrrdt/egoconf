@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
       <a class="btn btn-outline-secondary text-capitalize" href="/base/messages" role="button">Messages</a>
       <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
@@ -82,5 +82,9 @@ export default {
   .message {
     margin-top:5px;
     margin-bottom:5px;
+  }
+
+  .base {
+    height: 89vh;
   }
 </style>
