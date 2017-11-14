@@ -21,7 +21,7 @@
                       id="ajax" 
                       label="firstname" 
                       track-by="code" 
-                      placeholder="Search for relatives" 
+                      placeholder="Search for acquaintances" 
                       :options="suggest_users" 
                       :multiple="false" 
                       :searchable="true" 

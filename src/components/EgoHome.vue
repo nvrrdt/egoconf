@@ -16,8 +16,8 @@
   <div class="row align-items-center justify-content-center fullpage2 lightyellow">
     <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
-        Social profiling is a method of assembling someone's profile as seen by that person's relatives and this in a socially acceptable setting. 
-        More precise, egoconf realizes grading relatives'qualities as seen commonly or in a certain reference environment. 
+        Social profiling is a method of assembling someone's profile as seen by that person's acquaintances and this in a socially acceptable setting. 
+        More precise, egoconf realizes grading acquaintances'qualities as seen commonly or in a certain reference environment. 
         To keep interactions as positive as possible there are a few constraints: grades are limited between 6/10 and 10/10 
         and only positive qualities will be graded. A reference environment may optionally be provided 
         and if this reference contains an inappropriate phrase, 
@@ -48,7 +48,7 @@
       <p class="text-left">
         The problem I tried to solve when producing this app was my inability to explain my qualities precisely, and as wished, 
         to the many recruiters who interviewed me. After brainstorming a while, 
-        I was assured that my relatives might be better suited to help me counter this problem 
+        I was assured that my acquaintances might be better suited to help me counter this problem 
         and it also seemed that I could keep on specializing myself as wished, 
         without the need to become a specialist in interviewing techniques when applying for a job.
       </p>
