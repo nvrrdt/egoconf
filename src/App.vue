@@ -154,6 +154,8 @@ import router from '@/router'
 import store from '@/store'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
+import https from 'https'
+import querystring from 'querystring'
 
 export default {
   name: 'app',
@@ -178,7 +180,8 @@ export default {
       banEndsAt: '',
       handle: this.getHandle(),
       contact_email: '',
-      contact_msg: ''
+      contact_msg: '',
+      fulluser: ''
     }
   },
   watch: {
@@ -275,13 +278,96 @@ export default {
     },
     // Contact form
     sendContactMessage: function () {
-      this.closeContactForm()
+      // send emailadress and message to /contactmessage
+      // import http, use post to send to cloud functions
+      // if (user) find email in database, else emailadress must be present
+
+      var user = firebase.auth().currentUser
+
+      if (user) {
+        var userId = user.uid
+        var userEmail = user.email
+
+        var vm = this
+
+        firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+          console.log('user')
+
+          var data = querystring.stringify({
+            'fulluser': snapshot.val().firstname + ' ' + snapshot.val().lastname + ' - ' + snapshot.val().handle + ' - ' + userEmail,
+            'msg': vm.contact_msg
+          })
+
+          var options = {
+            host: 'us-central1-egorest-5ccb0.cloudfunctions.net',
+            path: '/contactmessage',
+            port: '443',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+
+          var callback = function (response) {
+            var str = ''
+            response.on('data', function (chunk) {
+              str += chunk
+            })
+
+            response.on('end', function () {
+              console.log(str)
+            })
+          }
+
+          var req = https.request(options, callback)
+          // This is the data we are posting, it needs to be a string or a buffer
+          req.write(data)
+          req.end()
+
+          vm.closeContactForm()
+        })
+      } else {
+        console.log(this.contact_email, this.contact_msg)
+
+        var data = querystring.stringify({
+          'email': this.contact_email,
+          'msg': this.contact_msg
+        })
+
+        var options = {
+          host: 'us-central1-egorest-5ccb0.cloudfunctions.net',
+          path: '/contactmessage',
+          port: '443',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+
+        var callback = function (response) {
+          var str = ''
+          response.on('data', function (chunk) {
+            str += chunk
+          })
+
+          response.on('end', function () {
+            console.log(str)
+          })
+        }
+
+        var req = https.request(options, callback)
+        // This is the data we are posting, it needs to be a string or a buffer
+        req.write(data)
+        req.end()
+
+        this.closeContactForm()
+      }
     },
     //
     openContactForm () {
       this.showContactForm = true
     },
-    // Settings
+    //
     closeContactForm () {
       this.showContactForm = false
     },
