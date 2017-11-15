@@ -60,8 +60,7 @@
           </div>
           <div class="justify-content-center footer bg-primary">
             <p class="text-light">
-              &copy; 2017 egoconf -
-              <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
+              &copy; 2017 egoconf - egoconfmailer@gmail.com
             </p>
           </div>
           <!-- Settings modal -->
@@ -101,44 +100,6 @@
               </div>
             </modal>
           </div>
-          <!-- Contactform modal -->
-          <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
-            <modal v-if="showContactForm"> 
-              <h3 slot="header" class="modal-title">
-                <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
-                <h4>contact form</h4>
-              </h3>
-              
-              <div slot="body" class="modal-body container">
-                <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage" v-model="formstate_msg">
-
-                  <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
-                    <label>Email</label>
-                    <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
-
-                    <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
-                      <div slot="required" style="color: red">Email is a required field</div>
-                      <div slot="email" style="color: red">Email is not valid</div>
-                    </field-messages>
-                  </validate>
-
-                  <validate auto-label class="form-group required-field" :class="">
-                    <label>Message</label>
-                    <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
-
-                    <field-messages name="contact_msg" show="$touched || $submitted" class="form-control-feedback">
-                      <div slot="required" style="color: red">The message is required</div>
-                    </field-messages>
-                  </validate>
-
-                  <button type="submit" class="btn btn-primary float-right">Submit</button>
-                </vue-form>
-              </div>
-
-              <div slot="footer">
-              </div>
-            </modal>
-          </div>
         </div>
       </div>
     </div>
@@ -154,8 +115,6 @@ import router from '@/router'
 import store from '@/store'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
-import https from 'https'
-import querystring from 'querystring'
 
 export default {
   name: 'app',
@@ -170,7 +129,6 @@ export default {
       formstate_delete_account: {},
       formstate_msg: {},
       showSettingsModal: false,
-      showContactForm: false,
       firstname: this.getFirstName(),
       selectedUser: [],
       suggest_users: [],
@@ -178,10 +136,7 @@ export default {
       term: '',
       isBanned: false,
       banEndsAt: '',
-      handle: this.getHandle(),
-      contact_email: '',
-      contact_msg: '',
-      fulluser: ''
+      handle: this.getHandle()
     }
   },
   watch: {
@@ -275,101 +230,6 @@ export default {
     // Settings
     closeSettingsModal () {
       this.showSettingsModal = false
-    },
-    // Contact form
-    sendContactMessage: function () {
-      // send emailadress and message to /contactmessage
-      // import http, use post to send to cloud functions
-      // if (user) find email in database, else emailadress must be present
-
-      var user = firebase.auth().currentUser
-
-      if (user) {
-        var userId = user.uid
-        var userEmail = user.email
-
-        var vm = this
-
-        firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-          console.log('user')
-
-          var data = querystring.stringify({
-            'fulluser': snapshot.val().firstname + ' ' + snapshot.val().lastname + ' - ' + snapshot.val().handle + ' - ' + userEmail,
-            'msg': vm.contact_msg
-          })
-
-          var options = {
-            host: 'us-central1-egorest-5ccb0.cloudfunctions.net',
-            path: '/contactmessage',
-            port: '443',
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-
-          var callback = function (response) {
-            var str = ''
-            response.on('data', function (chunk) {
-              str += chunk
-            })
-
-            response.on('end', function () {
-              console.log(str)
-            })
-          }
-
-          var req = https.request(options, callback)
-          // This is the data we are posting, it needs to be a string or a buffer
-          req.write(data)
-          req.end()
-
-          vm.closeContactForm()
-        })
-      } else {
-        console.log(this.contact_email, this.contact_msg)
-
-        var data = querystring.stringify({
-          'email': this.contact_email,
-          'msg': this.contact_msg
-        })
-
-        var options = {
-          host: 'us-central1-egorest-5ccb0.cloudfunctions.net',
-          path: '/contactmessage',
-          port: '443',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-
-        var callback = function (response) {
-          var str = ''
-          response.on('data', function (chunk) {
-            str += chunk
-          })
-
-          response.on('end', function () {
-            console.log(str)
-          })
-        }
-
-        var req = https.request(options, callback)
-        // This is the data we are posting, it needs to be a string or a buffer
-        req.write(data)
-        req.end()
-
-        this.closeContactForm()
-      }
-    },
-    //
-    openContactForm () {
-      this.showContactForm = true
-    },
-    //
-    closeContactForm () {
-      this.showContactForm = false
     },
     // TODO: isBanned is untested!!!
     setBanned () {
