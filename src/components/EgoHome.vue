@@ -118,7 +118,7 @@ li {
 }
 
 .fullpage3 {
-  height: 100vh;
+  height: 85vh;
 }
 
 .lightyellow {
