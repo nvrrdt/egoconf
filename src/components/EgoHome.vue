@@ -61,7 +61,7 @@
         donating to allow fulltime development and perhaps an expansion of manpower.
       </h5>
       <div class="text-center">
-        <p>Donate bitcoin: <a href="bitcoin:17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn" target="_blank">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+        <p>Donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
       </div>
       <p class="text-left paddingtoptop">
         DISCLAIMER: egoconf, as is, is a demo (or a proof-of-concept or a prototype) and could only experimentally be used, 
