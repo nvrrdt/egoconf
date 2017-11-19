@@ -60,7 +60,8 @@
           </div>
           <div class="justify-content-center footer bg-primary">
             <p class="text-light">
-              &copy; 2017 egoconf - egoconfmailer@gmail.com
+              &copy; 2017 egoconf -
+              <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
             </p>
           </div>
           <!-- Settings modal -->
@@ -96,6 +97,44 @@
                 </p>
               </div>
 
+              <div slot="footer">
+              </div>
+            </modal>
+          </div>
+          <!-- Contactform modal -->
+          <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
+            <modal v-if="showContactForm"> 
+              <h3 slot="header" class="modal-title">
+                <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
+                <h4>contact form</h4>
+              </h3>
+          
+              <div slot="body" class="modal-body container">
+                <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage()" v-model="formstate_msg">
+ 
+                  <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
+                    <label>Email</label>
+                    <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
+ 
+                    <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
+                      <div slot="required" style="color: red">Email is a required field</div>
+                      <div slot="email" style="color: red">Email is not valid</div>
+                    </field-messages>
+                  </validate>
+ 
+                  <validate auto-label class="form-group required-field" :class="">
+                    <label>Message</label>
+                    <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
+ 
+                    <field-messages name="contact_msg" show="$touched || $submitted" class="form-control-feedback">
+                      <div slot="required" style="color: red">The message is required</div>
+                    </field-messages>
+                  </validate>
+ 
+                  <button type="submit" class="btn btn-primary float-right">Submit</button>
+                </vue-form>
+              </div>
+ 
               <div slot="footer">
               </div>
             </modal>
@@ -136,7 +175,11 @@ export default {
       term: '',
       isBanned: false,
       banEndsAt: '',
-      handle: this.getHandle()
+      handle: this.getHandle(),
+      showContactForm: false,
+      contact_email: '',
+      contact_msg: '',
+      fulluser: ''
     }
   },
   watch: {
@@ -230,6 +273,45 @@ export default {
     // Settings
     closeSettingsModal () {
       this.showSettingsModal = false
+    },
+    // Contact form
+    sendContactMessage: function () {
+      var user = firebase.auth().currentUser
+
+      var vm = this
+
+      if (user) {
+        var userId = user.uid
+        var userEmail = user.email
+
+        firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+          console.log('user')
+
+          firebase.database().ref('contactmessages/').push({
+            fulluser: snapshot.val().firstname + ' ' + snapshot.val().lastname + ' - ' + snapshot.val().handle + ' - ',
+            msg: vm.contact_msg,
+            email: userEmail
+          })
+        })
+      } else {
+        console.log('no user')
+
+        firebase.database().ref('contactmessages/').push({
+          fulluser: '',
+          msg: vm.contact_msg,
+          email: vm.contact_email
+        })
+      }
+
+      this.closeContactForm()
+    },
+    //
+    openContactForm () {
+      this.showContactForm = true
+    },
+    //
+    closeContactForm () {
+      this.showContactForm = false
     },
     // TODO: isBanned is untested!!!
     setBanned () {
