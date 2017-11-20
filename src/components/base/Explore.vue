@@ -7,7 +7,7 @@
       <a class="btn btn-outline-secondary text-capitalize" href="/base/history" role="button">History</a>
     </div>
     <div v-if="!searchedFirstname">
-      <h3 class="fewLines">Search for a relative to explore that person's profile</h3>
+      <h3 class="fewLines">Search for an acquaintance to explore that person's profile</h3>
     </div>
     <div v-else-if="isBlocked">
       <div class="fewLines">

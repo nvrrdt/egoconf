@@ -8,7 +8,7 @@
     </div>
     <div>
       <div v-if="!messages.length">
-        <h3 class="fewLines">Someone needs to grade one of your qualities. Feel free to search for a relative.</h3>
+        <h3 class="fewLines">Someone needs to grade one of your qualities. Feel free to search for a acquaintance.</h3>
       </div>
       <div v-else>
         <ul class="list-unstyled">

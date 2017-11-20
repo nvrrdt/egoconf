@@ -31,7 +31,7 @@ stories: {
 - try without page refreshes when switching between tabs like messages and explore
 - are the firebase database rules ok?
 - maybe a log to follow up changing actions when accepting/rejecting messages
-- !!! why not ask a relative to grade my quality? !!!
+- !!! why not ask an acquaintance to grade my quality? !!!
 - send a verification email when signing up
 - create a loop or listener or so, to check for new messages
 - a clause in the license that states that websites that use egoconf, must be available for the general global public
