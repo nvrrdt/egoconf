@@ -7,7 +7,7 @@
             <h3 class="fewLines col-sm-12 col-md-12 col-lg-8 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
           </div>
           <div v-else>
-            <nav class="navbar navbar-expand-lg navbar-inverse bg-primary">
+            <nav class="navbar navbar-expand-sm navbar-inverse bg-primary">
               <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
