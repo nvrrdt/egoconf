@@ -1,24 +1,28 @@
 <template>
-  <div class="base">
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/messages" role="button">Messages</a>
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
-      <a class="btn btn-outline-secondary text-capitalize active" href="/base/history" role="button">History</a>
-    </div>
-    <div>
-      <ul style="margin-top: 35px;">
-        <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
-          <div class="text-left message">
-            <p>
-              <strong>{{ getFullname(message.value.to_userid) }}</strong> accepted your message, you were given 
-              <strong>{{ message.value.grade }}/10</strong> for the 
-              <strong>'{{ message.value.quality }}'</strong> quality during the 
-              <strong>'{{ message.value.project }}'</strong> project
-            </p>
-          </div>  
-        </li></strong>
-      </ul>
+  <div class="row justify-content-center">
+    <div class="col col-sm-12 col-md-10 col-lg-7 col-lg-5">
+      <div class="base">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/messages" role="button">Messages</a>
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
+          <a class="btn btn-outline-secondary text-capitalize active" href="/base/history" role="button">History</a>
+        </div>
+        <div>
+          <ul style="margin-top: 35px;">
+            <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
+              <div class="text-left message">
+                <p>
+                  <strong>{{ getFullname(message.value.to_userid) }}</strong> accepted your message, you were given 
+                  <strong>{{ message.value.grade }}/10</strong> for the 
+                  <strong>'{{ message.value.quality }}'</strong> quality during the 
+                  <strong>'{{ message.value.project }}'</strong> project
+                </p>
+              </div>  
+            </li></strong>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>

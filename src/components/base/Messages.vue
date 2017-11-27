@@ -1,85 +1,89 @@
 <template>
-  <div class="base">
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <a class="btn btn-outline-secondary text-capitalize active" href="/base/messages" role="button">Messages</a>
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
-      <a class="btn btn-outline-secondary text-capitalize" href="/base/history" role="button">History</a>
-    </div>
-    <div>
-      <div v-if="!messages.length">
-        <h3 class="fewLines">Someone needs to grade one of your qualities. Feel free to search for a acquaintances.</h3>
-      </div>
-      <div v-else>
-        <ul class="list-unstyled">
-          <li v-for="msg in messages" :key="msg.key">
-            <div class="d-flex flex-column message">
-              <a class="p-2 text-left"  @click="toggleCollapse(msg)" href="#">
-                <icon v-if="msg.isCollapsed|| !msg.value.timestamp_reaction" name="minus-square-o" scale="1"></icon>
-                <icon v-else name="plus-square-o" scale="1"></icon>&nbsp;&nbsp;
-                <icon v-if="msg.value.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
-                <icon v-else name="envelope-o" scale="1"></icon>
-                Message from {{ getFullname(msg.value.from_userid) }} who gives {{ msg.value.grade }} points for the '{{ msg.value.quality }}' quality during the '{{ msg.value.project }}' project
-              </a>
-              <div v-if="setCollapse(msg)">
-                <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key, msg)" v-model="formstate" class="p-2">
-                  <div class="form-check choices">
-                    <validate auto-label class="form-group text-left" :class="">
-                      <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
-                        <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="setCollapse(msg)">
-                        Message accepted!
-                      </label>
-                    </validate>
+  <div class="row justify-content-center">
+    <div class="col col-sm-12 col-md-10 col-lg-7 col-lg-5">
+      <div class="base">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <a class="btn btn-outline-secondary text-capitalize active" href="/base/messages" role="button">Messages</a>
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/explore" role="button">Explore</a>
+          <a class="btn btn-outline-secondary text-capitalize" href="/base/history" role="button">History</a>
+        </div>
+        <div>
+          <div v-if="!messages.length">
+            <h3 class="fewLines">Someone needs to grade one of your qualities. Feel free to search for a acquaintances.</h3>
+          </div>
+          <div v-else>
+            <ul class="list-unstyled">
+              <li v-for="msg in messages" :key="msg.key">
+                <div class="d-flex flex-column message">
+                  <a class="p-2 text-left"  @click="toggleCollapse(msg)" href="#">
+                    <icon v-if="msg.isCollapsed|| !msg.value.timestamp_reaction" name="minus-square-o" scale="1"></icon>
+                    <icon v-else name="plus-square-o" scale="1"></icon>&nbsp;&nbsp;
+                    <icon v-if="msg.value.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
+                    <icon v-else name="envelope-o" scale="1"></icon>
+                    Message from {{ getFullname(msg.value.from_userid) }} who gives {{ msg.value.grade }} points for the '{{ msg.value.quality }}' quality during the '{{ msg.value.project }}' project
+                  </a>
+                  <div v-if="setCollapse(msg)">
+                    <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key, msg)" v-model="formstate" class="p-2">
+                      <div class="form-check choices">
+                        <validate auto-label class="form-group text-left" :class="">
+                          <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
+                            <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="setCollapse(msg)">
+                            Message accepted!
+                          </label>
+                        </validate>
+                      </div>
+                      <div class="form-check choices">
+                        <validate auto-label class="form-group text-left" :class="">
+                          <label class="form-check-label" @click="msg.value.is_accepted = false">
+                            <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="!setCollapse(msg)">
+                            No thanks, message rejected for following reason(s):
+                          </label>
+                        </validate>
+                        <div v-if="msg.value.is_accepted === false" class="choices">
+                          <div class="form-check">
+                            <validate auto-label class="form-group text-left" :class="">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_unknown_sender" value="">
+                                It's an unknown sender
+                              </label>
+                            </validate>
+                          </div>
+                          <div class="form-check">
+                            <validate auto-label class="form-group text-left" :class="">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_quality" value="">
+                                It's an inappropriate quality
+                              </label>
+                            </validate>
+                          </div>
+                          <div class="form-check">
+                            <validate auto-label class="form-group text-left" :class="">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_project" value="">
+                                It's an inappropriate project
+                              </label>
+                            </validate>
+                          </div>
+                          <div class="form-check">
+                            <validate auto-label class="form-group text-left" :class="">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_grade" value="">
+                                It's an inappropriate grade
+                              </label>
+                            </validate>
+                          </div>
+                          <div v-if="showError(msg.value)" style="color: red" class="text-left">Choose at least one of the underlying fields</div>
+                        </div>
+                      </div>
+                      <button v-if="hideSubmit(msg.value)" type="submit" class="btn btn-primary">Submit</button>
+                    </vue-form>
                   </div>
-                  <div class="form-check choices">
-                    <validate auto-label class="form-group text-left" :class="">
-                      <label class="form-check-label" @click="msg.value.is_accepted = false">
-                        <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="!setCollapse(msg)">
-                        No thanks, message rejected for following reason(s):
-                      </label>
-                    </validate>
-                    <div v-if="msg.value.is_accepted === false" class="choices">
-                      <div class="form-check">
-                        <validate auto-label class="form-group text-left" :class="">
-                          <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_unknown_sender" value="">
-                            It's an unknown sender
-                          </label>
-                        </validate>
-                      </div>
-                      <div class="form-check">
-                        <validate auto-label class="form-group text-left" :class="">
-                          <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_quality" value="">
-                            It's an inappropriate quality
-                          </label>
-                        </validate>
-                      </div>
-                      <div class="form-check">
-                        <validate auto-label class="form-group text-left" :class="">
-                          <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_project" value="">
-                            It's an inappropriate project
-                          </label>
-                        </validate>
-                      </div>
-                      <div class="form-check">
-                        <validate auto-label class="form-group text-left" :class="">
-                          <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_grade" value="">
-                            It's an inappropriate grade
-                          </label>
-                        </validate>
-                      </div>
-                      <div v-if="showError(msg.value)" style="color: red" class="text-left">Choose at least one of the underlying fields</div>
-                    </div>
-                  </div>
-                  <button v-if="hideSubmit(msg.value)" type="submit" class="btn btn-primary">Submit</button>
-                </vue-form>
-              </div>
-            </div>
-          </li>
-        </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

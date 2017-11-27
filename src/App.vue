@@ -56,11 +56,7 @@
             </nav>
           </div>
           <div>
-            <div class="row justify-content-center">
-              <div class="col col-sm-12 col-md-10 col-lg-7 col-lg-5">
-                <router-view></router-view>
-              </div>
-            </div>
+            <router-view></router-view>
           </div>
           <div class="justify-content-center footer bg-primary">
             <p class="text-light">
