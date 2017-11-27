@@ -1,144 +1,142 @@
 <template>
   <div id="app">
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="col">
-          <div v-if="isBanned" class="row justify-content-center">
-            <h3 class="fewLines col-sm-12 col-md-12 col-lg-8 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
-          </div>
-          <div v-else>
-            <nav class="navbar navbar-expand-sm navbar-inverse bg-primary">
-              <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <a class="navbar-brand text-light" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
+    <div class="row no-gutters justify-content-center">
+      <div class="col">
+        <div v-if="isBanned" class="row justify-content-center">
+          <h3 class="fewLines col-sm-12 col-md-12 col-lg-8 col-lg-5">Unfortunately you are banned from this website till {{ banEndsAt }}</h3>
+        </div>
+        <div v-else>
+          <nav class="navbar navbar-expand-sm navbar-inverse bg-primary">
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand text-light" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="my-2 my-lg-0 mr-auto">
-                    <multiselect 
-                      v-if="isAuthenticated"
-                      v-model="selectedUser"
-                      id="ajax" 
-                      label="firstname" 
-                      track-by="code" 
-                      placeholder="Search for acquaintances" 
-                      :options="suggest_users" 
-                      :multiple="false" 
-                      :searchable="true" 
-                      :loading="isLoading" 
-                      :internal-search="false" 
-                      :clear-on-select="true"
-                      :hideSelected="true"
-                      :resetAfter="true"
-                      :close-on-select="true"
-                      :allowEmpty="false"
-                      deselectLabel=""
-                      :options-limit="300" 
-                      :limit="10" 
-                      :limit-text="limitText" 
-                      @search-change="asyncFind">
-                      <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
-                    </multiselect>
-                </div>
-                <h2>This is a demo!</h2>
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openSettingsModal()" v-on:keyup.esc="closeSettingsModal">{{ firstname }}'s settings</a>
-                  </li>
-                  <li class="nav-item">
-                    <a v-if="isAuthenticated" class="nav-link text-light active" href @click="signOut">Logout</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-light active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
-                  </li>
-                </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div class="my-2 my-lg-0 mr-auto">
+                  <multiselect 
+                    v-if="isAuthenticated"
+                    v-model="selectedUser"
+                    id="ajax" 
+                    label="firstname" 
+                    track-by="code" 
+                    placeholder="Search for acquaintances" 
+                    :options="suggest_users" 
+                    :multiple="false" 
+                    :searchable="true" 
+                    :loading="isLoading" 
+                    :internal-search="false" 
+                    :clear-on-select="true"
+                    :hideSelected="true"
+                    :resetAfter="true"
+                    :close-on-select="true"
+                    :allowEmpty="false"
+                    deselectLabel=""
+                    :options-limit="300" 
+                    :limit="10" 
+                    :limit-text="limitText" 
+                    @search-change="asyncFind">
+                    <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                  </multiselect>
               </div>
-            </nav>
-          </div>
-          <div>
-            <router-view></router-view>
-          </div>
-          <div class="justify-content-center footer bg-primary">
-            <p class="text-light">
-              &copy; 2017 egoconf -
-              <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
-            </p>
-          </div>
-          <!-- Settings modal -->
-          <div id="wrapper" v-on:keyup.esc="closeSettingsModal"> 
-            <modal v-if="showSettingsModal"> 
-              <h3 slot="header" class="modal-title">
-                <button type="button" class="close" data-dismiss="modal" @click="closeSettingsModal()">&times;</button>
-                <h4>Settings</h4>
-              </h3>
-              
-              <div slot="body" class="modal-body container">
-                <p>Change handle:
-                  <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
-                    <div class="form-inline">
-                      <div class="form-check">
-                        <validate auto-label class="form-group text-left" :class="">
-                          <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
-                        </validate>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
+              <h2>This is a demo!</h2>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openSettingsModal()" v-on:keyup.esc="closeSettingsModal">{{ firstname }}'s settings</a>
+                </li>
+                <li class="nav-item">
+                  <a v-if="isAuthenticated" class="nav-link text-light active" href @click="signOut">Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-light active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="2"></icon></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div>
+          <router-view></router-view>
+        </div>
+        <div class="justify-content-center footer bg-primary">
+          <p class="text-light">
+            &copy; 2017 egoconf -
+            <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
+          </p>
+        </div>
+        <!-- Settings modal -->
+        <div id="wrapper" v-on:keyup.esc="closeSettingsModal"> 
+          <modal v-if="showSettingsModal"> 
+            <h3 slot="header" class="modal-title">
+              <button type="button" class="close" data-dismiss="modal" @click="closeSettingsModal()">&times;</button>
+              <h4>Settings</h4>
+            </h3>
+            
+            <div slot="body" class="modal-body container">
+              <p>Change handle:
+                <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
+                  <div class="form-inline">
+                    <div class="form-check">
+                      <validate auto-label class="form-group text-left" :class="">
+                        <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
+                      </validate>
                     </div>
-                  </vue-form>
-                </p>
-                <!-- TODO <p>Change password
-                <vue-form :state="formstate" @submit.prevent="changePassword()" v-model="formstate" class="p-2">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
                 </vue-form>
-                </p> -->
-                <p class="form-inline">Delete account:
-                  <vue-form :state="formstate_delete_account" @submit.prevent="deleteAccount()" v-model="formstate_delete_account" class="p-2">
-                    <button type="submit" class="btn btn-danger">DEL</button>
-                  </vue-form>
-                </p>
-              </div>
+              </p>
+              <!-- TODO <p>Change password
+              <vue-form :state="formstate" @submit.prevent="changePassword()" v-model="formstate" class="p-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </vue-form>
+              </p> -->
+              <p class="form-inline">Delete account:
+                <vue-form :state="formstate_delete_account" @submit.prevent="deleteAccount()" v-model="formstate_delete_account" class="p-2">
+                  <button type="submit" class="btn btn-danger">DEL</button>
+                </vue-form>
+              </p>
+            </div>
 
-              <div slot="footer">
-              </div>
-            </modal>
-          </div>
-          <!-- Contactform modal -->
-          <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
-            <modal v-if="showContactForm"> 
-              <h3 slot="header" class="modal-title">
-                <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
-                <h4>contact form</h4>
-              </h3>
-          
-              <div slot="body" class="modal-body container">
-                <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage()" v-model="formstate_msg">
- 
-                  <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
-                    <label>Email</label>
-                    <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
- 
-                    <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
-                      <div slot="required" style="color: red">Email is a required field</div>
-                      <div slot="email" style="color: red">Email is not valid</div>
-                    </field-messages>
-                  </validate>
- 
-                  <validate auto-label class="form-group required-field" :class="">
-                    <label>Message</label>
-                    <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
- 
-                    <field-messages name="contact_msg" show="$touched || $submitted" class="form-control-feedback">
-                      <div slot="required" style="color: red">The message is required</div>
-                    </field-messages>
-                  </validate>
- 
-                  <button type="submit" class="btn btn-primary float-right">Submit</button>
-                </vue-form>
-              </div>
- 
-              <div slot="footer">
-              </div>
-            </modal>
-          </div>
+            <div slot="footer">
+            </div>
+          </modal>
+        </div>
+        <!-- Contactform modal -->
+        <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
+          <modal v-if="showContactForm"> 
+            <h3 slot="header" class="modal-title">
+              <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
+              <h4>contact form</h4>
+            </h3>
+        
+            <div slot="body" class="modal-body container">
+              <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage()" v-model="formstate_msg">
+
+                <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
+                  <label>Email</label>
+                  <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
+
+                  <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
+                    <div slot="required" style="color: red">Email is a required field</div>
+                    <div slot="email" style="color: red">Email is not valid</div>
+                  </field-messages>
+                </validate>
+
+                <validate auto-label class="form-group required-field" :class="">
+                  <label>Message</label>
+                  <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
+
+                  <field-messages name="contact_msg" show="$touched || $submitted" class="form-control-feedback">
+                    <div slot="required" style="color: red">The message is required</div>
+                  </field-messages>
+                </validate>
+
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
+              </vue-form>
+            </div>
+
+            <div slot="footer">
+            </div>
+          </modal>
         </div>
       </div>
     </div>
@@ -544,5 +542,16 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   h5 {font-size:1.4rem;}
   p {font-size:1rem;}
   a {font-size:1.4rem;}   
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 </style>
