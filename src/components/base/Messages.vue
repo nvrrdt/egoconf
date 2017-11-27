@@ -22,7 +22,7 @@
                 Message from {{ getFullname(msg.value.from_userid) }} who gives {{ msg.value.grade }} points for the '{{ msg.value.quality }}' quality during the '{{ msg.value.project }}' project
               </a>
               <div v-if="setCollapse(msg)">
-                <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key)" v-model="formstate" class="p-2">
+                <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key, msg)" v-model="formstate" class="p-2">
                   <div class="form-check choices">
                     <validate auto-label class="form-group text-left" :class="">
                       <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
@@ -288,7 +288,7 @@ export default {
         vm.setBanned()
       })
     },
-    onSubmit: function (value, key) {
+    onSubmit: function (value, key, msg) {
       if (this.formstate.$invalid) {
         // alert user and exit early
         // return
@@ -298,6 +298,8 @@ export default {
         var msgRef = firebase.database().ref('messages/' + key)
 
         msgRef.update(value)
+
+        msg.isCollapsed = false
       }
     }
   }
