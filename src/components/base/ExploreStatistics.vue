@@ -69,7 +69,11 @@ export default {
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    '$route': 'fetchData',
+    searchedUserid: function (val) {
+      this.gradesPerQuality = []
+      this.getMessages()
+    }
   },
   methods: {
     fetchData () {
