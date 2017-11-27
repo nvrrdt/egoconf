@@ -69,11 +69,7 @@ export default {
   },
   watch: {
     // call again the method if the route changes
-    '$route': ['fetchData', 'getMessages'],
-    searchedUserid: function (val) {
-      this.gradesPerQuality = []
-      this.getMessages()
-    }
+    '$route': ['fetchData', 'getMessages']
   },
   methods: {
     fetchData () {
@@ -94,6 +90,8 @@ export default {
       return (Math.round(standardDeviation(lst) * 100) / 100).toFixed(2)
     },
     getMessages () {
+      this.gradesPerQuality = []
+
       var vm = this
       var myMessagesRef = firebase.database().ref('messages').orderByChild('to_userid').equalTo(this.searchedUserid)
       myMessagesRef.on('child_added', function (snapshot) {
