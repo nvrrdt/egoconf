@@ -17,7 +17,7 @@ stories: {
     mail if comment,
     confirmation mail,
     rules,                                  PARTLY DONE
-    positive qualities/adjectives and projects/references in autocomplete,      DONE
+    positive qualities/adjectives/nouns and projects/references in autocomplete,      DONE
     a few bots,
     handshake,
     texts                                   DONE
@@ -35,7 +35,7 @@ stories: {
 - send a verification email when signing up
 - create a loop or listener or so, to check for new messages
 - a clause in the license that states that websites that use egoconf, must be available for the general global public
-- an autocomplete on the qualities and it's adjectives
+- an autocomplete on the qualities and it's adjectives/nouns
 - pagination on messages and history
 - lookup send-by-user in messages page instead of showing a hash
 - set maxlength of project in modal in explore page
@@ -76,6 +76,9 @@ sudo fuser -k 8080/tcp
 
 ### Very long term future features:
 ```
-- egoconf space: space is grading between 0 and 20 on a scale to 20, and accepts also negative adjectives. The purpose is to form a more complete profile of the person who gives the grade. The introduction of this feature is foreseen when everyone accepts the reality (think of >yr2070) and relativity of oneself's, and the others's, reality, no matter what. So when people are as mature as can be and when their behaviour is as socially accepted by the majority of egoconf's users and the user's surrounding people, always avoiding negative behaviour unless there's an explainable and logic reason, a reason which is accepted by the majority of egoconf's users and the user's surrounding people.
+- egoconf space: space is grading between 0 and 20 on a scale to 20, and accepts also negative adjectives/nouns. The purpose is to form a more complete profile of the person who gives the grade. The introduction of this feature is foreseen when everyone accepts the reality (think of >yr2070) and relativity of oneself's, and the others's, reality, no matter what. So when people are as mature as can be and when their behaviour is as socially accepted by the majority of egoconf's users and the user's surrounding people, always avoiding negative behaviour unless there's an explainable and logic reason, a reason which is accepted by the majority of egoconf's users and the user's surrounding people.
 - a p2p distribution of the graded messages (for native mobile apps!). The p2p system might monitor the behavior of the user, but the logs should only be kept in de p2p system, in order to counter privacy concerns. Main reason: reducing costs, firebase isn't cheap. And other than that, p2p is a cool technology.
 ```
+
+### Nouns:
+http://forum.castlot.com/archive/index.php/t-296.html

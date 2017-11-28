@@ -90,7 +90,7 @@ import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueMo
 import VueForm from 'vue-form'
 import store from '@/store'
 import Stats from '@/components/base/ExploreStatistics'
-import { adjectives } from '@/adjectives.json'
+import { nouns } from '@/nouns.json'
 
 var messagesRef = firebase.database().ref('messages')
 
@@ -126,7 +126,7 @@ export default {
       searchedUserid: '',
       isBlocked: false,
       endBlockAt: '',
-      pos: adjectives.positives
+      pos: nouns.positive
     }
   },
   firebase: {
