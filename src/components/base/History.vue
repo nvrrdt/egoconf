@@ -13,10 +13,8 @@
             <li v-for="message in messages" :key="message.messagekey" v-if="message.value.is_accepted">
               <div class="text-left message">
                 <p>
-                  <strong>{{ getFullname(message.value.to_userid) }}</strong> accepted your message, you were given 
-                  <strong>{{ message.value.grade }}/10</strong> for the 
-                  <strong>'{{ message.value.quality }}'</strong> quality during the 
-                  <strong>'{{ message.value.project }}'</strong> project
+                  <strong>{{ getFullname(message.value.to_userid) }}</strong> accepted your message, your 
+                  <strong>'{{ message.value.quality }}'</strong> gets <strong>{{ message.value.grade }}/10 ({{ message.value.project }})</strong>
                 </p>
               </div>  
             </li></strong>
