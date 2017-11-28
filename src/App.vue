@@ -13,33 +13,32 @@
             <a class="navbar-brand text-light" :href="isAuthenticated ? '/base/messages' : '/'"><h1>egoconf</h1></a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div class="my-2 my-lg-0 mr-auto">
-                  <multiselect 
-                    v-if="isAuthenticated"
-                    v-model="selectedUser"
-                    id="ajax" 
-                    label="firstname" 
-                    track-by="code" 
-                    placeholder="Search for acquaintances" 
-                    :options="suggest_users" 
-                    :multiple="false" 
-                    :searchable="true" 
-                    :loading="isLoading" 
-                    :internal-search="false" 
-                    :clear-on-select="true"
-                    :hideSelected="true"
-                    :resetAfter="true"
-                    :close-on-select="true"
-                    :allowEmpty="false"
-                    deselectLabel=""
-                    :options-limit="300" 
-                    :limit="10" 
-                    :limit-text="limitText" 
-                    @search-change="asyncFind">
-                    <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
-                  </multiselect>
-              </div>
-              <h2>This is a demo!</h2>
+              <multiselect
+                class="col-sm-12 col-md-7 col-lg-4 col-lg-3"
+                v-if="isAuthenticated"
+                v-model="selectedUser"
+                id="ajax" 
+                :custom-label="customLabel" 
+                track-by="code" 
+                placeholder="Search for acquaintances" 
+                :options="suggest_users" 
+                :multiple="false" 
+                :searchable="true" 
+                :loading="isLoading" 
+                :internal-search="false" 
+                :clear-on-select="true"
+                :hideSelected="true"
+                :resetAfter="true"
+                :close-on-select="true"
+                :allowEmpty="false"
+                deselectLabel=""
+                :options-limit="300" 
+                :limit="10" 
+                :limit-text="limitText" 
+                @search-change="asyncFind">
+                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+              </multiselect>
+              <h2 class="mx-auto">This is a demo!</h2>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                   <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openSettingsModal()" v-on:keyup.esc="closeSettingsModal">{{ firstname }}'s settings</a>
@@ -433,24 +432,27 @@ export default {
     // Autosuggest
     asyncFind (query) {
       this.isLoading = true
-      this.ajaxFindCountry(query).then(response => {
+      this.ajaxFindUser(query).then(response => {
         this.suggest_users = response
         this.isLoading = false
       })
     },
     // Autosuggest
-    ajaxFindCountry: function (query) {
+    ajaxFindUser: function (query) {
       this.doSearch(this.buildQuery(query))
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           const results = this.suggest_users.filter((element, index, array) => {
-            console.log('change here something for the improved autocomplete/suggest')
             return element.firstname.toLowerCase().includes(query.toLowerCase()) || element.lastname.toLowerCase().includes(query.toLowerCase()) || element.handle.toLowerCase().includes(query.toLowerCase())
           })
           resolve(results)
         }, 1000)
       })
+    },
+    // Autosuggest
+    customLabel (option) {
+      return `${option.firstname} ${option.lastname} - ${option.handle}`
     }
   }
 }
