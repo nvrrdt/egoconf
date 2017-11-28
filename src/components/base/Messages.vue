@@ -21,7 +21,7 @@
                     <icon v-else name="plus-square-o" scale="1"></icon>&nbsp;&nbsp;
                     <icon v-if="msg.value.timestamp_reaction" name="envelope-open-o" scale="1"></icon>
                     <icon v-else name="envelope-o" scale="1"></icon>
-                    <strong>{{ getFullname(msg.value.from_userid) }}</strong> grades your <strong>'{{ msg.value.quality }}'</strong> a <strong>{{ msg.value.grade }}/10</strong> for the <strong>'{{ msg.value.project }}'</strong> project/reference
+                    <strong>{{ getFullname(msg.value.from_userid) }}</strong> grades your <strong>'{{ msg.value.quality }}'</strong> a <strong>{{ msg.value.grade }}/10 ({{ msg.value.project }})</strong>
                   </a>
                   <div v-if="setCollapse(msg)">
                     <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key, msg)" v-model="formstate" class="p-2">
