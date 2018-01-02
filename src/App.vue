@@ -38,7 +38,7 @@
                 @search-change="asyncFind">
                 <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
               </multiselect>
-              <h2 class="mx-auto">This is a demo!</h2>
+              <h2 class="mx-auto"><strong>- DEMO -</strong></h2>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                   <a v-if="isAuthenticated" class="nav-link text-light active" href="#" role="button" @click="openSettingsModal()" v-on:keyup.esc="closeSettingsModal">{{ firstname }}'s settings</a>
