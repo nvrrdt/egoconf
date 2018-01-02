@@ -17,7 +17,7 @@
     <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
         Social profiling is a method of assembling someone's profile as seen by that person's acquaintances and this in a socially acceptable setting. 
-        More precise, egoconf realizes grading acquaintances'qualities as seen commonly or in a certain reference environment. 
+        More precise, egoconf realizes grading acquaintances' qualities as seen commonly or in a certain reference environment. 
         To keep interactions as positive as possible there are a few constraints: grades are limited between 6/10 and 10/10 
         and only positive qualities will be graded. A reference environment may optionally be provided 
         and if this reference contains an inappropriate phrase, 
@@ -46,7 +46,7 @@
   <div class="row align-items-center justify-content-center fullpage2 lightblue">
     <div class="col col-sm-12 col-md-10 col-lg-5 col-lg-4 text-center">
       <p class="text-left">
-        The problem I tried to solve when producing this app was my inability to explain my qualities precisely, and as wished, 
+        The problem I tried to solve when producing this app was my inability to explain my qualities precise and as wished, 
         to the many recruiters who interviewed me. After brainstorming a while, 
         I was assured that my acquaintances might be better suited to help me counter this problem 
         and it also seemed that I could keep on specializing myself as wished, 
@@ -61,7 +61,10 @@
         donating to allow fulltime development and perhaps an expansion of manpower.
       </h5>
       <div class="text-center">
-        <p>Donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+        <div>
+          <stripe-donations></stripe-donations>
+        </div>
+        <p>or donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
       </div>
       <p class="text-left paddingtoptop">
         DISCLAIMER: egoconf, as is, is a demo (or a proof-of-concept or a prototype) and could only experimentally be used, 
@@ -74,12 +77,16 @@
 
 <script>
 import router from '../router'
+import StripeDonations from '@/components/StripeDonations'
 
 export default {
   name: 'base',
+  components: {
+    StripeDonations
+  },
   data () {
     return {
-      msg: 'OK'
+
     }
   },
   methods: {
@@ -114,7 +121,7 @@ li {
 }
 
 .fullpage2 {
-  height: 75vh;
+  height: 55vh;
 }
 
 .fullpage3 {
