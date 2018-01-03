@@ -37,9 +37,11 @@
                     <label>Quality</label>
                     <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade" list="qualities_list">
                     <datalist id="qualities_list">
-                      <div v-for="p in pos" :key="p">
-                        <option :value="p"></option>
-                      </div>
+                      <select>
+                        <div v-for="p in pos" :key="p">
+                          <option :value="p">{{ p }}</option>
+                        </div>
+                      </select>
                     </datalist>
                     <!-- <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade"> -->
 
