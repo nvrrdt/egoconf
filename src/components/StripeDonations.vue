@@ -1,7 +1,7 @@
 <template>
 <div>
   <vue-form :state="formstate" @submit.prevent="checkout" v-model="formstate" class="form-inline justify-content-center formpos">
-
+or donate once:&nbsp;&nbsp;&nbsp;
     <validate auto-label class="form-group required-field">
       <input type="number" name="donation-amount" class="form-control mb-2 mr-sm-2 mb-sm-0" v-model.lazy="customAmount" min="5" required placeholder="Amount (minimum 5€)">
       
@@ -18,8 +18,6 @@
 
 <script>
 import VueForm from 'vue-form'
-import VueStripeCheckout from 'vue-stripe-checkout'
-import * as firebase from 'firebase'
 
 export default {
   mixins: [VueForm],
@@ -52,7 +50,8 @@ export default {
 
 <style>
 .formpos {
-  padding-top: 25px;
+  padding-top: 45px;
   padding-bottom: 25px;
 }
+
 </style>

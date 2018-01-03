@@ -62,9 +62,14 @@
       </h5>
       <div class="text-center">
         <div>
+          <a href="https://www.patreon.com/nicoverrijdt"><img src="../assets/become_a_patron_button.png"></a>
+        </div>
+        <div>
           <stripe-donations></stripe-donations>
         </div>
-        <p>or donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+        <div>
+          <p>or donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+        </div>
       </div>
       <p class="text-left paddingtoptop">
         DISCLAIMER: egoconf, as is, is a demo (or a proof-of-concept or a prototype) and could only experimentally be used, 
