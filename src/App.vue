@@ -58,8 +58,10 @@
         </div>
         <div class="justify-content-center footer bg-primary">
           <p class="text-light">
-            &copy; 2017 egoconf -
-            <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact</a>
+            &copy; 2017-2018 egoconf -
+            <a class="text-light" href="#" role="button" @click="openContactForm()" v-on:keyup.esc="closeContactForm"> contact -</a>
+            <a class="text-light" href="#" role="button" @click="openDonationForm()" v-on:keyup.esc="closeDonationForm"> donate -</a>
+            <a class="text-light" href="#" role="button" @click="openDisclaimerForm()" v-on:keyup.esc="closeDisclaimerForm"> disclaimer</a>
           </p>
         </div>
         <!-- Settings modal -->
@@ -137,6 +139,57 @@
             </div>
           </modal>
         </div>
+        <!-- Donationform modal -->
+        <div id="wrapper" v-on:keyup.esc="closeDonationForm"> 
+          <modal v-if="showDonationForm"> 
+            <h3 slot="header" class="modal-title">
+              <button type="button" class="close" data-dismiss="modal" @click="closeDonationForm()">&times;</button>
+              <h4>Donation form</h4>
+            </h3>
+        
+            <div slot="body" class="modal-body container">
+
+                  <h5 class="text-left">
+                    If you like the egoconf solution and if you are curious for future developments: please consider 
+                    donating to allow fulltime development and perhaps an expansion of manpower.
+                  </h5>
+                  <div class="text-center">
+                    <div>
+                      <a href="https://www.patreon.com/nicoverrijdt"><img src="./assets/become_a_patron_button.png"></a>
+                    </div>
+                    <div>
+                      <stripe-donations></stripe-donations>
+                    </div>
+                    <div>
+                      <p style="padding-top:20px;">or donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+                    </div>
+                  </div>
+
+            </div>
+
+            <div slot="footer">
+            </div>
+          </modal>
+        </div>
+        <!-- Disclaimerform modal -->
+        <div id="wrapper" v-on:keyup.esc="closeDisclaimerForm"> 
+          <modal v-if="showDisclaimerForm"> 
+            <h3 slot="header" class="modal-title">
+              <button type="button" class="close" data-dismiss="modal" @click="closeDisclaimerForm()">&times;</button>
+              <h4>Disclaimer</h4>
+            </h3>
+        
+            <div slot="body" class="modal-body container">
+              <p class="text-left">
+                Egoconf, as is, is a demo (a poc or a prototype or an mvp) and could only experimentally be used, 
+                which means that the gathered data will likely be deleted as needed.
+              </p>
+            </div>
+
+            <div slot="footer">
+            </div>
+          </modal>
+        </div>
       </div>
     </div>
   </div>
@@ -151,13 +204,15 @@ import router from '@/router'
 import store from '@/store'
 import Modal from '@/components/Modal' // taken from JuneRockwell/BootstrapVueModal
 import VueForm from 'vue-form'
+import StripeDonations from '@/components/StripeDonations'
 
 export default {
   name: 'app',
   mixins: [VueForm],
   components: {
     Multiselect,
-    Modal
+    Modal,
+    StripeDonations
   },
   data () {
     return {
@@ -176,7 +231,9 @@ export default {
       showContactForm: false,
       contact_email: '',
       contact_msg: '',
-      fulluser: ''
+      fulluser: '',
+      showDonationForm: false,
+      showDisclaimerForm: false
     }
   },
   watch: {
@@ -309,6 +366,22 @@ export default {
     //
     closeContactForm () {
       this.showContactForm = false
+    },
+    //
+    openDonationForm () {
+      this.showDonationForm = true
+    },
+    //
+    closeDonationForm () {
+      this.showDonationForm = false
+    },
+    //
+    openDisclaimerForm () {
+      this.showDisclaimerForm = true
+    },
+    //
+    closeDisclaimerForm () {
+      this.showDisclaimerForm = false
     },
     // TODO: isBanned is untested!!!
     setBanned () {
