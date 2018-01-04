@@ -59,6 +59,7 @@ stories: {
 - implement a ethereum smart contract for every grade being added, blockchain is there to make people accountable
 - create a map to show unique and overlapping qualities in function of certain references/projects, and redundancy for the same
 - for ask feature, enable choosing one or more qualities from the list to present to the person you like to ask, not limiting to one quality
+- show the most used qualities above in the list shown when grading someone
 ```
 
 ### help:
