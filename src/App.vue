@@ -161,7 +161,7 @@
                       <stripe-donations></stripe-donations>
                     </div>
                     <div>
-                      <p style="padding-top:20px;">or donate bitcoin: <a class="text-primary">17RQUjcURirXRA1yvNnzEo2ddYgmTGdvKn</a></p>
+                      <p style="padding-top:20px;">or donate bitcoin: <a class="text-primary">12efwwGSPKe5qm1CV8Ff7Bx4T8zWDcX65S</a></p>
                     </div>
                   </div>
 
