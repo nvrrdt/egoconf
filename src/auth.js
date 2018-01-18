@@ -192,7 +192,13 @@ const AuthPlugin = {
             inappropriate_count: 0,
             ban_ends_at: '',
             timestamp: firebase.database.ServerValue.TIMESTAMP
+          })
 
+          user.sendEmailVerification().then(function () {
+            console.log('Verification email sent')
+          }).catch(function (error) {
+            // An error happened.
+            console.log('Creating user didn\'t succeed: ' + error)
           })
 
           router.push({ name: 'BaseMessages' })
@@ -208,7 +214,7 @@ const AuthPlugin = {
           // This function changes the auth.user state when
           // the auth status of user changes.
           firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
+            if (user && user.emailVerified) {
               this.auth.user = user
             } else {
               this.auth.user = null

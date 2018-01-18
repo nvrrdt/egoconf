@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="col col-sm-12 col-md-10 col-lg-7 col-lg-5">
-      <div class="base">
+      <div v-if="isAuthenticated" class="base">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <a class="btn btn-outline-secondary text-capitalize active" href="/base/messages" role="button">Messages</a>
           <a class="btn btn-outline-secondary text-capitalize" href="/base/profile" role="button">Profile</a>
@@ -84,6 +84,9 @@
             </ul>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <h1 style="margin-top: 100px; margin-bottom: 150px;">Please respond to the verification email and hit refresh</h1>
       </div>
     </div>
   </div>
