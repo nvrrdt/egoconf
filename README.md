@@ -14,6 +14,8 @@ For instance, recruiters are more precisely informed about someone's qualities, 
 
 ## Build Setup
 
+For full functionality of egoconf, rename /src/App.vue to anything and rename /src/App_real.vue to /src/App.vue.
+
 egoconf's backend is [firebase](https://firebase.google.com/) and the frontend is [vue](https://vuejs.org/)
 
 ``` bash
@@ -36,6 +38,11 @@ npm run build
 -- or --
 npm run build --report
 ```
+egoconf uses https://github.com/firebase/functions-samples/tree/master/quickstarts/email-users to send mails to the admin through the contact form:
+- To be able to send emails with your Gmail account: enable access to Less Secure Apps and Display Unlock Captcha. For accounts with 2-step verification enabled Generate an App Password.
+- Set the gmail.email and gmail.password Google Cloud environment variables to match the email and password of the Gmail account used to send emails (or the app password if your account has 2-step verification enabled). For this use:
+firebase functions:config:set gmail.email="myusername@gmail.com" gmail.password="secretpassword"
+
 Deploy firebase as explained in [this guide](https://firebase.google.com/docs/hosting/deploying)
 
 egoconf also uses elasticsearch as a means to be able to search for someone. Follow the installation guide of [flashlight](https://github.com/firebase/flashlight) herefore. This might take some time to set up right!
