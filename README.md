@@ -1,13 +1,15 @@
 # egoconf
 
-> A social profiling project
+# BE CAUTIOUS AND WARY, THIS IS HIGHLY CONTROVERSIAL MATTER!!!
 
-Egoconf is a web app that enables social profiling.
+> A weighted profiling project
+
+Egoconf is a web app that enables weighted profiling.
 Profiling someone means interpreting someone's qualities by grading those qualities.
-Social profiling is a method to profile acquaintances/peers and being profiled by your acquaintances/peers.
+Weighted social profiling is a method to profile acquaintances/peers and being profiled by your acquaintances/peers.
 It should be noted that graded needs to be positive, so grades will be only allowed between 6 and 10 on a scale to 10 and negative qualities will be filtered or reported by egoconf's users.
 
-The result of social profiling is a network that can be statistically approached as a mean to follow a person's evolution in the main qualities bucket or a single quality.
+The result of weighted social profiling is a network that can be statistically approached as a mean to follow a person's evolution in the main qualities bucket or a single quality.
 For instance, recruiters are more precisely informed about someone's qualities, based on the knowledge of that person's peers, and are thus better able to estimate that person's personality in a certain setting.
 
 ## Build Setup
