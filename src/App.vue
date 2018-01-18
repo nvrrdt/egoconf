@@ -1,8 +1,9 @@
 <template>
   <div id="app" class="mx-auto">
     <h1> BE <b>CAUTIOUS</b> AND <b>WARY</b>, </h1>
-    <h1> THIS IS <b>HIGHLY CONTROVERSIAL MATTER</b>!!! </h1>
-    <a class="nav-link text-dark active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="5"></icon></a>
+    <h1> WEIGHTED SOCIAL PROFILING </h1>
+    <h1> IS <b>HIGHLY CONTROVERSIAL MATTER</b>!!! </h1>
+    <a class="nav-link text-dark active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="8"></icon></a>
     <a href="https://www.patreon.com/nicoverrijdt"><img src="./assets/become_a_patron_button.png"></a>
     <p style="padding-top: 25px;"> &copy; 2018 egoconf </p>
   </div>
