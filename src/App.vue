@@ -40,7 +40,7 @@ p {font-size:1.2rem;}
 a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all device, that or better should be implemented
 
 /* Small devices (landscape phones, 544px and up) */
-@media (min-width: 544px) {  
+@media (min-width: 544px) {
   h1 {font-size:2rem;} /*1rem = 16px*/
   h2 {font-size:1.9rem;}
   h3 {font-size:1.8rem;}
@@ -49,9 +49,9 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:1.6rem;}
   a {font-size:1.6rem;}
 }
- 
+
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
+@media (min-width: 768px) {
   h1 {font-size:2.5rem;} /*1rem = 16px*/
   h2 {font-size:2.4rem;}
   h3 {font-size:2.3rem;}
@@ -60,9 +60,9 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:2rem;}
   a {font-size:2rem;}
 }
- 
+
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
   h1 {font-size:2.5rem;} /*1rem = 16px*/
   h2 {font-size:2.3rem;}
   h3 {font-size:2.1rem;}
@@ -71,16 +71,16 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:1rem;}
   a {font-size:1.4rem;}
 }
- 
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
+@media (min-width: 1200px) {
   h1 {font-size:2.8rem;} /*1rem = 16px*/
   h2 {font-size:2.4rem;}
   h3 {font-size:2rem;}
   h4 {font-size:1.8rem;}
   h5 {font-size:1.4rem;}
   p {font-size:1rem;}
-  a {font-size:1.4rem;}   
+  a {font-size:1.4rem;}
 }
 
 </style>

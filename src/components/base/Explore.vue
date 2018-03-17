@@ -22,18 +22,18 @@
               <h3>Userprofile from:</h3>
               <p>Name: {{ searchedFirstname }} {{ searchedLastname }}</p>
               <p>Handle: {{ searchedHandle }}</p>
-          </div> 
-          <div id="wrapper" v-on:keyup.esc="closeModal"> 
-            <modal v-if="showModal"> 
+          </div>
+          <div id="wrapper" v-on:keyup.esc="closeModal">
+            <modal v-if="showModal">
               <h3 slot="header" class="modal-title">
                 <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
                 <h4>Grade a quality</h4>
               </h3>
-              
+
               <div slot="body" class="modal-body container">
                 <vue-form :state="formstate" @submit.prevent="onSubmit" v-model="formstate">
 
-                  <validate auto-label class="form-group required-field" :class="">
+                  <validate auto-label class="form-group required-field">
                     <label>Quality</label>
                     <input type="text" name="quality" class="form-control" required v-model.lazy="message.quality" placeholder="Type in a quality you like to grade" list="qualities_list">
                     <datalist id="qualities_list">
@@ -50,7 +50,7 @@
                     </field-messages>
                   </validate>
 
-                  <validate auto-label class="form-group" :class="">
+                  <validate auto-label class="form-group">
                     <label>Project</label>
                     <input type="text" name="project" class="form-control" v-model.lazy="message.project"  placeholder="Name the corresponding project">
 
@@ -58,7 +58,7 @@
                     </field-messages>
                   </validate>
 
-                  <validate auto-label class="form-group required-field" :class="">
+                  <validate auto-label class="form-group required-field">
                     <label>Grade</label>
                     <input type="number" name="grade" class="form-control" required v-model.lazy="message.grade" placeholder="Grade between 6 and 10" min="6" max="10">
 

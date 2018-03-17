@@ -26,7 +26,7 @@
                   <div v-if="setCollapse(msg)">
                     <vue-form :state="formstate" @submit.prevent="onSubmit(msg.value, msg.key, msg)" v-model="formstate" class="p-2">
                       <div class="form-check choices">
-                        <validate auto-label class="form-group text-left" :class="">
+                        <validate auto-label class="form-group text-left">
                           <label class="form-check-label" @click="acceptIsTrue(msg.value, msg.key)">
                             <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="setCollapse(msg)">
                             Message accepted!
@@ -34,7 +34,7 @@
                         </validate>
                       </div>
                       <div class="form-check choices">
-                        <validate auto-label class="form-group text-left" :class="">
+                        <validate auto-label class="form-group text-left">
                           <label class="form-check-label" @click="msg.value.is_accepted = false">
                             <input class="form-check-input" type="radio" name="acception" v-model.lazy="msg.value.is_accepted" :value="!setCollapse(msg)">
                             No thanks, message rejected for following reason(s):
@@ -42,7 +42,7 @@
                         </validate>
                         <div v-if="msg.value.is_accepted === false" class="choices">
                           <div class="form-check">
-                            <validate auto-label class="form-group text-left" :class="">
+                            <validate auto-label class="form-group text-left">
                               <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_unknown_sender" value="">
                                 It's an unknown sender
@@ -50,7 +50,7 @@
                             </validate>
                           </div>
                           <div class="form-check">
-                            <validate auto-label class="form-group text-left" :class="">
+                            <validate auto-label class="form-group text-left">
                               <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_quality" value="">
                                 It's an inappropriate quality
@@ -58,7 +58,7 @@
                             </validate>
                           </div>
                           <div class="form-check">
-                            <validate auto-label class="form-group text-left" :class="">
+                            <validate auto-label class="form-group text-left">
                               <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_project" value="">
                                 It's an inappropriate project
@@ -66,7 +66,7 @@
                             </validate>
                           </div>
                           <div class="form-check">
-                            <validate auto-label class="form-group text-left" :class="">
+                            <validate auto-label class="form-group text-left">
                               <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="acception" v-model.lazy="msg.value.is_inappropriate_grade" value="">
                                 It's an inappropriate grade

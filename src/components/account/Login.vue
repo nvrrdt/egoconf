@@ -6,10 +6,10 @@
         <div class="container">
           <form>
             <div class="form-group">
-              <input v-model:email="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email adress" autofocus></input>
+              <input v-model="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email adress" autofocus>
             </div>
             <div class="form-group">
-              <input v-model:password="auth.password" v-on:keyup.enter="login" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+              <input v-model="auth.password" v-on:keyup.enter="login" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
 
             <div v-if="auth.message !== ''" class="alert" role="alert"

@@ -202,6 +202,12 @@ const AuthPlugin = {
           })
 
           router.push({ name: 'BaseMessages' })
+        },
+        isAuthenticatedUser: function (user) {
+          this.auth.user = user
+        },
+        isAuthenticatedNull: function (user) {
+          this.auth.user = null
         }
       },
       computed: {
@@ -215,9 +221,11 @@ const AuthPlugin = {
           // the auth status of user changes.
           firebase.auth().onAuthStateChanged(function (user) {
             if (user && user.emailVerified) {
-              this.auth.user = user
+              this.isAuthenticatedUser(user)
+              return this.auth.user
             } else {
-              this.auth.user = null
+              this.isAuthenticatedNull(user)
+              return this.auth.user
             }
           }.bind(this))
 

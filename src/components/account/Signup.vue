@@ -7,22 +7,22 @@
           <div class="container">
             <form>
               <div class="form-group">
-                <input v-model="firstname" type="text" class="form-control" id="exampleInputFirstName1" placeholder="First name" autofocus></input>
+                <input v-model="firstname" type="text" class="form-control" id="exampleInputFirstName1" placeholder="First name" autofocus>
               </div>
               <div class="form-group">
-                <input v-model="lastname" type="text" class="form-control" id="exampleInputLastName1" placeholder="Last name"></input>
+                <input v-model="lastname" type="text" class="form-control" id="exampleInputLastName1" placeholder="Last name">
               </div>
               <div class="form-group">
-                <input v-model="handle" type="text" class="form-control" id="exampleInputHandle1" placeholder="A handle (or describe yourself briefly)"></input>
+                <input v-model="handle" type="text" class="form-control" id="exampleInputHandle1" placeholder="A handle (or describe yourself briefly)">
               </div>
               <div class="form-group">
-                <input v-model:email="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address"></input>
+                <input v-model="auth.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address">
               </div>
               <div class="form-group">
-                <input v-model:password="auth.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+                <input v-model="auth.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
               <div class="form-group">
-                <input v-model:password2="auth.password2" v-on:keyup.enter="signup" type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm password"></input>
+                <input v-model="auth.password2" v-on:keyup.enter="signup" type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm password">
               </div>
 
               <div v-if="auth.message !== ''" class="alert" role="alert"
@@ -30,7 +30,7 @@
                 <button @click="dismissAlert" type="button" class="close"><span aria-hidden="true">×</span></button>
                 <p><strong>{{auth.message}}</strong></p>
               </div>
-              
+
               <button type="button" @click="signup" class="btn btn-primary float-left">Signup</button>
 
             </form>

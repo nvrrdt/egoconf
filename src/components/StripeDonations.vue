@@ -4,7 +4,7 @@
 or donate once:&nbsp;&nbsp;&nbsp;
     <validate auto-label class="form-group required-field">
       <input type="number" name="donation-amount" class="form-control mb-2 mr-sm-2 mb-sm-0" v-model.lazy="customAmount" min="5" required placeholder="Amount (minimum 5€)">
-      
+
       <field-messages name="donation-amount" show="$touched || $submitted" class="form-control-feedback">
         <div slot="required" style="color: red">Fill in amount</div>
         <div slot="min" style="color: red">Minimum 5</div>
@@ -53,5 +53,4 @@ export default {
   padding-top: 45px;
   padding-bottom: 25px;
 }
-
 </style>

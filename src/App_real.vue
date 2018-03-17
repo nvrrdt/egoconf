@@ -17,24 +17,24 @@
                 class="col-sm-12 col-md-7 col-lg-4 col-lg-3"
                 v-if="isAuthenticated"
                 v-model="selectedUser"
-                id="ajax" 
-                :custom-label="customLabel" 
-                track-by="code" 
-                placeholder="Search for acquaintances" 
-                :options="suggest_users" 
-                :multiple="false" 
-                :searchable="true" 
-                :loading="isLoading" 
-                :internal-search="false" 
+                id="ajax"
+                :custom-label="customLabel"
+                track-by="code"
+                placeholder="Search for acquaintances"
+                :options="suggest_users"
+                :multiple="false"
+                :searchable="true"
+                :loading="isLoading"
+                :internal-search="false"
                 :clear-on-select="true"
                 :hideSelected="true"
                 :resetAfter="true"
                 :close-on-select="true"
                 :allowEmpty="false"
                 deselectLabel=""
-                :options-limit="300" 
-                :limit="10" 
-                :limit-text="limitText" 
+                :options-limit="300"
+                :limit="10"
+                :limit-text="limitText"
                 @search-change="asyncFind">
                 <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
               </multiselect>
@@ -65,20 +65,20 @@
           </p>
         </div>
         <!-- Settings modal -->
-        <div id="wrapper" v-on:keyup.esc="closeSettingsModal"> 
-          <modal v-if="showSettingsModal"> 
+        <div id="wrapper" v-on:keyup.esc="closeSettingsModal">
+          <modal v-if="showSettingsModal">
             <h3 slot="header" class="modal-title">
               <button type="button" class="close" data-dismiss="modal" @click="closeSettingsModal()">&times;</button>
               <h4>Settings</h4>
             </h3>
-            
+
             <div slot="body" class="modal-body container">
               <p>Change handle:
                 <vue-form :state="formstate_handle" @submit.prevent="setHandle()" v-model="formstate_handle" class="p-2">
                   <div class="form-inline">
                     <div class="form-check">
-                      <validate auto-label class="form-group text-left" :class="">
-                        <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle" :value="handle">
+                      <validate auto-label class="form-group text-left">
+                        <input class="form-check-input form-control" type="text" name="changeHandle" v-model.lazy="handle">
                       </validate>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -102,19 +102,19 @@
           </modal>
         </div>
         <!-- Contactform modal -->
-        <div id="wrapper" v-on:keyup.esc="closeContactForm"> 
-          <modal v-if="showContactForm"> 
+        <div id="wrapper" v-on:keyup.esc="closeContactForm">
+          <modal v-if="showContactForm">
             <h3 slot="header" class="modal-title">
               <button type="button" class="close" data-dismiss="modal" @click="closeContactForm()">&times;</button>
               <h4>contact form</h4>
             </h3>
-        
+
             <div slot="body" class="modal-body container">
               <vue-form :state="formstate_msg" @submit.prevent="sendContactMessage()" v-model="formstate_msg">
 
-                <validate v-if="!isAuthenticated" auto-label class="form-group required-field" :class="">
+                <validate v-if="!isAuthenticated" auto-label class="form-group required-field">
                   <label>Email</label>
-                  <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email"></input>
+                  <input type="email" name="contact_email" class="form-control" required v-model.lazy="contact_email">
 
                   <field-messages name="contact_email" show="$touched || $submitted" class="form-control-feedback">
                     <div slot="required" style="color: red">Email is a required field</div>
@@ -122,7 +122,7 @@
                   </field-messages>
                 </validate>
 
-                <validate auto-label class="form-group required-field" :class="">
+                <validate auto-label class="form-group required-field">
                   <label>Message</label>
                   <textarea rows="12" cols="80" name="contact_msg" class="form-control" required v-model.lazy="contact_msg"></textarea>
 
@@ -140,17 +140,17 @@
           </modal>
         </div>
         <!-- Donationform modal -->
-        <div id="wrapper" v-on:keyup.esc="closeDonationForm"> 
-          <modal v-if="showDonationForm"> 
+        <div id="wrapper" v-on:keyup.esc="closeDonationForm">
+          <modal v-if="showDonationForm">
             <h3 slot="header" class="modal-title">
               <button type="button" class="close" data-dismiss="modal" @click="closeDonationForm()">&times;</button>
               <h4>Donation form</h4>
             </h3>
-        
+
             <div slot="body" class="modal-body container">
 
                   <h5 class="text-left">
-                    If you like the egoconf solution and if you are curious for future developments: please consider 
+                    If you like the egoconf solution and if you are curious for future developments: please consider
                     donating to allow fulltime development and perhaps an expansion of manpower.
                   </h5>
                   <div class="text-center">
@@ -172,16 +172,16 @@
           </modal>
         </div>
         <!-- Disclaimerform modal -->
-        <div id="wrapper" v-on:keyup.esc="closeDisclaimerForm"> 
-          <modal v-if="showDisclaimerForm"> 
+        <div id="wrapper" v-on:keyup.esc="closeDisclaimerForm">
+          <modal v-if="showDisclaimerForm">
             <h3 slot="header" class="modal-title">
               <button type="button" class="close" data-dismiss="modal" @click="closeDisclaimerForm()">&times;</button>
               <h4>Disclaimer</h4>
             </h3>
-        
+
             <div slot="body" class="modal-body container">
               <p class="text-left">
-                Egoconf, as is, is a demo (a poc or a prototype or an mvp) and could only experimentally be used, 
+                Egoconf, as is, is a demo (a poc or a prototype or an mvp) and could only experimentally be used,
                 which means that the gathered data will likely be deleted as needed.
               </p>
             </div>
@@ -555,7 +555,7 @@ export default {
   #primary-nav {
     background-color: skyblue;
   }
-  .container-fluid { 
+  .container-fluid {
     padding: 0px;
   }
 
@@ -576,7 +576,7 @@ p {font-size:1.2rem;}
 a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all device, that or better should be implemented
 
 /* Small devices (landscape phones, 544px and up) */
-@media (min-width: 544px) {  
+@media (min-width: 544px) {
   h1 {font-size:2rem;} /*1rem = 16px*/
   h2 {font-size:1.9rem;}
   h3 {font-size:1.8rem;}
@@ -585,9 +585,9 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:1.6rem;}
   a {font-size:1.6rem;}
 }
- 
+
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
+@media (min-width: 768px) {
   h1 {font-size:2.5rem;} /*1rem = 16px*/
   h2 {font-size:2.4rem;}
   h3 {font-size:2.3rem;}
@@ -596,9 +596,9 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:2rem;}
   a {font-size:2rem;}
 }
- 
+
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
   h1 {font-size:2.5rem;} /*1rem = 16px*/
   h2 {font-size:2.3rem;}
   h3 {font-size:2.1rem;}
@@ -607,16 +607,16 @@ a {font-size:1.2rem;} /* TODO: when viewport sized typography works on all devic
   p {font-size:1rem;}
   a {font-size:1.4rem;}
 }
- 
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
+@media (min-width: 1200px) {
   h1 {font-size:2.8rem;} /*1rem = 16px*/
   h2 {font-size:2.4rem;}
   h3 {font-size:2rem;}
   h4 {font-size:1.8rem;}
   h5 {font-size:1.4rem;}
   p {font-size:1rem;}
-  a {font-size:1.4rem;}   
+  a {font-size:1.4rem;}
 }
 
 .no-gutters {

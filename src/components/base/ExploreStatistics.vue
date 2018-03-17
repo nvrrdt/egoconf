@@ -21,13 +21,13 @@
       </tbody>
     </table>
   </div>
-  <div id="wrapper"> 
-    <modal v-if="showModal"> 
+  <div id="wrapper">
+    <modal v-if="showModal">
       <h3 slot="header" class="modal-title">
         <button type="button" class="close" data-dismiss="modal" @click="closeModal()">&times;</button>
         <h4>Chart</h4>
       </h3>
-      
+
       <div slot="body" class="modal-body container">
         <vue-chart type="line" :data="chartData"></vue-chart>
       </div>
