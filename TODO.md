@@ -79,7 +79,9 @@ sudo fuser -k 8080/tcp
 ### Very long term future features:
 ```
 - egoconf space: space is grading between 0 and 20 on a scale to 20, and accepts also negative adjectives/nouns. The purpose is to form a more complete profile of the person who gives the grade. The introduction of this feature is foreseen when everyone accepts the reality (think of >yr2070) and relativity of oneself's, and the others's, reality, no matter what. So when people are as mature as can be and when their behaviour is as socially accepted by the majority of egoconf's users and the user's surrounding people, always avoiding negative behaviour unless there's an explainable and logic reason, a reason which is accepted by the majority of egoconf's users and the user's surrounding people.
-- a p2p distribution of the graded messages (for native mobile apps!). The p2p system might monitor the behavior of the user, but the logs should only be kept in de p2p system, in order to counter privacy concerns. Main reason: reducing costs, firebase isn't cheap. And other than that, p2p is a cool technology.
+- a p2p distribution of the graded messages (for native mobile apps!). The p2p system might monitor the behavior of the user, but the logs should only be kept in de p2p system, in order to counter privacy concerns. Main reason: reducing costs, firebase isn't cheap. And other than that, p2p is a cool technology. Filecoin is a nice option ...
+- introduce 'updateable accountablility' for users in a blockchain, as an alternative for classic privacy. In the classic way you're not much being held accountable for gossiping which could could lead to, wether or not intentional, misleadings. The blockchain makes you accountable, but you can improve or regress so it really needs to be updateable.
+- also about privacy and gossiping, people who have some sort of a specialty in gathering information, must be acknowledged and held accountable, to the extent that every specialty and interest should be known and that in a hierarchical way. It's just about fully using hte full potential of people without borders.
 ```
 
 ### Nouns:
