@@ -82,6 +82,7 @@ sudo fuser -k 8080/tcp
 - a p2p distribution of the graded messages (for native mobile apps!). The p2p system might monitor the behavior of the user, but the logs should only be kept in de p2p system, in order to counter privacy concerns. Main reason: reducing costs, firebase isn't cheap. And other than that, p2p is a cool technology. Filecoin is a nice option ...
 - introduce 'updateable accountablility' for users in a blockchain, as an alternative for classic privacy. In the classic way you're not much being held accountable for gossiping which could could lead to, wether or not intentional, misleadings. The blockchain makes you accountable, but you can improve or regress so it really needs to be updateable.
 - also about privacy and gossiping, people who have some sort of a specialty in gathering information, must be acknowledged and held accountable, to the extent that every specialty and interest should be known and that in a hierarchical way. It's just about fully using hte full potential of people without borders.
+- maybe create a stablecoin which is signed by the seller, the buyer and a dozen of 'central bankers', people who are known to be sublime for something in the egoconf community and who are able to securely and independently back a sale through shared knowledge about the sale (in fact a smart contract). This is where I'd like to dive in deeper or explore this path a maximum bit more.
 ```
 
 ### Nouns:
