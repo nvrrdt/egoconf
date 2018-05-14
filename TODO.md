@@ -76,6 +76,23 @@ sudo fuser -k 8080/tcp
  * max 25 projects per year per user
 ```
 
+### Unique value proposition:
+```
+The MVP as is right now could be expanded in different ways: (I thought already of many ways, I will gradually add to this list)
+- a job market, supply and demand, 'who pays the most' vs 'who is the cheapest'. Egoconf results in the knowledge of someones
+present abilities, abilities who are quantified. for instance, if you know the areas where two service technicians are
+who are valued the same, you know that the one who is close is cheaper.
+I see this as an inter-company-like solution aiming for the best and cheapest result which is possible if everyone
+in the egoconf ecosystem updates it's qualities and grades appropriately and constantly. In this system you also
+know what the qualities are someone likes to be graded, to avoid useless grading of unwanted grades.
+- if someone's accountability is at stake, like a journalist, than you're able to measure the reach of this person for a certain quality.
+It's amazingly interesting if egoconf wil once able to see overlapping and evolving areas of popularity for certain qualities and people.
+This is probably the domain of data scientists and the like ... I'd like to grow ...
+The concerned people should be able to follow precisely there interactions and resulting popularity.
+- you're able to follow a products worldwide adoption and show ads in regions or to persons who are not yet introduced to the product ...
+This is nog a very precise feature, not unique either.
+```
+
 ### Very long term future features:
 ```
 - egoconf space: space is grading between 0 and 20 on a scale to 20, and accepts also negative adjectives/nouns. The purpose is to form a more complete profile of the person who gives the grade. The introduction of this feature is foreseen when everyone accepts the reality (think of >yr2070) and relativity of oneself's, and the others's, reality, no matter what. So when people are as mature as can be and when their behaviour is as socially accepted by the majority of egoconf's users and the user's surrounding people, always avoiding negative behaviour unless there's an explainable and logic reason, a reason which is accepted by the majority of egoconf's users and the user's surrounding people.
