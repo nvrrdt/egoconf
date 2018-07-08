@@ -1,10 +1,12 @@
 <template>
   <div id="app" class="mx-auto">
-    <h1> BE <b>CAUTIOUS</b> AND <b>WARY</b>, </h1>
-    <h1> WEIGHTED SOCIAL PROFILING </h1>
-    <h1> IS <b>HIGHLY CONTROVERSIAL MATTER</b>!!! </h1>
-    <a class="nav-link text-dark active" href="https://github.com/egoconf/egoconf" target="_blank"><icon name="github" scale="8"></icon></a>
-    <a href="https://www.patreon.com/nicoverrijdt"><img src="./assets/become_a_patron_button.png"></a>
+    <h3> Egoconf is a basis for a <a style="display:inline;" class="nav-link active" href="https://en.wikipedia.org/wiki/Social_Credit_System" target="_blank">social credit system</a> as currently being developed in China. </h3>
+    <h5> If you are able to make me the 9th competitor for this Chinese project, you and me would be more than pleased. </h5>
+    <h5> Given time and resources, I can manage the development of this app as wished by the Chinese government. </h5>
+    <br>
+    <h5> For a test, please follow the guidelines on <a style="display:inline;" class="nav-link  active" href="https://github.com/egoconf/egoconf" target="_blank">github</a></h5>
+    <br>
+    <a href="https://www.patreon.com/nicoverrijdt" target="_blank"><img src="./assets/become_a_patron_button.png"></a>
     <p style="padding-top: 25px;"> &copy; 2018 egoconf </p>
   </div>
 </template>
