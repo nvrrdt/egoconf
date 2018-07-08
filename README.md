@@ -1,8 +1,6 @@
 # egoconf
 
-# BE CAUTIOUS AND WARY, THIS IS HIGHLY CONTROVERSIAL MATTER!!!
-
-> A weighted profiling project
+## A weighted profiling project
 
 Egoconf is a web app that enables weighted profiling.
 Profiling someone means interpreting someone's qualities by grading those qualities.
