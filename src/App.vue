@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="mx-auto">
-    <h3> Egoconf is a basis for a <a style="display:inline;" class="nav-link active" href="https://en.wikipedia.org/wiki/Social_Credit_System" target="_blank">social credit system</a> as currently being developed in China. </h3>
+    <h3> Egoconf is a basis for a <a style="display:inline;" class="nav-link active" href="https://en.wikipedia.org/wiki/Social_Credit_System" target="_blank">social credit system</a> as currently being developed in China by e.g. Tencent and Alibaba. </h3>
     <h5> If you are able to make me the 9th competitor for this Chinese project, you and me would be more than pleased. </h5>
     <h5> Given time and resources, I can manage the development of this app as wished by the Chinese government. </h5>
     <br>
