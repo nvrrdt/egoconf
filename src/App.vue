@@ -3,6 +3,7 @@
     <h3> Egoconf is a basis for a <a style="display:inline;" class="nav-link active" href="https://en.wikipedia.org/wiki/Social_Credit_System" target="_blank">social credit system</a> as currently being developed in China by e.g. Tencent and Alibaba. </h3>
     <h5> If you are able to make me the 9th competitor for this Chinese project, you and me would be more than pleased. </h5>
     <h5> Given time and resources, I can manage the development of this app as wished by the Chinese government. </h5>
+    <h5> The goal is to align people's shared knowledge and interests in order to let you know directly what your peers 'need' to know without he noise </h5>
     <br>
     <h5> For a test, please follow the guidelines on <a style="display:inline;" class="nav-link  active" href="https://github.com/egoconf/egoconf" target="_blank">github</a></h5>
     <br>
